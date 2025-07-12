@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import "./Footer2.css";
-import { AiOutlineTwitter, AiFillYoutube, AiFillFacebook, AiFillInstagram, AiFillTikTok } from "react-icons/ai";
+import { AiOutlineTwitter, AiFillYoutube, AiFillFacebook, AiFillInstagram } from "react-icons/ai";
 import { API_BASE } from '../config';
 
 const Footer2 = () => {
@@ -49,7 +49,6 @@ const Footer2 = () => {
           <AiFillYoutube id="si" />
           <AiFillFacebook id="si" />
           <AiFillInstagram id="si" />
-          <AiFillTikTok id="si" />
         </div>
 
         <h1>{t("footer.subscribe_heading")}</h1>
