@@ -1,0 +1,323 @@
+#trade{
+    background-color: black;
+    height: 220px;
+}
+#logo2b{
+    background-color: white
+}
+#logp2a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ 
+}
+#logp2a button{
+    padding: 10px;
+    background-color: #90be55;
+    color: black;
+    border-radius: 10px;
+    margin-bottom: 100px;
+    font-size: 20px;
+    margin-left: 60px;
+}
+#logp2a2 img{
+width: 100%;
+height: 500px;
+}
+
+
+#logp2a2 h1{
+    color: black;
+}
+#logp2a2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 20px;
+}
+
+
+#innerl1{
+    display: flex;
+    
+align-items: center;
+justify-content: center;
+
+    color: black;
+}
+#ary{
+    margin: 30px;
+    margin-right: 290px;
+}
+#eweq{
+    height: 200px;
+    border-radius: 50%;
+    margin: 30px;
+
+
+}
+#logo2a3{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: black;
+    padding-top: 60px;
+}
+#thirdl{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: black;
+}
+
+#f1 h1{
+margin-right: 380px;
+}
+#f2 h1{
+    margin-right: 100px;
+}
+#dd{
+    background-color:#90be55;
+    padding: 40px;
+    width: 300px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 20px;
+    margin: 10px;
+}
+#dd button{
+    background-color: black;
+    color: white;
+    padding: 5px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+#dd h1{
+    font-size: 20px;
+}
+
+#ddu{
+    display: flex;
+}
+#market{
+    color: black;
+    border: 1px solid black;
+    padding: 50px;
+    width: 400px;
+    border-radius: 15px;
+    background-color: black;
+    color: white;
+    height: 440px;
+    margin: 30px;
+    margin-left: 190px;
+}
+
+#marketC{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+#covv{
+
+padding-bottom: 80px;
+color: black;
+}
+#texterareaq{
+  
+    color: black;
+    padding: 40px;
+    padding-bottom: 90px;
+}
+
+
+@media screen and (max-width: 1014px) {
+#marketC{
+    flex-direction: column;
+    padding-top: 50px;
+}
+#thirdl{
+    flex-direction: column;
+    text-align: center;
+}
+#f1{
+    margin: 0;
+    padding: 10px;
+    
+}
+#f2{
+    margin: 0;
+padding: 10px;
+}
+#f1 h1{
+    margin-right: 0;
+    }
+    #innerl1{
+        flex-direction: column;
+        text-align: center;
+    }
+    #ary{
+        margin: 0;
+        padding: 0;
+    }
+    #logp2a2{
+        text-align: center;
+    }
+    #logo2a3{
+        text-align: center;
+    }
+    #texterareaq{
+        text-align: center;
+    }
+}
+
+
+
+@media screen and (max-width: 727px) {
+
+#market{
+    width: 500px;
+    text-align: center;
+}
+
+}
+
+@media screen and (max-width: 637px) {
+
+    #ddu{
+        flex-direction: column;
+    }
+    
+    }
+
+    @media screen and (max-width: 519px) {
+
+        #market{
+            width: 300px;
+            text-align: center;
+        }
+        #logp2a img{
+width: 200px;
+        }
+        }
+
+
+        @media screen and (max-width: 440px) {
+
+            #logp2a2 h1{
+                font-size: 20px;
+            }
+            #logo2a3 h1{
+                font-size: 20px;
+            }
+            #texterareaq h1{
+                font-size: 20px;
+            }
+            #logp2a2 h2{
+                font-size: 20px;   
+            }
+            }
+
+
+            @media screen and (max-width: 770px) {
+
+                #texterareaq{
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-direction: column;
+               
+                    padding: 10px;
+                    padding-bottom: 90px;
+                }
+                
+                
+                }
+
+
+           
+
+            #middleer{
+                border: 3px solid black;
+      margin-top: 60px;
+      border-radius: 10px;
+
+            }
+            #lasterr{
+                margin-top: 40px;
+                margin-bottom: 40px;
+                border: 3px solid black;
+                border-radius: 10px;
+   
+            }
+
+
+            #upperlog{
+                border: 3px solid black;
+   padding-top: 10px;
+   padding-bottom: 10px;
+                border-radius: 10px;
+            }
+
+
+            @media screen and (max-width: 1204px) {
+ 
+#marketC{
+    flex-direction: column;
+}
+#market{
+    margin: 0;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+
+
+#f1 h1{
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+#f2 h1{
+    margin: 0;
+    padding: 0; 
+    text-align: center;
+}
+
+
+#thirdl{
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+            }
+       
+
+
+            @media screen and (max-width: 721px) {
+
+#logp2a{
+    flex-direction: column;
+}
+
+            }
+
+            @media screen and (max-width: 662px) {
+#logp2a button{
+    margin: 0;
+    margin-bottom: 50px;
+}
+
+            }

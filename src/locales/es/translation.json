@@ -1,0 +1,279 @@
+{
+  "navbar": {
+    "logo": "PORTAL C02e",
+    "home": "Inicio",
+    "service": "Servicio",
+    "trade": "Intercambiar",
+    "pricing": "Precios",
+    "news": "Noticias",
+    "login": "Iniciar sesión"
+  },
+  "join_now": "Únete ahora",
+  "hero": {
+    "subtitle": "Bienvenido al portal C02e",
+    "title": {
+      "part1": "Impulsando la transición hacia una",
+      "part2": "economía cero emisiones"
+    },
+    "description": "Navega por el panorama del carbono, invierte en proyectos ecológicos y alcanza tus objetivos de sostenibilidad"
+  },
+  "features": {
+    "safe_shelter": {
+      "title": "Refugio seguro",
+      "text": "Reduce el consumo de energía y las emisiones relacionadas con la construcción."
+    },
+    "safe_water": {
+      "title": "Agua segura",
+      "text": "Conserva energía en la purificación, limita las emisiones."
+    },
+    "ecology_save": {
+      "title": "Salvar ecología",
+      "text": "Protege los sumideros de carbono, mantiene el equilibrio natural."
+    },
+    "environment": {
+      "title": "Medio ambiente",
+      "text": "Los ecosistemas saludables absorben carbono y regulan el clima global."
+    }
+  },
+  "about": {
+    "subtitle": "Por qué elegirnos",
+    "title": {
+      "part1": "Levanta tu mano para salvar",
+      "part2": "El mundo"
+    },
+    "tabs": {
+      "mission": {
+        "title": "Nuestra misión",
+        "text": "Creemos en un futuro donde las prácticas sostenibles estén en el centro de cada acción empresarial e individual. Somos una plataforma integral dedicada a acelerar la transición global hacia una economía baja en carbono."
+      },
+      "vision": {
+        "title": "Nuestra visión",
+        "text": "Imaginar un mundo donde la descarbonización sea adoptada universalmente, fomentando una economía resiliente y neutra en carbono, donde empresas e individuos impulsen un impacto global sostenible."
+      },
+      "nextPlan": {
+        "title": "Próximo plan",
+        "text": "Impulsamos la acción climática mediante una educación integral sobre el carbono, un mercado transparente en blockchain para créditos, y una inversión fraccionada accesible en proyectos verdes de alto impacto."
+      }
+    },
+    "points": [
+      "Impulsar la acción climática",
+      "Facilitar la gestión del carbono",
+      "Economía resiliente y neutra en carbono",
+      "Ofrecer educación experta"
+    ],
+    "learn_more": "Aprende más"
+  },
+  "cta": {
+    "title": "¡Empieza a explorar uniéndote a nosotros!",
+    "button": "ÚNETE AHORA"
+  },
+  "services": {
+    "directoryListing": {
+      "title": "Listado de directorio",
+      "letters": "A, B, C, D, E, F, G, H, I, J, K, L, …"
+    },
+    "featuredListing": "Listado destacado",
+    "description": "Éxito sostenible a través de la conciencia de emisiones de carbono y el impacto climático en su organización...",
+    "courseButton": "Curso Corporativo de Capacitación para Empleados",
+    "professor": "Profesor",
+    "commencing": "Comienza",
+    "trainingSummary": "Nuestros cursos de formación tienen como objetivo concienciar a los empleados sobre el impacto climático...",
+    "cards": [
+      {
+        "title": "Ciencia del clima - Invierno/Primavera 2024",
+        "desc": "El cambio climático se refiere a cambios a largo plazo en temperaturas y patrones climáticos..."
+      },
+      {
+        "title": "Ciencia visual - Invierno/Primavera 2024",
+        "desc": "Estudia los mecanismos que nos permiten visualizar el mundo..."
+      },
+      {
+        "title": "Economía - Invierno/Primavera 2024",
+        "desc": "Aprenderás los principios fundamentales de la economía y cómo analizarlos..."
+      },
+      {
+        "title": "Ciencia del clima - Verano/Otoño 2024",
+        "desc": "El cambio climático se refiere a cambios a largo plazo..."
+      }
+    ],
+    "course1": {
+      "title": "Estrategia de carbono neto cero para empresas",
+      "line1": "Estrategia de carbono neto cero",
+      "line2": "Descarbonización",
+      "line3": "Contabilidad de carbono | Huella de carbono",
+      "line4": "Reducción de carbono | Sostenibilidad"
+    },
+    "course2": {
+      "title": "Estrategias ganadoras en sostenibilidad corporativa y ESG 2.",
+      "desc": "Integración de ODS, ESG y creación de valor, transformación en modelos de negocio resilientes..."
+    },
+    "createdBy": "Creado por CO2ePortal.com"
+  },
+  "service": {
+    "subtitle": "Lo Que Hacemos",
+    "heading": {
+      "part1": "Trabajamos de Forma Diferente para",
+      "part2": "mantener Seguro el Mundo"
+    },
+    "readMore": "Leer más"
+  },
+  "serviceData": [
+    {
+      "title": "Capacitación y Concienciación",
+      "text": "Solución de sostenibilidad estratégica para mejorar la comprensión de los mercados de carbono, la reducción de emisiones y las mejores prácticas a través de nuestros programas integrales de formación corporativa."
+    },
+    {
+      "title": "Estrategias Net-Zero y ESG",
+      "text": "Desarrolla estrategias sólidas de cero emisiones netas e integra prácticas ganadoras de ESG (Medioambiente, Social y Gobernanza) para un impacto empresarial sostenible."
+    },
+    {
+      "title": "Mercado de Carbono en Blockchain",
+      "text": "Comercia créditos de carbono verificados de forma segura y transparente en nuestro innovador mercado blockchain P2P DecarbXchange."
+    },
+    {
+      "title": "Inversiones Verdes con Impacto",
+      "text": "Accede a proyectos sostenibles de alto impacto mediante inversiones fraccionadas, contribuyendo a un planeta más verde mientras obtienes rendimientos."
+    }
+  ],
+  "donate": {
+    "items": [
+      {
+        "heading": "Capacitación en Concienciación de Emisiones de Carbono",
+        "paragraph": "Nuestros cursos de formación corporativa mejoran significativamente la comprensión de los mercados de carbono, la reducción de emisiones y las mejores prácticas. Equipe a su equipo para reducir su huella de carbono."
+      },
+      {
+        "heading": "Mercado P2P DecarbXchange",
+        "paragraph": "Nuestro mercado P2P basado en blockchain ofrece una forma segura y transparente de intercambiar créditos de carbono verificados, fomentando la acción climática directa para empresas e individuos."
+      },
+      {
+        "heading": "Centro de Inversión Fraccionada",
+        "paragraph": "Participe en proyectos sostenibles de alto impacto mediante pequeñas inversiones gestionables. Obtenga posibles rendimientos mientras contribuye a la sostenibilidad global."
+      },
+      {
+        "heading": "Estrategia Net-Zero para Empresas",
+        "paragraph": "Proporcionamos la formación y los recursos necesarios para que las empresas desarrollen e implementen estrategias net-zero sólidas, guiando su camino hacia un futuro sostenible."
+      }
+    ],
+    "button": "Únete ahora"
+  },
+  "testimonials": {
+      "subtitle": "Nuestro Compromiso",
+      "title": "Con un",
+      "strong": "Mundo Sostenible",
+      "paragraph": "Creemos en un futuro donde las prácticas sostenibles estén en el centro de cada acción empresarial e individual. Somos una plataforma integral dedicada a acelerar la transición global hacia una economía baja en carbono. Ofrecemos capacitación experta en gestión del carbono, un mercado transparente de créditos de carbono basado en blockchain y oportunidades de inversión fraccionada de alto impacto para ayudar a nuestros clientes a reducir y compensar su huella ambiental.",
+      "services": "Servicios",
+      "our": "Nuestros",
+      "servicesStrong": "Servicios",
+      "join": "Unirse",
+      "learnMore": "Saber más",
+      "events": [
+        {
+          "day": "01",
+          "title": "Capacitación",
+          "heading": "Capacitación y Educación en Gestión del Carbono:",
+          "paragraph": "Brindamos capacitación corporativa para mejorar la comprensión de los mercados de carbono, la reducción de emisiones y las mejores prácticas."
+        },
+        {
+          "day": "02",
+          "title": "Mercado",
+          "heading": "Mercado P2P DecarbXchange:",
+          "paragraph": "Nuestro mercado entre pares basado en blockchain permite el intercambio seguro y transparente de créditos de carbono verificados."
+        },
+        {
+          "day": "03",
+          "title": "Inversión",
+          "heading": "Centro de Inversión Fraccionada:",
+          "paragraph": "Facilitamos la participación en proyectos sostenibles de alto impacto mediante inversiones accesibles."
+        }
+      ]
+    },
+    "footer": {
+  "subscribe_heading": "Suscríbete a nuestro boletín",
+  "subscribe_placeholder": "Suscríbete a nuestro boletín",
+  "subscribe_button": "Suscribirse",
+  "portal_name": "Portal CO2e",
+  "copyright": "Derechos de autor@2025 | Portal CO2e",
+  "nav_links": "INICIO | SERVICIO | COMERCIO | PRECIOS | NOTICIAS"
+},
+"trading": {
+  "coming_soon": "Próximamente",
+  "marketplace_heading": "Mercado P2P de Créditos de Carbono basado en Blockchain",
+  "revolution_title": "Revolucionando las Emisiones de Carbono para un Futuro Sostenible",
+  "carbon_trading_title": "COMERCIO DE CARBONO",
+  "carbon_trading_text1": "Desbloquear valor de CRAw · FESZ · EU ETS, UK ETS, CH ETS",
+  "carbon_trading_text2": "COPS. Créditos y EBC",
+  "leading_platform": "La principal plataforma P2P de comercio de créditos de carbono",
+  "p2p_platform": "Plataforma P2P",
+  "env_market": "Datos del mercado ambiental",
+  "at_fingertips": "al alcance de tu mano",
+  "market_data": "Datos de mercado",
+  "market_description": "Texto simulado para mostrar una descripción de mercado, no real.",
+  "fractional_investment": "Centro de Inversión Fraccional",
+  "democratizing_title": "Democratizando la Inversión Verde: Un Nuevo Paradigma",
+  "democratizing_text": "La urgencia climática ha impulsado una reevaluación global de las estrategias de inversión, convirtiendo la sostenibilidad en una prioridad. La propiedad fraccional en infraestructuras verdes permite una mayor participación más allá de las élites."
+},
+"plan": {
+  "membership_plans": "Planes de membresía",
+  "individual": "INDIVIDUAL",
+  "month": "Mes",
+  "individual_desc": "Funciones básicas del mercado de créditos de carbono",
+  "listing": "Listado en el directorio",
+  "dashboard": "Panel de usuario",
+  "news_access": "Acceso a noticias del blog",
+  "transactions": "Transacciones/mes",
+  "buy_now": "Comprar ahora",
+  "professional": "PROFESIONAL",
+  "professional_desc": "Recursos mejorados para participantes activos",
+  "store_service": "Servicio de tienda",
+  "premium": "PREMIUM",
+  "premium_desc": "Herramientas premium para una mayor visibilidad",
+  "freemium_listing": "Listado Freemium",
+  "news_posting": "Acceso y publicación de noticias del blog",
+  "membership_perks": "Beneficios de membresía del Portal CO2e:",
+  "perk1": "Mercado P2P DecarbXchange y Centro de Inversión Fraccionada con precio de prelanzamiento.",
+  "perk2": "Listados verificados de créditos de carbono.",
+  "blockchain_title": "Nuestro mercado P2P basado en blockchain",
+  "blockchain_text": "Comercie créditos de carbono verificados de manera segura y transparente en nuestro mercado entre pares.",
+  "investment_hub_title": "Nuestro centro de inversión fraccionada",
+  "investment_hub_text": "Participe en proyectos sostenibles de alto impacto con inversiones pequeñas y manejables.",
+  "commitment_title": "Nuestro compromiso con proyectos sostenibles verificables",
+  "commitment_text": "Nos asociamos con iniciativas sostenibles certificadas y medibles que se alinean con los objetivos climáticos globales. Cada proyecto es verificado."
+},
+"signup": {
+  "title": "Registrarse",
+  "first_name": "Nombre",
+  "last_name": "Apellido",
+  "email": "Correo electrónico",
+  "password": "Contraseña",
+  "submit": "Registrarse"
+},
+"login": {
+  "title": "Iniciar sesión",
+  "email": "Correo electrónico",
+  "password": "Contraseña",
+  "submit": "Iniciar sesión"
+},
+"counter": {
+  "heading": "Impacto global de carbono en tiempo real",
+  "since": "Desde",
+  "emissions_label": "Emisiones de CO₂",
+  "emissions_unit": "Toneladas métricas emitidas",
+  "credits_label": "Créditos de carbono emitidos",
+  "credits_unit": "Toneladas métricas compensadas"
+},
+"blog": {
+    "subscribePlaceholder": "Entrez votre e-mail pour vous abonner à notre newsletter",
+    "subscribe": "S'abonner",
+    "start": "Commencez avec nos",
+    "news": "Actualités",
+    "readMore": "Lire la suite"
+  },
+  "recent": {
+    "seeWhat": "Mira lo que hemos",
+    "blogs": "Blogs",
+    "readMore": "Leer más"
+  }
+
+
+  
+}

@@ -1,0 +1,369 @@
+#hederArea{
+    background-color:black;
+    height: 190px; /* test with a fixed height */
+ 
+
+}
+#uuq{
+    background-color: white
+}
+
+#Cards{
+    padding: 50px;
+border: 1px solid black;
+width: 400px;
+color: black;
+border-radius: 20px;
+margin: 40px;
+}
+
+#Cards button{
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #90be55;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+margin-top: 20px;
+}
+#Cards1{
+    padding: 70px;
+border: 1px solid black;
+width: 400px;
+color: black;
+border-radius: 20px;
+margin: 40px;
+}
+
+#Cards3{
+    padding: 60px;
+border: 1px solid black;
+width: 400px;
+color: black;
+border-radius: 20px;
+margin: 40px;
+}
+
+#Cards3 button{
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #90be55;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+margin-top: 20px;
+}
+#Cards1 button{
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #90be55;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+margin-top: 20px;
+}
+#totalCards{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#inCard {
+    width: 100%;
+}
+#Listing {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+/* Remove all modern/plan-card styles */
+.plan-card, .plan-banner, .plan-title, .plan-price, .plan-features, .feature-yes, .feature-no, .plan-btn, .subfeature, .modern-card, .modern-badge, .modern-icon, .modern-content, .modern-title, .modern-accent, .modern-desc, .modern-btn, .btn-personal, .btn-business, .btn-enterprise { display: none !important; }
+
+#innerheading{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    padding-top: 40px;
+
+}
+
+#totalCards {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#innerheading h1{
+   font-weight: 400;
+
+}
+
+#Perks{
+    color: black;
+    margin-left: 230px;
+}
+
+#Perks h1{
+    font-weight: 500;
+}
+
+#iio{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#imager{
+    height: 290px;
+    margin-left: 290px;
+}
+#Blockchain p{
+    width: 600px;
+}
+
+#Blockchain{
+    color: black;
+}
+
+#Blockchain h1{
+    font-weight: 400;
+}
+
+#yyy{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#imager2{
+    height: 290px;
+   margin-right: 70px;
+}
+
+#Blockchain2 p{
+    width: 600px;
+}
+
+#Blockchain2{
+    color: black;
+    margin-left: 300px;
+}
+
+#Blockchain2 h1{
+    font-weight: 400;
+}
+
+
+
+#Blockchain3 p{
+    width: 600px;
+}
+
+#Blockchain3{
+    color: black;
+padding-right: 130px;
+}
+
+#Blockchain3 h1{
+    font-weight: 400;
+    width: 800px;
+}
+
+#Laster{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#lasterimg{
+    margin-right: 100px;
+    height: 300px;
+}
+#Perks{
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+
+@media screen and (max-width: 1359px) {
+    #totalCards{
+        flex-direction: column;
+    }
+    #iio{
+        flex-direction: column;
+    }
+    #Blockchain{
+        text-align: center;
+        padding-top: 20px;
+    }
+    #imager{
+        display: none;
+    }
+    #imager2{
+        display: none;
+    }
+    #Blockchain2{
+        text-align: center;
+        padding-top: 20px;
+        margin: 0;
+    }
+    #Blockchain3{
+        text-align: center;
+        padding-top: 20px;
+        margin: 0;
+        padding: 0;
+        align-items: center;
+        justify-content: center;
+    }
+    #yyy{
+        flex-direction: column;
+    }
+    #Laster{
+        flex-direction: column;
+    }
+    #lasterimg{
+        display: none;
+    }
+  #Blockchain3 p{
+    text-align: center;
+    margin-left: 100px;
+  }
+    
+  
+}
+
+
+@media screen and (max-width: 796px) {
+    #Blockchain3 h1{
+width: 500px;
+margin: auto;
+    }
+    #Blockchain3 p{
+        margin: auto;
+    }
+    #Blockchain3 {
+        padding: 40px;
+    }
+
+
+}
+
+@media screen and (max-width: 616px) {
+   #Blockchain p{
+width: 400px;
+margin: auto;
+   }
+   #Blockchain2 p{
+    width: 400px;
+    margin: auto;
+       }
+       #Blockchain3 p{
+        width: 400px;
+        margin: auto;
+           }
+           #Perks p{
+            width: 400px;
+            margin: auto;
+           }
+           #Blockchain h1{
+            width: 300px;
+            margin: auto;
+           }
+           #Perks h1{
+            width: 300px;
+            margin: auto;
+           }
+           #Blockchain2 h1{
+            width: 300px;
+            margin: auto;
+           }
+           #Blockchain3 h1{
+            width: 300px;
+            margin: auto;
+           }
+
+
+           
+}
+
+
+@media screen and (max-width: 499px) {
+    #Blockchain p{
+        width: 300px;
+        margin: auto;
+           }
+           #Blockchain2 p{
+            width: 200px;
+            margin: auto;
+               }
+               #Blockchain3 p{
+                width: 200px;
+                margin: auto;
+                   }
+                   #Perks p{
+                    width: 200px;
+                    margin: auto;
+                   }
+                   #Blockchain h1{
+                    width: 300px;
+                    margin: auto;
+                   }
+                   #Perks h1{
+                    width: 300px;
+                    margin: auto;
+                   }
+                   #Blockchain2 h1{
+                    width: 300px;
+                    margin: auto;
+                   }
+                   #Blockchain3 h1{
+                    width: 200px;
+                    margin: auto;
+                   }
+        
+}
+
+@media screen and (max-width: 431px) {
+
+
+#inCard{
+    padding: 0;
+}
+#Cards1{
+   width: 300px;
+}
+#Cards{
+    width: 300px;
+}
+#Cards3{
+    width: 300px;
+ }
+}
+
+
+
+
+@media screen and (max-width: 784px) {
+
+   
+
+    #hederArea{
+        background-color:black;
+        height: 140px; /* test with a fixed height */
+     
+    
+    }
+  }
+  
+  @media screen and (max-width: 662px) {
+
+   
+
+    #hederArea{
+        background-color:black;
+        height: 120px; /* test with a fixed height */
+     
+    
+    }
+  
+  }
