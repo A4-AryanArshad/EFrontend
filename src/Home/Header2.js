@@ -54,8 +54,8 @@ const Header2= () => {
             <ul className="navbar-list">
               {[
                 "Articles",
-                "Add News",
-                "Add Blog",
+                "AddNews",
+                "AddBlog",
                 "Add Instructor",
                 "Upload Courses",
                 "Featured Listing"

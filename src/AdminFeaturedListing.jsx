@@ -74,7 +74,7 @@ const AdminFeaturedListing = () => {
   return (
     <>
       <Header2 />
-      <div style={{ maxWidth: 700, margin: '40px auto', background: '#fff', borderRadius: 16, boxShadow: '0 4px 24px rgba(0,0,0,0.08)', padding: 32 }}>
+      <div style={{ maxWidth: 700, margin: '340px auto', background: '#fff', borderRadius: 16, boxShadow: '0 4px 24px rgba(0,0,0,0.08)', padding: 32 }}>
         <h2 style={{ textAlign: 'center', marginBottom: 24 }}>Admin: Featured Listing Images</h2>
         
         {/* Message Display */}

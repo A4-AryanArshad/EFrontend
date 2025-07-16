@@ -136,11 +136,11 @@ function AppContent() {
           element={<AdminRoute><Dashboard /></AdminRoute>}
         />
         <Route
-          path="/Add News"
+          path="/AddNews"
           element={<AdminRoute><NewsDashboard /></AdminRoute>}
         />
         <Route
-          path="/Add Blog"
+          path="/AddBlog"
           element={<AdminRoute><BlogDashboard /></AdminRoute>}
         />
       </Routes>

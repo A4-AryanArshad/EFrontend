@@ -193,7 +193,7 @@ const Slots = () => {
 
     <>
     <Header/>
-    <div id="insp"style={{ maxWidth: 700, margin: '2rem auto', padding: 20, background: '#fff', borderRadius: 8, boxShadow: '0 2px 8px #eee' }}>
+    <div id="insp"style={{ maxWidth: 700, margin: '12rem auto', padding: 20, background: '#fff', borderRadius: 8, boxShadow: '0 2px 8px #eee' }}>
       <h2>Instructor Profile</h2>
       {profile && (
         <div style={{ marginBottom: 20 }}>
@@ -266,7 +266,7 @@ const Slots = () => {
               <th style={{ padding: 8, border: '1px solid #ddd' }}>Time</th>
               <th style={{ padding: 8, border: '1px solid #ddd' }}>Location</th>
               <th style={{ padding: 8, border: '1px solid #ddd' }}>Student Count</th>
-              <th style={{ padding: 8, border: '1px solid #ddd' }}>Client Name</th>
+  
               <th style={{ padding: 8, border: '1px solid #ddd' }}>Client Email</th>
               <th style={{ padding: 8, border: '1px solid #ddd' }}>Action</th>
             </tr>
@@ -278,7 +278,7 @@ const Slots = () => {
                 <td style={{ padding: 8, border: '1px solid #ddd' }}>{b.start} - {b.end}</td>
                 <td style={{ padding: 8, border: '1px solid #ddd' }}>{b.location}</td>
                 <td style={{ padding: 8, border: '1px solid #ddd' }}>{b.studentCount}</td>
-                <td style={{ padding: 8, border: '1px solid #ddd' }}>{b.clientName || '-'}</td>
+
                 <td style={{ padding: 8, border: '1px solid #ddd' }}>{b.clientEmail || '-'}</td>
                 <td style={{ padding: 8, border: '1px solid #ddd' }}>
                   <button onClick={() => handleDeleteBooking(i)} style={{ background: '#e74c3c', color: '#fff', border: 'none', borderRadius: 4, padding: '6px 12px' }}>Delete</button>

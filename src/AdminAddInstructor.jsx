@@ -101,7 +101,7 @@ const AdminAddInstructor = () => {
               style={{ width: '100%', padding: 8, marginBottom: 8 }}
             />
           </div>
-          <button type="submit" disabled={loading} style={{ width: '100%', padding: 10, background: '#007bff', color: '#fff', border: 'none', borderRadius: 4 }}>
+          <button  id="insb" type="submit" disabled={loading} style={{ width: '100%', padding: 10, background: '#007bff', color: '#fff', border: 'none', borderRadius: 4 }}>
             {loading ? 'Adding...' : 'Add Instructor'}
           </button>
         </form>
