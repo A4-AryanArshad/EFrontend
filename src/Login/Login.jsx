@@ -30,7 +30,7 @@ const Login = () => {
 
     // First, check if instructor
     try {
-      const instructorRes = await post('https://e-frontend-wf3o.vercel.app/api/instructor-login', formData, 'Logging in...');
+      const instructorRes = await post('https://e-back-bice.vercel.app/api/instructor-login', formData, 'Logging in...');
       if (instructorRes && instructorRes.isInstructor) {
         setSuccess('Instructor login successful!');
         localStorage.setItem('isInstructor', 'true');
@@ -45,7 +45,7 @@ const Login = () => {
     }
 
     try {
-      const data = await post('https://e-frontend-wf3o.vercel.app/api/login', formData, 'Logging in...');
+      const data = await post('https://e-back-bice.vercel.app/api/login', formData, 'Logging in...');
       const normalizedPackage = (data.package || "free").toLowerCase().replace(" plan", "").trim();
       localStorage.setItem("package", normalizedPackage);
       if (formData.email === "admin1234@gmail.com" && formData.password === "admin1234") {
