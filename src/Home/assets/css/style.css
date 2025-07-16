@@ -380,6 +380,55 @@ body {
 
 .navbar-link:is(:hover, :focus) { background-color: var(--pistachio); }
 
+/* Dropdown menu styles for header navigation */
+.navbar-list .dropdown {
+  position: relative;
+}
+
+.navbar-list .dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 220px;
+  background: #111;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  z-index: 10;
+  padding: 10px 0;
+}
+
+.navbar-list .dropdown:hover > .dropdown-menu,
+.navbar-list .dropdown:focus-within > .dropdown-menu {
+  display: block;
+}
+
+.navbar-list .dropdown-menu li {
+  padding: 0;
+}
+
+.navbar-list .dropdown-menu a, .navbar-list .dropdown-menu span {
+  display: block;
+  color: #fff;
+  padding: 10px 24px;
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-decoration: none;
+  background: none;
+  transition: background 0.2s, color 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.navbar-list .dropdown-menu a:hover, .navbar-list .dropdown-menu a:focus {
+  background: #222;
+  color: #90be55;
+}
+
+.navbar-list .dropdown-menu span {
+  cursor: default;
+}
+
 
 
 
@@ -1591,3 +1640,29 @@ height: 150px;
 }
 
 
+#TTw{
+  margin-top: 250px !important;
+}
+
+#insp{
+  margin-top: 320px !important;
+  margin-bottom: 150px !important;
+}
+
+#isave{
+  background-color: #90be55;
+  padding: 7px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 10px;
+}
+
+#idel{
+  background-color:red;
+  padding: 7px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 10px;
+  color: white !important;
+  margin-top: 5px;
+}

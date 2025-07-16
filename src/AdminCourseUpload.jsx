@@ -10,6 +10,7 @@ const AdminCourseUpload = () => {
   const [uploading, setUploading] = useState(false);
   const [courses, setCourses] = useState([]);
   const [message, setMessage] = useState({ text: '', type: '' });
+  const [durationWeeks, setDurationWeeks] = useState('');
   const videoInputRef = useRef();
 
   const showMessage = (text, type = 'success') => {
@@ -52,6 +53,7 @@ const AdminCourseUpload = () => {
     formData.append('title', title);
     videos.forEach((file) => formData.append('videos', file));
     driveLinks.forEach((link) => formData.append('driveLinks', link));
+    formData.append('durationWeeks', durationWeeks);
     try {
       const res = await fetch(`${API_BASE}/api/courses/upload`, {
         method: 'POST',
@@ -127,6 +129,10 @@ const AdminCourseUpload = () => {
               ))}
             </div>
           )}
+          <div style={{ marginBottom: 16 }}>
+            <label>Duration (weeks):</label>
+            <input type="number" min={1} value={durationWeeks} onChange={e => setDurationWeeks(e.target.value)} placeholder="e.g. 6" style={{ width: '100%', padding: 8, borderRadius: 6, border: '1px solid #ccc' }} />
+          </div>
           <button type="submit" disabled={uploading} style={{ background: '#90be55', color: 'white', border: 'none', borderRadius: 8, padding: 14, fontWeight: 600, fontSize: 18, marginTop: 10 }}>
             {uploading ? 'Uploading...' : 'Upload Course'}
           </button>

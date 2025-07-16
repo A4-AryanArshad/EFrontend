@@ -52,20 +52,32 @@ const Header2= () => {
             <a href="#" className="logo">C02e PORTAL</a>
 
             <ul className="navbar-list">
-              {["Articles", "Add News", "Add Blog", "Upload Courses", "Featured Listing"].map((item, idx) => {
-                let to = item === "Featured Listing" ? "/admin/featured-listing" : `/${item.toLowerCase().replace(/ /g, '-')}`;
+              {[
+                "Articles",
+                "Add News",
+                "Add Blog",
+                "Add Instructor",
+                "Upload Courses",
+                "Featured Listing"
+              ].map((item, idx) => {
+                let to =
+                  item === "Featured Listing"
+                    ? "/admin/featured-listing"
+                    : item === "Add Instructor"
+                    ? "/admin/add-instructor"
+                    : `/${item.toLowerCase().replace(/ /g, '-')}`;
                 const isActive = location.pathname === to;
                 return (
-                <li key={idx}>
-                  <Link
+                  <li key={idx}>
+                    <Link
                       to={to}
-                    className="navbar-link"
-                    onClick={() => setNavOpen(false)}
-                  >
+                      className="navbar-link"
+                      onClick={() => setNavOpen(false)}
+                    >
                       <span style={isActive ? { borderBottom: '2px solid #90be55', display: 'inline-block' } : {}}>{item}</span>
-                    <IoChevronForwardOutline aria-hidden="true" />
-                  </Link>
-                </li>
+                      <IoChevronForwardOutline aria-hidden="true" />
+                    </Link>
+                  </li>
                 );
               })}
 

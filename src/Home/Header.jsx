@@ -41,7 +41,7 @@ const Header = () => {
 
   // Fetch user info from backend for navbar logic
   useEffect(() => {
-    if (isLoggedIn) {
+    if (isLoggedIn && localStorage.getItem('isInstructor') !== 'true') {
       fetch(`${API_BASE}/api/me`, {
         credentials: 'include'
       })
@@ -181,6 +181,14 @@ const Header = () => {
                 <li>
                   <Link to="/directory" className="navbar-link" onClick={() => setNavOpen(false)}>
                     <span style={location.pathname === '/directory' ? { borderBottom: '2px solid #90be55', display: 'inline-block' } : {}}>Directory</span>
+                    <IoChevronForwardOutline />
+                  </Link>
+                </li>
+              )}
+              {(isLoggedIn && localStorage.getItem('isInstructor') === 'true') && (
+                <li>
+                  <Link to="/slots" className="navbar-link" onClick={() => setNavOpen(false)}>
+                    <span style={location.pathname === '/slots' ? { borderBottom: '2px solid #90be55', display: 'inline-block' } : {}}>Slots</span>
                     <IoChevronForwardOutline />
                   </Link>
                 </li>

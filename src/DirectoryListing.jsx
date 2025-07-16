@@ -12,7 +12,8 @@ const DirectoryListing = () => {
     email: '',
     phone: '',
     address: '',
-    website: '',
+    socialType: '', // new for dropdown
+    socialLink: '', // new for input
     industry: '',
     description: '',
     image: null,
@@ -44,6 +45,22 @@ const DirectoryListing = () => {
       setListings([]);
     }
   };
+
+  const socialOptions = [
+    { value: '', label: 'Select Platform' },
+    { value: 'Facebook', label: 'Facebook' },
+    { value: 'LinkedIn', label: 'Linkedin' },
+    { value: 'Twitter', label: 'X(Twitter)' },
+    { value: 'Instagram', label: 'Instagram' },
+  ];
+  const industryOptions = [
+    { value: '', label: 'Select Industry' },
+    { value: 'Broker', label: 'Broker' },
+    { value: 'Exchange', label: 'Exchange' },
+    { value: 'Project', label: 'Project' },
+    { value: 'Retail', label: 'Retail' },
+    { value: 'Wholesaler', label: 'Wholesaler' },
+  ];
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -98,7 +115,8 @@ const DirectoryListing = () => {
         email: '',
         phone: '',
         address: '',
-        website: '',
+        socialType: '',
+        socialLink: '',
         industry: '',
         description: '',
         image: null,
@@ -183,25 +201,43 @@ const DirectoryListing = () => {
                 
                 <div>
                   <label style={{ display: 'block', marginBottom: 5, fontWeight: 'bold' }}>Website/Social Links</label>
-                  <input
-                    type="url"
-                    name="website"
-                    value={form.website}
-                    onChange={handleChange}
-                    placeholder="https://example.com"
-                    style={{ width: '100%', padding: 10, border: '1px solid #ddd', borderRadius: 5 }}
-                  />
+                  <div style={{ display: 'flex', gap: 10 }}>
+                    <select
+                      name="socialType"
+                      value={form.socialType}
+                      onChange={handleChange}
+                      style={{ padding: 10, border: '1px solid #ddd', borderRadius: 5 }}
+                      required
+                    >
+                      {socialOptions.map(opt => (
+                        <option key={opt.value} value={opt.value}>{opt.label}</option>
+                      ))}
+                    </select>
+                    <input
+                      type="url"
+                      name="socialLink"
+                      value={form.socialLink}
+                      onChange={handleChange}
+                      placeholder="https://example.com"
+                      style={{ flex: 1, padding: 10, border: '1px solid #ddd', borderRadius: 5 }}
+                      required={!!form.socialType}
+                      disabled={!form.socialType}
+                    />
+                  </div>
                 </div>
-                
                 <div>
                   <label style={{ display: 'block', marginBottom: 5, fontWeight: 'bold' }}>Industry/Category</label>
-                  <input
-                    type="text"
+                  <select
                     name="industry"
                     value={form.industry}
                     onChange={handleChange}
                     style={{ width: '100%', padding: 10, border: '1px solid #ddd', borderRadius: 5 }}
-                  />
+                    required
+                  >
+                    {industryOptions.map(opt => (
+                      <option key={opt.value} value={opt.value}>{opt.label}</option>
+                    ))}
+                  </select>
                 </div>
                 
                 <div>

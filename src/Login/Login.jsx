@@ -28,24 +28,39 @@ const Login = () => {
     setError('');
     setSuccess('');
 
+    // First, check if instructor
     try {
-      const data = await post('https://e-back-bice.vercel.app/api/login', formData, 'Logging in...');
+      const instructorRes = await post('https://e-frontend-wf3o.vercel.app/api/instructor-login', formData, 'Logging in...');
+      if (instructorRes && instructorRes.isInstructor) {
+        setSuccess('Instructor login successful!');
+        localStorage.setItem('isInstructor', 'true');
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('instructorEmail', formData.email); // Save instructor email
+        localStorage.setItem('userEmail', formData.email); // Save user email for booking
+        setTimeout(() => navigate('/slots'), 1500);
+        return;
+      }
+    } catch (err) {
+      // Not an instructor, continue to user/admin login
+    }
 
+    try {
+      const data = await post('https://e-frontend-wf3o.vercel.app/api/login', formData, 'Logging in...');
       const normalizedPackage = (data.package || "free").toLowerCase().replace(" plan", "").trim();
       localStorage.setItem("package", normalizedPackage);
-
-        if (formData.email === "admin1234@gmail.com" && formData.password === "admin1234") {
-          setSuccess("Admin login successful!");
-          localStorage.setItem("isAdmin", "true")
+      if (formData.email === "admin1234@gmail.com" && formData.password === "admin1234") {
+        setSuccess("Admin login successful!");
+        localStorage.setItem("isAdmin", "true");
         localStorage.setItem("isLoggedIn", "true");
-          setTimeout(() => navigate('/Articles'), 1500);
+        localStorage.setItem('userEmail', formData.email); // Save user email for booking
+        setTimeout(() => navigate('/Articles'), 1500);
       } else {
-          localStorage.setItem("isAdmin", "false");
+        localStorage.setItem("isAdmin", "false");
         localStorage.setItem("isLoggedIn", "true");
         setSuccess('Login successful!');
-        // redirect to dashboard or home
+        localStorage.setItem('userEmail', formData.email); // Save user email for booking
         setTimeout(() => navigate('/'), 1500);
-        }
+      }
     } catch (err) {
       console.error(err);
       setError(err.message || 'Error logging in.');

@@ -117,7 +117,7 @@ const Services = () => {
                   <thead>
                     <tr style={{ background: '#f7f7f7', fontWeight: 800 }}>
                       <th style={{ padding: '16px 0', border: 'none', textAlign: 'center', letterSpacing: 1 }}>COMPANY</th>
-                      <th style={{ padding: '16px 0', border: 'none', textAlign: 'center', letterSpacing: 1 }}>WEBSITE</th>
+                      <th style={{ padding: '16px 0', border: 'none', textAlign: 'center', letterSpacing: 1 }}>SOCIAL LINK</th>
                       <th style={{ padding: '16px 0', border: 'none', textAlign: 'center', letterSpacing: 1 }}>EMAIL</th>
                       <th style={{ padding: '16px 0', border: 'none', textAlign: 'center', letterSpacing: 1 }}>PHONE NUMBER</th>
                       <th style={{ padding: '16px 0', border: 'none', textAlign: 'center', letterSpacing: 1 }}>CATEGORY</th>
@@ -142,10 +142,12 @@ const Services = () => {
                         <tr key={i}>
                           <td style={{ ...style, padding: '14px 0', border: 'none' }}>{l.company}</td>
                           <td style={{ ...style, padding: '14px 0', border: 'none' }}>
-                            {l.website ? (
-                              <a href={l.website} target="_blank" rel="noopener noreferrer">
-                                <button id="tb"style={{ padding: '6px 18px', borderRadius: 8, background: 'transparent', color: style.color, border: `2px solid ${style.color}`, fontWeight: 600, cursor: 'pointer', fontSize: 15 }}>Visit</button>
-                              </a>
+                            {l.socialType && l.socialLink ? (
+                              <>
+                                <a href={l.socialLink} target="_blank" rel="noopener noreferrer">
+                                  <button id="tb" style={{ padding: '4px 14px', borderRadius: 8, background: 'transparent', color: '#27ae60', border: '2px solid #27ae60', fontWeight: 700, fontSize: 16, cursor: 'pointer', textTransform: 'capitalize' }}>{l.socialType}</button>
+                                </a>
+                              </>
                             ) : ''}
                           </td>
                           <td style={{ ...style, padding: '14px 0', border: 'none' }}>{l.email}</td>

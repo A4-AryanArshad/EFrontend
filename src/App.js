@@ -29,6 +29,8 @@ import AdminFeaturedListing from './AdminFeaturedListing';
 import BuyCourses from './BuyCourses';
 import DirectoryListing from './DirectoryListing';
 import Contact from './Contact';
+import AdminAddInstructor from './AdminAddInstructor';
+import Slots from './Slots';
 
 function SuccessRedirect() {
   useEffect(() => {
@@ -63,6 +65,18 @@ function SuccessRedirect() {
       setTimeout(() => {
         window.location.href = '/login';
       }, 2000);
+    }
+
+    // Booking confirmation logic
+    const pendingBooking = localStorage.getItem('pendingBooking');
+    if (pendingBooking) {
+      fetch(`${API_BASE_URL}/api/booking/confirm`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: pendingBooking
+      }).then(() => {
+        localStorage.removeItem('pendingBooking');
+      });
     }
   }, []);
   return <div style={{textAlign:'center',marginTop:100}}><h1>Payment Successful!</h1><p>Redirecting...</p></div>;
@@ -113,6 +127,8 @@ function AppContent() {
           <Route path="/directory" element={<DirectoryListing />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/cancel" element={<CancelRedirect />} />
+          <Route path="/admin/add-instructor" element={<AdminRoute><AdminAddInstructor /></AdminRoute>} />
+          <Route path="/slots" element={<Slots />} />
 
         {/* Admin Routes */}
         <Route
