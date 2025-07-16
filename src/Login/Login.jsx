@@ -29,46 +29,42 @@ const Login = () => {
     setSuccess('');
 
     // First, check if instructor
-   // Try user login directly first
-try {
-  const data = await post('https://e-back-bice.vercel.app/api/login', formData, 'Logging in...');
-
-  const normalizedPackage = (data.package || "free").toLowerCase().replace(" plan", "").trim();
-  localStorage.setItem("package", normalizedPackage);
-
-  if (formData.email === "admin1234@gmail.com" && formData.password === "admin1234") {
-    setSuccess("Admin login successful!");
-    localStorage.setItem("isAdmin", "true");
-    localStorage.setItem("isLoggedIn", "true");
-    setTimeout(() => navigate('/Articles'), 1500);
-  } else {
-    localStorage.setItem("isAdmin", "false");
-    localStorage.setItem("isLoggedIn", "true");
-    setSuccess('Login successful!');
-    setTimeout(() => navigate('/'), 1500);
-  }
-
-} catch (err) {
-  // If user login fails, try instructor login
-  try {
-    const instructorRes = await post('https://e-back-bice.vercel.app/api/instructor-login', formData, 'Logging in...');
-    if (instructorRes && instructorRes.isInstructor) {
-      setSuccess('Instructor login successful!');
-      localStorage.setItem('isInstructor', 'true');
-      localStorage.setItem('isLoggedIn', 'true');
-      localStorage.setItem('instructorEmail', formData.email);
-      localStorage.setItem('userEmail', formData.email);
-      setTimeout(() => navigate('/slots'), 1500);
-      return;
+    try {
+      const instructorRes = await post('https://e-back-bice.vercel.app/api/instructor-login', formData, 'Logging in...');
+      if (instructorRes && instructorRes.isInstructor) {
+        setSuccess('Instructor login successful!');
+        localStorage.setItem('isInstructor', 'true');
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('instructorEmail', formData.email); // Save instructor email
+        localStorage.setItem('userEmail', formData.email); // Save user email for booking
+        setTimeout(() => navigate('/slots'), 1500);
+        return;
+      }
+    } catch (err) {
+      // Not an instructor, continue to user/admin login
     }
-  } catch (instructorErr) {
-    console.error('Instructor login failed:', instructorErr);
-    setError('Invalid credentials');
-  }
-}
 
-
-    
+    try {
+      const data = await post('https://e-back-bice.vercel.app/api/login', formData, 'Logging in...');
+      const normalizedPackage = (data.package || "free").toLowerCase().replace(" plan", "").trim();
+      localStorage.setItem("package", normalizedPackage);
+      if (formData.email === "admin1234@gmail.com" && formData.password === "admin1234") {
+        setSuccess("Admin login successful!");
+        localStorage.setItem("isAdmin", "true");
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem('userEmail', formData.email); // Save user email for booking
+        setTimeout(() => navigate('/Articles'), 1500);
+      } else {
+        localStorage.setItem("isAdmin", "false");
+        localStorage.setItem("isLoggedIn", "true");
+        setSuccess('Login successful!');
+        localStorage.setItem('userEmail', formData.email); // Save user email for booking
+        setTimeout(() => navigate('/'), 1500);
+      }
+    } catch (err) {
+      console.error(err);
+      setError(err.message || 'Error logging in.');
+    }
   };
 
   return (
