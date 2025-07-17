@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { API_BASE_URL } from './config';
@@ -14,15 +14,29 @@ const Slots = () => {
   const [subjects, setSubjects] = useState([]);
   const [availability, setAvailability] = useState({});
   const [bookings, setBookings] = useState([]);
+  const [pendingBookings, setPendingBookings] = useState([]);
+  const [acceptMessage, setAcceptMessage] = useState('');
   const [regionInput, setRegionInput] = useState('');
   const [subjectName, setSubjectName] = useState('');
   const [subjectDuration, setSubjectDuration] = useState('');
   const [message, setMessage] = useState('');
   const [city, setCity] = useState('');
   const [location, setLocation] = useState('');
+  const instructorId = localStorage.getItem('userId');
+  const [assignedBookings, setAssignedBookings] = useState([]);
 
   // Get instructor email from localStorage (set on login)
   const email = localStorage.getItem('instructorEmail');
+
+  const fetchPendingBookings = useCallback(async () => {
+    if (!instructorId) return;
+    try {
+      const res = await axios.get(`${API_BASE_URL}/api/bookings?notifiedInstructorId=${instructorId}&status=on-hold`);
+      setPendingBookings(res.data || []);
+    } catch {
+      setPendingBookings([]);
+    }
+  }, [instructorId]);
 
   useEffect(() => {
     const isInstructor = localStorage.getItem('isInstructor') === 'true';
@@ -36,7 +50,17 @@ const Slots = () => {
     }
     fetchProfile();
     fetchBookings();
-  }, [navigate, email]);
+    fetchPendingBookings();
+    const fetchAssignedBookings = async () => {
+      try {
+        const res = await axios.get(`${API_BASE_URL}/api/bookings/assigned/${instructorId}`);
+        setAssignedBookings(res.data || []);
+      } catch {
+        setAssignedBookings([]);
+      }
+    };
+    fetchAssignedBookings();
+  }, [navigate, email, fetchPendingBookings, instructorId]);
 
   const fetchProfile = async () => {
     try {
@@ -170,6 +194,22 @@ const Slots = () => {
     }
   };
 
+  const handleAcceptBooking = async (bookingId) => {
+    if (!instructorId) {
+      setAcceptMessage('Instructor ID not found.');
+      return;
+    }
+    try {
+      const res = await axios.post(`${API_BASE_URL}/api/bookings/${bookingId}/accept`, { instructorId });
+      setAcceptMessage(res.data.message || 'Booking accepted!');
+      // Remove accepted booking from pending list
+      setPendingBookings(prev => prev.filter(b => b._id !== bookingId));
+      fetchBookings(); // Refresh confirmed bookings
+    } catch (err) {
+      setAcceptMessage(err.response?.data?.message || 'Failed to accept booking.');
+    }
+  };
+
   // Calculate free slots by subtracting bookings from availability
   const getFreeSlots = (day) => {
     const slots = (availability[day] || []).map(slot => ({ ...slot }));
@@ -257,39 +297,73 @@ const Slots = () => {
         ))}
         <button onClick={handleSaveAvailability}>Save Availability</button>
       </div>
+    
       <div style={{ marginBottom: 20 }}>
-        <h3>Upcoming Bookings</h3>
+        <h3>My Confirmed Bookings</h3>
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
           <thead>
             <tr style={{ background: '#f5f5f5' }}>
-              <th style={{ padding: 8, border: '1px solid #ddd' }}>Date</th>
-              <th style={{ padding: 8, border: '1px solid #ddd' }}>Time</th>
-              <th style={{ padding: 8, border: '1px solid #ddd' }}>Location</th>
-              <th style={{ padding: 8, border: '1px solid #ddd' }}>Student Count</th>
-  
-              <th style={{ padding: 8, border: '1px solid #ddd' }}>Client Email</th>
-              <th style={{ padding: 8, border: '1px solid #ddd' }}>Action</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Location</th>
+              <th>Course</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {bookings.map((b, i) => (
-              <tr key={i}>
-                <td style={{ padding: 8, border: '1px solid #ddd' }}>{b.date}</td>
-                <td style={{ padding: 8, border: '1px solid #ddd' }}>{b.start} - {b.end}</td>
-                <td style={{ padding: 8, border: '1px solid #ddd' }}>{b.location}</td>
-                <td style={{ padding: 8, border: '1px solid #ddd' }}>{b.studentCount}</td>
-
-                <td style={{ padding: 8, border: '1px solid #ddd' }}>{b.clientEmail || '-'}</td>
-                <td style={{ padding: 8, border: '1px solid #ddd' }}>
-                  <button onClick={() => handleDeleteBooking(i)} style={{ background: '#e74c3c', color: '#fff', border: 'none', borderRadius: 4, padding: '6px 12px' }}>Delete</button>
+            {assignedBookings.map((b, i) => (
+              <tr id="dids" key={i}>
+                <td>{b.date}</td>
+                <td>{b.start || '-'} - {b.end || '-'}</td>
+                <td>{b.city}, {b.area}</td>
+                <td>{b.courseName}</td>
+                <td>
+                  <button id="dids" onClick={async () => {
+                    await axios.delete(`${API_BASE_URL}/api/bookings/${b._id}`);
+                    setAssignedBookings(assignedBookings.filter(x => x._id !== b._id));
+                  }} style={{ background: '#e74c3c', color: '#fff', border: 'none', borderRadius: 4, padding: '6px 12px' }}>Delete</button>
                 </td>
               </tr>
             ))}
-            {bookings.length === 0 && (
-              <tr><td colSpan={7} style={{ textAlign: 'center', padding: 20 }}>No bookings found.</td></tr>
+            {assignedBookings.length === 0 && (
+              <tr><td colSpan={5} style={{ textAlign: 'center', padding: 20 }}>No confirmed bookings.</td></tr>
             )}
           </tbody>
         </table>
+      </div>
+      <div style={{ marginBottom: 20 }}>
+        <h3>Pending Bookings (First to Accept Wins)</h3>
+        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+          <thead>
+            <tr style={{ background: '#f5f5f5' }}>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Location</th>
+              <th>Course</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {pendingBookings.map((b, i) => (
+              <tr key={i}>
+                <td>{b.date}</td>
+                <td>{b.start || '-'} - {b.end || '-'}</td>
+                <td>{b.city}, {b.area}</td>
+                <td>{b.courseName}</td>
+                <td>
+                  <button onClick={async () => {
+                    await handleAcceptBooking(b._id);
+                    window.location.reload(); // Reload the page after accepting
+                  }} style={{ background: '#27ae60', color: '#fff', border: 'none', borderRadius: 4, padding: '6px 12px' }}>Accept</button>
+                </td>
+              </tr>
+            ))}
+            {pendingBookings.length === 0 && (
+              <tr><td colSpan={5} style={{ textAlign: 'center', padding: 20 }}>No pending bookings.</td></tr>
+            )}
+          </tbody>
+        </table>
+        {acceptMessage && <div style={{ color: 'green', marginTop: 10 }}>{acceptMessage}</div>}
       </div>
       {message && <div style={{ color: 'green', marginTop: 10 }}>{message}</div>}
     </div>

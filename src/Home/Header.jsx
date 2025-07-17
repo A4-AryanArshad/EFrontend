@@ -147,23 +147,14 @@ const Header = () => {
                   <IoChevronForwardOutline />
                 </Link>
               </li>
-              {/* Show 'Courses' if user has purchased, otherwise 'Buy Courses' for Pro/Premium users */}
-              {hasCourse ? (
+              {/* Show 'BCourses' for Pro/Premium users, never show 'Courses' */}
+              {isLoggedIn && (userPackage === 'pro' || userPackage === 'premium') && (
                 <li>
-                  <Link to="/courses" className="navbar-link" onClick={() => setNavOpen(false)}>
-                    <span style={location.pathname === '/courses' ? { borderBottom: '2px solid #90be55', display: 'inline-block' } : {}}>Courses</span>
+                  <Link to="/buy-courses" className="navbar-link" onClick={() => setNavOpen(false)}>
+                    <span style={location.pathname === '/buy-courses' ? { borderBottom: '2px solid #90be55', display: 'inline-block' } : {}}>BCourses</span>
                     <IoChevronForwardOutline />
                   </Link>
                 </li>
-              ) : (
-                isLoggedIn && (userPackage === 'pro' || userPackage === 'premium') && (
-                  <li>
-                    <Link to="/buy-courses" className="navbar-link" onClick={() => setNavOpen(false)}>
-                      <span style={location.pathname === '/buy-courses' ? { borderBottom: '2px solid #90be55', display: 'inline-block' } : {}}>BCourses</span>
-                      <IoChevronForwardOutline />
-                    </Link>
-                  </li>
-                )
               )}
               <li>
                 <Link to="/news" className="navbar-link" onClick={() => setNavOpen(false)}>

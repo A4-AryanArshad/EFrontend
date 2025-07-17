@@ -35,18 +35,19 @@ import Slots from './Slots';
 function SuccessRedirect() {
   useEffect(() => {
     const packageName = localStorage.getItem('purchasedPackage');
+    const bookingId = localStorage.getItem('bookingId');
     if (packageName) {
       fetch(`${API_BASE_URL}/api/stripe-success`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify({ packageName })
+        body: JSON.stringify({ packageName, bookingId })
       })
       .then(res => res.json())
       .then(data => {
         setTimeout(() => {
           if (packageName.startsWith('course:')) {
-            window.location.href = '/courses';
+            window.location.href = '/buy-courses';
           } else {
             window.location.href = '/login';
           }
@@ -55,7 +56,7 @@ function SuccessRedirect() {
       .catch((err) => {
         setTimeout(() => {
           if (packageName.startsWith('course:')) {
-            window.location.href = '/courses';
+            window.location.href = '/buy-courses';
           } else {
             window.location.href = '/login';
           }

@@ -30,13 +30,14 @@ const Login = () => {
 
     // First, check if instructor
     try {
-      const instructorRes = await post('http://localhost:5001/api/instructor-login', formData, 'Logging in...');
+      const instructorRes = await post('https://e-back-bice.vercel.app/api/instructor-login', formData, 'Logging in...');
       if (instructorRes && instructorRes.isInstructor) {
         setSuccess('Instructor login successful!');
         localStorage.setItem('isInstructor', 'true');
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('instructorEmail', formData.email); // Save instructor email
         localStorage.setItem('userEmail', formData.email); // Save user email for booking
+        localStorage.setItem('userId', instructorRes.instructorId); // Store instructorId as userId for slot page
         setTimeout(() => navigate('/slots'), 1500);
         return;
       }
@@ -45,7 +46,8 @@ const Login = () => {
     }
 
     try {
-      const data = await post('http://localhost:5001/api/login', formData, 'Logging in...');
+      const data = await post('https://e-back-bice.vercel.app/api/login', formData, 'Logging in...');
+      localStorage.setItem('userId', data.userId); // Store userId for booking
       const normalizedPackage = (data.package || "free").toLowerCase().replace(" plan", "").trim();
       localStorage.setItem("package", normalizedPackage);
       if (formData.email === "admin1234@gmail.com" && formData.password === "admin1234") {
