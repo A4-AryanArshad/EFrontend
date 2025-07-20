@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useApi } from '../hooks/useApi';
-import DHeader from '../Home/DHeader';
+import Header from '../Home/Header';
 import Footer2 from '../Home/Footer2';
 import { API_BASE_URL } from '../config';
 
@@ -47,7 +47,7 @@ const BlogDetails = () => {
 
   return (
     <>
-   <DHeader/>
+   <Header/>
       <div id="paddernews" className="container" style={{ padding: "2rem" }}>
         <h2>{blog.title || 'Untitled'}</h2>
         {blog.imageUrl && (

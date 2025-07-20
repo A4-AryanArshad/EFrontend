@@ -24,15 +24,12 @@ const Trading = () => {
 
   useEffect(() => {
     fetchCards();
-    
     // Listen for language changes
     const handleLanguageChange = () => {
       fetchCards();
     };
-
     window.addEventListener('storage', handleLanguageChange);
     window.addEventListener('languageChanged', handleLanguageChange);
-
     return () => {
       window.removeEventListener('storage', handleLanguageChange);
       window.removeEventListener('languageChanged', handleLanguageChange);
@@ -44,78 +41,69 @@ const Trading = () => {
       <div id="trade">
         <Header />
       </div>
-
       <div id='logo2b'>
+        {/* DecarbXchange Logo and Coming Soon Button - Keep unchanged */}
         <div id="logp2a">
           <img src="./Logo2.webp" alt="Logo" />
           <button>{t("trading.coming_soon")}</button>
         </div>
-
-        <div id="upperlog">
-          <div id="logp2a2">
-            <h1>{t("trading.marketplace_heading")}</h1>
-            <img src="https://carboncredits.com/wp-content/uploads/2023/02/carbon-credit-futures-e1677257727994.jpg" alt="Marketplace" />
-          </div>
-        </div>
-
-        <div id="middleer">
-          <div id="logo2a3">
-            <h1>{t("trading.revolution_title")}</h1>
-            <div id="innerl1">
-              <div id="ary">
-                <h1>{t("trading.carbon_trading_title")}</h1>
-                <p>{t("trading.carbon_trading_text1")}</p>
-                <p>{t("trading.carbon_trading_text2")}</p>
-              </div>
-              <img id="eweq" src="https://images.unsplash.com/photo-1580064461598-505b080a8242?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y2FyYm9uJTIwZW1pc3Npb25zfGVufDB8fDB8fHww" alt="Carbon Emissions" />
-            </div>
-          </div>
-
-          <div id="thirdl">
-            <div id="f1">
-              <h1>{t("trading.leading_platform")}</h1>
-              <h1>{t("trading.p2p_platform")}</h1>
-            </div>
-            <div id="f2">
-              <h1>{t("trading.env_market")}</h1>
-              <h1>{t("trading.at_fingertips")}</h1>
-            </div>
-          </div>
-
-          <div id="marketC">
-            <div id="forthl">
-              {cards.map((card, idx) => (
-                <div id="ddu" key={idx}>
-                  <div id="dd" onClick={() => window.open(card.link, "_blank")}>
-                    <button>*</button>
-                    <h1>{card.title || 'Untitled'}</h1>
-                    <p>{card.description || 'No description available'}</p>
-                  </div>
+        
+        {/* Carbon Offsetting Guides Section */}
+        <div id="carbon-guides-section">
+          <h1>Carbon Offsetting Guides</h1>
+          <div id="guides-container">
+            {cards.map((card, idx) => (
+              <div className="guide-card" key={idx} onClick={() => window.open(card.link, "_blank")}>
+                <div className="guide-card-content">
+                  <h3>{card.title || 'Untitled'}</h3>
+                  <p>{card.description || 'No description available'}</p>
+                  <button className="guide-button">Learn More</button>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
+          </div>
+        </div>
 
-            <div id="market">
-              <h1>{t("trading.market_data")}</h1>
-              <p>{t("trading.market_description")}</p>
+        {/* CO2 Emissions Calculator and Democratizing Section */}
+        <div id="calculator-democratizing-container">
+          <div id="calculator-section">
+            <h1>Calculate your CO2 Emissions</h1>
+            <div id="calculator-container">
+              <iframe 
+                style={{ height: '730px', width: '100%' }} 
+                src="https://plugin.sustainabletravel.com/?api_key=STIKEY_687aad94750ee556806795&primary_color=%23008370&secondary_color=%23f7961f&light_primary_color=%2366e9d6&sort_order=Flight%2CHotel%2CCar%2CBoat"
+                title="CO2 Emissions Calculator"
+              />
+            </div>
+          </div>
+
+          {/* Democratizing Green Investment Section */}
+          <div id="democratizing-section">
+            <div className="democratizing-content">
+              <h1>Democratizing Green Investment: A New Paradigm</h1>
+              <p>The urgency of climate action has spurred a global revolution of investment strategies, pushing sustainable finance from a niche to a central priority. Within this transformation, fractional ownership emerges as an innovation that is enabling broader participation beyond institutional giants and the wealthy.</p>
             </div>
           </div>
         </div>
 
-        <div id="lasterr">
-          <div id="covv">
-            <div id="logp2a2">
-              <h2>{t("trading.fractional_investment")}</h2>
-              <img src="https://pbservices.ge/wp-content/uploads/2023/04/life-hacks-1024x576.jpg.webp" alt="Investment Hub" />
+        {/* Partners Section */}
+        <div id="partners-section">
+          <h1>Partners</h1>
+          <div id="partners-logos">
+            <div className="partner-logo">
+              <img src="./pi1.webp" alt="Fragile Impact" />
             </div>
-          </div>
-
-          <div id="texterareaq">
-            <h1>{t("trading.democratizing_title")}</h1>
-            <p>{t("trading.democratizing_text")}</p>
+            <div className="partner-logo">
+              <img src="./pi2.webp" alt="PH-PLUS 500ml" />
+            </div>
+            <div className="partner-logo">
+              <img src="./pi3.webp" alt="PH-PLUS Kids" />
+            </div>
+           
           </div>
         </div>
 
+      
         <Footer2 />
       </div>
     </>

@@ -25,6 +25,7 @@ const Slots = () => {
   const instructorId = localStorage.getItem('userId');
   const [assignedBookings, setAssignedBookings] = useState([]);
 
+
   // Get instructor email from localStorage (set on login)
   const email = localStorage.getItem('instructorEmail');
 

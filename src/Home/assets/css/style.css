@@ -297,7 +297,11 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 50px;
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
 }
 
 .logo {
@@ -310,6 +314,15 @@ body {
 .nav-open-btn {
   color: var(--white);
   font-size: 3.8rem;
+  margin-left: auto;
+  margin-right: 0;
+  padding: 10px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.nav-open-btn:hover {
+  color: var(--pistachio);
 }
 
 .navbar {
@@ -1674,4 +1687,7 @@ background-color: #90be55 !important;
 
 #dids{
 margin: 10px !important;
+
 }
+
+

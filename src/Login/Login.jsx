@@ -19,8 +19,8 @@ const Login = () => {
       ...formData, 
       [e.target.name]: e.target.value 
     });
-    setError(''); // Clear error when user types
-    setSuccess(''); // Clear success when user types
+    setError('');
+    setSuccess('');
   };
 
   const handleLogin = async (e) => {
@@ -35,9 +35,15 @@ const Login = () => {
         setSuccess('Instructor login successful!');
         localStorage.setItem('isInstructor', 'true');
         localStorage.setItem('isLoggedIn', 'true');
+
         localStorage.setItem('instructorEmail', formData.email); // Save instructor email
         localStorage.setItem('userEmail', formData.email); // Save user email for booking
         localStorage.setItem('userId', instructorRes.instructorId); // Store instructorId as userId for slot page
+
+        localStorage.setItem('instructorEmail', formData.email);
+        localStorage.setItem('userEmail', formData.email);
+        localStorage.setItem('userId', instructorRes.instructorId);
+
         setTimeout(() => navigate('/slots'), 1500);
         return;
       }
@@ -47,20 +53,25 @@ const Login = () => {
 
     try {
       const data = await post('https://e-back-bice.vercel.app/api/login', formData, 'Logging in...');
+
       localStorage.setItem('userId', data.userId); // Store userId for booking
+
+      localStorage.setItem('userId', data.userId);
+
       const normalizedPackage = (data.package || "free").toLowerCase().replace(" plan", "").trim();
       localStorage.setItem("package", normalizedPackage);
+
       if (formData.email === "admin1234@gmail.com" && formData.password === "admin1234") {
         setSuccess("Admin login successful!");
         localStorage.setItem("isAdmin", "true");
         localStorage.setItem("isLoggedIn", "true");
-        localStorage.setItem('userEmail', formData.email); // Save user email for booking
+        localStorage.setItem('userEmail', formData.email);
         setTimeout(() => navigate('/Articles'), 1500);
       } else {
         localStorage.setItem("isAdmin", "false");
         localStorage.setItem("isLoggedIn", "true");
         setSuccess('Login successful!');
-        localStorage.setItem('userEmail', formData.email); // Save user email for booking
+        localStorage.setItem('userEmail', formData.email);
         setTimeout(() => navigate('/'), 1500);
       }
     } catch (err) {
@@ -75,22 +86,22 @@ const Login = () => {
         <Header />
         <div id="uuy">
           <form id="form" onSubmit={handleLogin}>
-          <h2>{t("login.title")}</h2>
+            <h2>{t("login.title")}</h2>
             {error && <div style={{ color: 'red', marginBottom: '10px', textAlign: 'center' }}>{error}</div>}
             {success && <div style={{ color: 'green', marginBottom: '10px', textAlign: 'center' }}>{success}</div>}
             <div id="ineerf">
-            <span>{t("login.email")} :</span>
+              <span>{t("login.email")} :</span>
               <input type="email" name="email" value={formData.email} onChange={handleChange} required />
             </div>
             <div id="ineerf">
-            <span>{t("login.password")} :</span>
+              <span>{t("login.password")} :</span>
               <input type="password" name="password" value={formData.password} onChange={handleChange} required />
             </div>
             <button type="submit">{t("login.submit")}</button>
           </form>
         </div>
       </div>
-      <Footer2/>
+      <Footer2 />
     </>
   );
 };
