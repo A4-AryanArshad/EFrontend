@@ -214,7 +214,7 @@ const Header = () => {
                   <IoChevronForwardOutline />
                 </Link>
               </li>
-              {isLoggedIn && (
+              {isLoggedIn && localStorage.getItem('isInstructor') !== 'true' && (
                 <li>
                   <Link to="/directory" className="navbar-link" onClick={() => setNavOpen(false)}>
                     <span style={location.pathname === '/directory' ? { borderBottom: '2px solid #90be55', display: 'inline-block' } : {}}>Directory</span>
