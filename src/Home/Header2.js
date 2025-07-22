@@ -74,7 +74,7 @@ const Header2= () => {
                       className="navbar-link"
                       onClick={() => setNavOpen(false)}
                     >
-                      <span style={isActive ? { borderBottom: '2px solid #90be55', display: 'inline-block' } : {}}>{item}</span>
+                      <span id="hos" style={isActive ? { borderBottom: '2px solid #90be55', display: 'inline-block' } : {}}>{item}</span>
                       <IoChevronForwardOutline aria-hidden="true" />
                     </Link>
                   </li>

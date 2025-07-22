@@ -1539,8 +1539,9 @@ body {
 
 
 }
-#logoo{
-  height: 170px;
+#logoo {
+  width: 140px !important; /* Increased further for a bigger logo */
+  height: auto !important;
 }
 
 @media screen and (max-width: 784px) {
@@ -1691,3 +1692,10 @@ margin: 10px !important;
 }
 
 
+#hos{
+font-size: 22px !important;
+}
+
+#logoo{
+  height: 170px !important;
+}

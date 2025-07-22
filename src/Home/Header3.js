@@ -83,38 +83,38 @@ const Header = () => {
 
             <ul className="navbar-list">
               <li>
-                <Link to="/" className="navbar-link" onClick={() => setNavOpen(false)}>
-                  <span>{t("navbar.home")}</span>
+                <Link  to="/" className="navbar-link" onClick={() => setNavOpen(false)}>
+                  <span id="hos" >{t("navbar.home")}</span>
                   <IoChevronForwardOutline />
                 </Link>
               </li>
               <li>
                 <Link to="/service" className="navbar-link" onClick={() => setNavOpen(false)}>
-                  <span>{t("navbar.service")}</span>
+                  <span id="hos" >{t("navbar.service")}</span>
                   <IoChevronForwardOutline />
                 </Link>
               </li>
               <li>
                 <Link to="/trade" className="navbar-link" onClick={() => setNavOpen(false)}>
-                  <span>{t("navbar.trade")}</span>
+                  <span id="hos" >{t("navbar.trade")}</span>
                   <IoChevronForwardOutline />
                 </Link>
               </li>
               <li>
                 <Link to="/pricing" className="navbar-link" onClick={() => setNavOpen(false)}>
-                  <span>{t("navbar.pricing")}</span>
+                  <span id="hos" >{t("navbar.pricing")}</span>
                   <IoChevronForwardOutline />
                 </Link>
               </li>
               <li>
                 <Link to="/news" className="navbar-link" onClick={() => setNavOpen(false)}>
-                  <span>{t("navbar.news")}</span>
+                  <span id="hos" >{t("navbar.news")}</span>
                   <IoChevronForwardOutline />
                 </Link>
               </li>
               <li>
                 <Link to="/login" className="navbar-link" onClick={() => setNavOpen(false)}>
-                  <span>{t("navbar.login")}</span>
+                  <span id="hos" >{t("navbar.login")}</span>
                   <IoChevronForwardOutline />
                 </Link>
               </li>
@@ -125,7 +125,7 @@ const Header = () => {
          
 
           <Link to="/signup">  <button className="btn btn-primary">
-              <span>{t("join_now")}</span>
+              <span id="hos" >{t("join_now")}</span>
               <IoHeartOutline aria-hidden="true" />
             </button></Link>
           </div>
