@@ -156,7 +156,7 @@ const Plan = () => {
 
           <div id="innerPlan">
             <div id="innerheading">
-              <h1>💼 Membership Packages</h1>
+              <h1>💼 Choose Your Membership Package</h1>
             </div>
 
             {/* Message Display */}
@@ -197,7 +197,7 @@ const Plan = () => {
                 <div id="inCard">
                   <h3>🟢 1. Free Plan</h3>
                   <h1>Free</h1>
-                  <p>→ Suitable for basic visibility</p>
+                  <p>→ Perfect for individuals or startups looking to get started</p>
                   <div id="Listing">
                     <p>✅ Listed in the Directory (as plain text)</p>
                     <p>❌ No access to Courses</p>
@@ -212,7 +212,7 @@ const Plan = () => {
                       ...getButtonStyle('free')
                     }}
                   >
-                    {getButtonText('free')}
+                    {loading === 'free' ? 'Activating...' : 'Start Free'}
                   </button>
                 </div>
               </div>
@@ -238,7 +238,7 @@ const Plan = () => {
                 <div id="inCard">
                   <h3>🔵 2. Pro Plan</h3>
                   <h1>C$29.99 / {t("plan.month")}</h1>
-                  <p>→ Suitable for companies who want better visibility and course access</p>
+                  <p>→ Ideal for growing companies seeking more exposure and learning opportunities</p>
                   <div id="Listing">
                     <p>✅ Listed in the Directory with:</p>
                     <p style={{ marginLeft: '20px' }}>• Bold Text</p>
@@ -256,7 +256,7 @@ const Plan = () => {
                       ...getButtonStyle('pro')
                     }}
                   >
-                    {getButtonText('pro')}
+                    {loading === 'pro' ? 'Redirecting...' : 'Upgrade Now'}
                   </button>
                 </div>
               </div>
@@ -282,7 +282,7 @@ const Plan = () => {
                 <div id="inCard">
                   <h3>🟣 3. Premium Plan</h3>
                   <h1>C$49.99 / {t("plan.month")}</h1>
-                  <p>→ Best for companies that want maximum exposure and course benefits</p>
+                  <p>→ Unlock maximum visibility, exclusive discounts, and full course access</p>
                   <div id="Listing">
                     <p>✅ All Pro Plan features plus:</p>
                     <p>✅ Featured Listing on homepage (company image shown)</p>
@@ -301,7 +301,7 @@ const Plan = () => {
                       ...getButtonStyle('premium')
                     }}
                   >
-                    {getButtonText('premium')}
+                    {loading === 'premium' ? 'Redirecting...' : 'Go Premium'}
                   </button>
                 </div>
               </div>

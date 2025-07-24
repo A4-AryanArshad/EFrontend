@@ -83,7 +83,7 @@ const LoginPopup = ({ userId, name, isVisible, onClose }) => {
               onClick={onClose}
               className="flex-1 bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 px-4 rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all duration-200 font-semibold"
             >
-              Get Started
+              Start Free / Upgrade Now / Go Premium
             </button>
             <button
               onClick={onClose}

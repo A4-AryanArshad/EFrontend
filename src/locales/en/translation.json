@@ -187,8 +187,8 @@
     ]
   },
   "footer": {
-  "subscribe_heading": "Subscribe to our Newsletter",
-  "subscribe_placeholder": "Add a subscribe to our newsletter",
+  "subscribe_heading": "Stay Updated! Subscribe to Our Newsletter",
+  "subscribe_placeholder": "Enter your email to receive the latest updates and offers",
   "subscribe_button": "Subscribe",
   "portal_name": "CO2e Portal",
   "copyright": "Copyright@2025 | CO2e Portal",
@@ -228,15 +228,15 @@
   "premium_desc": "Premium tools for enhanced visibility",
   "freemium_listing": "Freemium Directory Listing",
   "news_posting": "Blog News Access & Posting",
-  "membership_perks": "CO2e Portal Membership Perks:",
+  "membership_perks": "Why Join CO2e Portal? Membership Benefits:",
   "perk1": "DecarbXchange P2P Marketplace & Fractional Investment Hub @ Pre-Launch discounted Plan.",
   "perk2": "Verified Carbon Credit listings.",
-  "blockchain_title": "Our BlockChain-Based P2P Marketplace",
-  "blockchain_text": "Trade verified carbon credits securely and transparently with our peer-to-peer blockchain marketplace. Empowering businesses and individuals to take control of their climate action.",
-  "investment_hub_title": "Our Fractional Investment Hub",
-  "investment_hub_text": "Participate in high-impact sustainable projects with small, manageable investments. Earn potential returns from real-world carbon credit assets while contributing to the planet.",
-  "commitment_title": "Our commitment for supporting Verifiable Sustainable Projects",
-  "commitment_text": "We partner with certified, measurable sustainability initiatives that align with global climate goals. Every project is vetted"
+  "blockchain_title": "Discover Our Secure Blockchain P2P Marketplace",
+  "blockchain_text": "Easily buy and sell verified carbon credits with full transparency. Take control of your climate impact—whether you're a business or an individual.",
+  "investment_hub_title": "Fractional Investment Hub: Invest in Sustainability",
+  "investment_hub_text": "Start investing in real-world sustainable projects with as little as $X. Earn returns and make a positive impact on the planet.",
+  "commitment_title": "Our Commitment: Supporting Verifiable Sustainable Projects",
+  "commitment_text": "We partner only with certified, measurable sustainability initiatives aligned with global climate goals. Every project is thoroughly vetted for impact and transparency."
 },
 "signup": {
       "title": "Sign Up",

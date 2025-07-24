@@ -93,7 +93,7 @@ const BlogPage = () => {
       ))}
       {/* Newsletter subscription field */}
       <div style={{ margin: '40px 0', padding: 24, background: '#f9f9f9', borderRadius: 12, maxWidth: 400, marginLeft: 'auto', marginRight: 'auto' }}>
-        <h2 style={{ textAlign: 'center', marginBottom: 12 }}>Subscribe to our Newsletter</h2>
+        <h2 style={{ textAlign: 'center', marginBottom: 12 }}>Stay Updated! Subscribe to Our Newsletter</h2>
         {message && (
           <div style={{ color: message.includes('success') ? 'green' : 'red', margin: '8px 0', textAlign: 'center', fontWeight: 500 }}>
             {message}
