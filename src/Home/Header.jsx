@@ -244,7 +244,7 @@ const Header = () => {
               {!isLoggedIn && (
                 <li className="dropdown">
                   <span className="navbar-link" onClick={() => { setNavOpen(false); window.location.href = '/login'; }} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-                    <span id="hos2"  style={location.pathname === '/login' ? { borderBottom: '2px solid #90be55', display: 'inline-block' } : {}}>
+                    <span id="hos2" style={location.pathname === '/login' ? { display: 'inline-block' } : {}}>
                       {t("navbar.login")}
                     </span>
                     <IoChevronForwardOutline style={{ marginLeft: 6 }} />

@@ -4,10 +4,12 @@ import axios from 'axios';
 import { API_BASE_URL } from './config';
 import Header from './Home/Header';
 import Footer2 from './Home/Footer2';
+import { useTranslation } from 'react-i18next';
 
 const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 const Slots = () => {
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [profile, setProfile] = useState(null);
   const [regions, setRegions] = useState([]);
@@ -61,7 +63,11 @@ const Slots = () => {
       }
     };
     fetchAssignedBookings();
-  }, [navigate, email, fetchPendingBookings, instructorId]);
+    const savedLang = localStorage.getItem('selectedLanguage');
+    if (savedLang && savedLang !== i18n.language) {
+      i18n.changeLanguage(savedLang);
+    }
+  }, [navigate, email, fetchPendingBookings, instructorId, i18n]);
 
   const fetchProfile = async () => {
     try {
@@ -235,43 +241,43 @@ const Slots = () => {
     <>
     <Header/>
     <div id="insp"style={{ maxWidth: 700, margin: '12rem auto', padding: 20, background: '#fff', borderRadius: 8, boxShadow: '0 2px 8px #eee' }}>
-      <h2>Instructor Profile</h2>
+      <h2>{t('slots.instructor_profile')}</h2>
       {profile && (
         <div style={{ marginBottom: 20 }}>
-          <div><b>Full Name:</b> {profile.firstName} {profile.lastName}</div>
-          <div><b>Email:</b> {profile.email}</div>
+          <div><b>{t('slots.full_name')}:</b> {profile.firstName} {profile.lastName}</div>
+          <div><b>{t('slots.email')}:</b> {profile.email}</div>
           <div style={{ marginTop: 10 }}>
-            <b>City:</b> <input value={city} onChange={e => setCity(e.target.value)} placeholder="City" style={{ marginRight: 10 }} />
-            <b>Location:</b> <input value={location} onChange={e => setLocation(e.target.value)} placeholder="Location" style={{ marginRight: 10 }} />
-            <button id="isave"onClick={handleSaveCityLocation}>Save</button>
+            <b>{t('slots.city')}:</b> <input value={city} onChange={e => setCity(e.target.value)} placeholder={t('slots.city')} style={{ marginRight: 10 }} />
+            <b>{t('slots.location')}:</b> <input value={location} onChange={e => setLocation(e.target.value)} placeholder={t('slots.location')} style={{ marginRight: 10 }} />
+            <button id="isave"onClick={handleSaveCityLocation}>{t('slots.save')}</button>
           </div>
         </div>
       )}
       <div style={{ marginBottom: 20 }}>
-        <h3>Assigned Teaching Regions</h3>
+        <h3>{t('slots.assigned_regions')}</h3>
         <ul>{regions.map((r, i) => <li key={i}>{r}</li>)}</ul>
-        <input value={regionInput} onChange={e => setRegionInput(e.target.value)} placeholder="Add region" />
-        <button id="isave" onClick={handleAddRegion}>Add</button>
+        <input value={regionInput} onChange={e => setRegionInput(e.target.value)} placeholder={t('slots.add_region')} />
+        <button id="isave" onClick={handleAddRegion}>{t('slots.add')}</button>
       </div>
       <div style={{ marginBottom: 20 }}>
-        <h3>Subjects/Courses</h3>
+        <h3>{t('slots.subjects_courses')}</h3>
         <ul>
           {subjects.map((s, i) => (
             <li key={i}>
-              {s.name} (Duration: {s.durationWeeks} weeks)
-              <button id="idel"onClick={() => handleDeleteSubject(i)} style={{ marginLeft: 10, color: 'red' }}>Delete</button>
+              {s.name} ({t('slots.duration')}: {s.durationWeeks} {t('slots.weeks')})
+              <button id="idel"onClick={() => handleDeleteSubject(i)} style={{ marginLeft: 10, color: 'red' }}>{t('slots.delete')}</button>
             </li>
           ))}
         </ul>
-        <input value={subjectName} onChange={e => setSubjectName(e.target.value)} placeholder="Add subject/course" style={{ marginRight: 8 }} />
-        <input type="number" min={1} value={subjectDuration} onChange={e => setSubjectDuration(e.target.value)} placeholder="Duration (weeks)" style={{ width: 120, marginRight: 8 }} />
-        <button id="isave" onClick={handleAddSubject}>Add</button>
+        <input value={subjectName} onChange={e => setSubjectName(e.target.value)} placeholder={t('slots.add_subject_course')} style={{ marginRight: 8 }} />
+        <input type="number" min={1} value={subjectDuration} onChange={e => setSubjectDuration(e.target.value)} placeholder={t('slots.duration_weeks')} style={{ width: 120, marginRight: 8 }} />
+        <button id="isave" onClick={handleAddSubject}>{t('slots.add')}</button>
       </div>
       <div style={{ marginBottom: 20 }}>
-        <h3>Set Available Teaching Hours</h3>
+        <h3>{t('slots.set_available_hours')}</h3>
         {DAYS.map(day => (
           <div key={day} style={{ marginBottom: 10 }}>
-            <b>{day}:</b>
+            <b>{t(`slots.days.${day.toLowerCase()}`)}:</b>
             {(availability[day] || []).map((slot, idx) => (
               <span key={idx} style={{ marginLeft: 10 }}>
                 <input
@@ -287,28 +293,28 @@ const Slots = () => {
                   onChange={e => handleAvailabilityChange(day, idx, 'end', e.target.value)}
                   style={{ width: 90 }}
                 />
-                <button id="idel"onClick={() => handleDeleteSlot(day, idx)} style={{ marginLeft: 5, color: 'red' }}>Delete</button>
+                <button id="idel"onClick={() => handleDeleteSlot(day, idx)} style={{ marginLeft: 5, color: 'red' }}>{t('slots.delete')}</button>
               </span>
             ))}
-            <button onClick={() => handleAddSlot(day)} style={{ marginLeft: 10 }}>Add Slot</button>
+            <button onClick={() => handleAddSlot(day)} style={{ marginLeft: 10 }}>{t('slots.add_slot')}</button>
             <div style={{ marginLeft: 20, color: '#888', fontSize: 13 }}>
-              Free slots (auto-blocked): {getFreeSlots(day).map((slot, i) => `${slot.start} - ${slot.end}`).join(', ') || 'None'}
+              {t('slots.free_slots')}: {getFreeSlots(day).map((slot, i) => `${slot.start} - ${slot.end}`).join(', ') || t('slots.none')}
             </div>
           </div>
         ))}
-        <button onClick={handleSaveAvailability}>Save Availability</button>
+        <button onClick={handleSaveAvailability}>{t('slots.save_availability')}</button>
       </div>
     
       <div style={{ marginBottom: 20 }}>
-        <h3>My Confirmed Bookings</h3>
+        <h3>{t('slots.my_confirmed_bookings')}</h3>
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
           <thead>
             <tr style={{ background: '#f5f5f5' }}>
-              <th>Date</th>
-              <th>Time</th>
-              <th>Location</th>
-              <th>Course</th>
-              <th>Action</th>
+              <th>{t('slots.date')}</th>
+              <th>{t('slots.time')}</th>
+              <th>{t('slots.location')}</th>
+              <th>{t('slots.course')}</th>
+              <th>{t('slots.action')}</th>
             </tr>
           </thead>
           <tbody>
@@ -322,26 +328,26 @@ const Slots = () => {
                   <button id="dids" onClick={async () => {
                     await axios.delete(`${API_BASE_URL}/api/bookings/${b._id}`);
                     setAssignedBookings(assignedBookings.filter(x => x._id !== b._id));
-                  }} style={{ background: '#e74c3c', color: '#fff', border: 'none', borderRadius: 4, padding: '6px 12px' }}>Delete</button>
+                  }} style={{ background: '#e74c3c', color: '#fff', border: 'none', borderRadius: 4, padding: '6px 12px' }}>{t('slots.delete')}</button>
                 </td>
               </tr>
             ))}
             {assignedBookings.length === 0 && (
-              <tr><td colSpan={5} style={{ textAlign: 'center', padding: 20 }}>No confirmed bookings.</td></tr>
+              <tr><td colSpan={5} style={{ textAlign: 'center', padding: 20 }}>{t('slots.no_confirmed_bookings')}</td></tr>
             )}
           </tbody>
         </table>
       </div>
       <div style={{ marginBottom: 20 }}>
-        <h3>Pending Bookings (First to Accept Wins)</h3>
+        <h3>{t('slots.pending_bookings')}</h3>
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
           <thead>
             <tr style={{ background: '#f5f5f5' }}>
-              <th>Date</th>
-              <th>Time</th>
-              <th>Location</th>
-              <th>Course</th>
-              <th>Action</th>
+              <th>{t('slots.date')}</th>
+              <th>{t('slots.time')}</th>
+              <th>{t('slots.location')}</th>
+              <th>{t('slots.course')}</th>
+              <th>{t('slots.action')}</th>
             </tr>
           </thead>
           <tbody>
@@ -355,12 +361,12 @@ const Slots = () => {
                   <button onClick={async () => {
                     await handleAcceptBooking(b._id);
                     window.location.reload(); // Reload the page after accepting
-                  }} style={{ background: '#27ae60', color: '#fff', border: 'none', borderRadius: 4, padding: '6px 12px' }}>Accept</button>
+                  }} style={{ background: '#27ae60', color: '#fff', border: 'none', borderRadius: 4, padding: '6px 12px' }}>{t('slots.accept')}</button>
                 </td>
               </tr>
             ))}
             {pendingBookings.length === 0 && (
-              <tr><td colSpan={5} style={{ textAlign: 'center', padding: 20 }}>No pending bookings.</td></tr>
+              <tr><td colSpan={5} style={{ textAlign: 'center', padding: 20 }}>{t('slots.no_pending_bookings')}</td></tr>
             )}
           </tbody>
         </table>

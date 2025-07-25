@@ -1704,3 +1704,11 @@ font-size: 17px !important;
 width: 150px !important;
 
 }
+
+
+
+#hos2[style*='border-bottom'] {
+
+  display: inline-block;
+  margin: 0 auto;
+}
