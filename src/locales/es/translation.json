@@ -295,12 +295,12 @@
   "credits_unit": "Toneladas métricas compensadas"
 },
 "blog": {
-    "subscribePlaceholder": "Entrez votre e-mail pour vous abonner à notre newsletter",
-    "subscribe": "S'abonner",
-    "start": "Commencez avec nos",
-    "news": "Actualités",
-    "readMore": "Lire la suite"
-  },
+  "subscribePlaceholder": "Ingresa tu correo para suscribirte a nuestro boletín",
+  "subscribe": "Suscribirse",
+  "start": "Comienza con nuestras",
+  "news": "Noticias",
+  "readMore": "Leer más"
+},
   "recent": {
     "seeWhat": "Mira lo que hemos",
     "blogs": "Blogs",

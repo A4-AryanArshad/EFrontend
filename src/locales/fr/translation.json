@@ -295,11 +295,11 @@
   "credits_unit": "Tonnes métriques compensées"
 },
 "blog": {
-  "subscribePlaceholder": "Ingresa tu correo para suscribirte a nuestro boletín",
-  "subscribe": "Suscribirse",
-  "start": "Comienza con nuestras",
-  "news": "Noticias",
-  "readMore": "Leer más"
+  "subscribePlaceholder": "Entrez votre e-mail pour vous abonner à notre newsletter",
+  "subscribe": "S'abonner",
+  "start": "Commencez avec nos",
+  "news": "Actualités",
+  "readMore": "Lire la suite"
 },
 "recent": {
   "seeWhat": "Voyez ce que nous avons",
