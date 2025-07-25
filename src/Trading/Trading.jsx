@@ -50,14 +50,14 @@ const Trading = () => {
         
         {/* Carbon Offsetting Guides Section */}
         <div id="carbon-guides-section">
-          <h1>Carbon Offsetting Guides</h1>
+          <h1>{t("trading.carbon_guides_title")}</h1>
           <div id="guides-container">
             {cards.map((card, idx) => (
               <div className="guide-card" key={idx} onClick={() => window.open(card.link, "_blank")}>
                 <div className="guide-card-content">
-                  <h3>{card.title || 'Untitled'}</h3>
-                  <p>{card.description || 'No description available'}</p>
-                  <button className="guide-button">Learn More</button>
+                  <h3>{card.title || t("trading.untitled")}</h3>
+                  <p>{card.description || t("trading.no_description")}</p>
+                  <button className="guide-button">{t("trading.learn_more")}</button>
                 </div>
               </div>
             ))}
@@ -67,7 +67,7 @@ const Trading = () => {
         {/* CO2 Emissions Calculator and Democratizing Section */}
         <div id="calculator-democratizing-container">
           <div id="calculator-section">
-            <h1>Calculate your CO2 Emissions</h1>
+            <h1>{t("trading.calculator_title")}</h1>
             <div id="calculator-container">
               <iframe 
                 style={{ height: '730px', width: '100%' }} 
@@ -80,15 +80,15 @@ const Trading = () => {
           {/* Democratizing Green Investment Section */}
           <div id="democratizing-section">
             <div className="democratizing-content">
-              <h1>Democratizing Green Investment: A New Paradigm</h1>
-              <p>The urgency of climate action has spurred a global revolution of investment strategies, pushing sustainable finance from a niche to a central priority. Within this transformation, fractional ownership emerges as an innovation that is enabling broader participation beyond institutional giants and the wealthy.</p>
+              <h1>{t("trading.democratizing_title")}</h1>
+              <p>{t("trading.democratizing_text")}</p>
             </div>
           </div>
         </div>
 
         {/* Partners Section */}
         <div id="partners-section">
-          <h1>Partners</h1>
+          <h1>{t("trading.partners_title")}</h1>
           <div id="partners-logos">
             <div className="partner-logo">
               <img src="./pi1.webp" alt="Fragile Impact" />

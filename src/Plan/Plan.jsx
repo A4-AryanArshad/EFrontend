@@ -156,7 +156,7 @@ const Plan = () => {
 
           <div id="innerPlan">
             <div id="innerheading">
-              <h1>💼 Choose Your Membership Package</h1>
+              <h1>{t("plan.choose_membership_title")}</h1>
             </div>
 
             {/* Message Display */}
@@ -191,18 +191,18 @@ const Plan = () => {
                     fontWeight: 'bold',
                     zIndex: 10
                   }}>
-                    CURRENT
+                    {t("plan.current")}
                   </div>
                 )}
                 <div id="inCard">
-                  <h3>🟢 1. Free Plan</h3>
-                  <h1>Free</h1>
-                  <p>→ Perfect for individuals or startups looking to get started</p>
+                  <h3>🟢 1. {t("plan.free_plan")}</h3>
+                  <h1>{t("plan.free")}</h1>
+                  <p>→ {t("plan.free_desc")}</p>
                   <div id="Listing">
-                    <p>✅ Listed in the Directory (as plain text)</p>
-                    <p>❌ No access to Courses</p>
-                    <p>❌ No discounts</p>
-                    <p>❌ No Featured Listing (no image or highlight)</p>
+                    <p>✅ {t("plan.free_listed_directory")}</p>
+                    <p>❌ {t("plan.free_no_courses")}</p>
+                    <p>❌ {t("plan.free_no_discounts")}</p>
+                    <p>❌ {t("plan.free_no_featured")}</p>
                   </div>
                   <button 
                     onClick={() => handleBuyNow({id: 'free', name: 'Free Plan', price: 0})}
@@ -212,7 +212,7 @@ const Plan = () => {
                       ...getButtonStyle('free')
                     }}
                   >
-                    {loading === 'free' ? 'Activating...' : 'Start Free'}
+                    {loading === 'free' ? t("plan.activating") : t("plan.start_free")}
                   </button>
                 </div>
               </div>
@@ -232,21 +232,21 @@ const Plan = () => {
                     fontWeight: 'bold',
                     zIndex: 10
                   }}>
-                    CURRENT
+                    {t("plan.current")}
                   </div>
                 )}
                 <div id="inCard">
-                  <h3>🔵 2. Pro Plan</h3>
+                  <h3>🔵 2. {t("plan.pro_plan")}</h3>
                   <h1>C$29.99 / {t("plan.month")}</h1>
-                  <p>→ Ideal for growing companies seeking more exposure and learning opportunities</p>
+                  <p>→ {t("plan.pro_desc")}</p>
                   <div id="Listing">
-                    <p>✅ Listed in the Directory with:</p>
-                    <p style={{ marginLeft: '20px' }}>• Bold Text</p>
-                    <p style={{ marginLeft: '20px' }}>• Color</p>
-                    <p style={{ marginLeft: '20px' }}>• Larger Font</p>
-                    <p>✅ Access to all Instructor-led Courses</p>
-                    <p>❌ No Course Discounts</p>
-                    <p>❌ No Featured Listing on Homepage</p>
+                    <p>✅ {t("plan.pro_listed_directory")}</p>
+                    <p style={{ marginLeft: '20px' }}>• {t("plan.pro_bold_text")}</p>
+                    <p style={{ marginLeft: '20px' }}>• {t("plan.pro_color")}</p>
+                    <p style={{ marginLeft: '20px' }}>• {t("plan.pro_larger_font")}</p>
+                    <p>✅ {t("plan.pro_access_courses")}</p>
+                    <p>❌ {t("plan.pro_no_discounts")}</p>
+                    <p>❌ {t("plan.pro_no_featured")}</p>
                   </div>
                   <button 
                     onClick={() => handleBuyNow({id: 'pro', name: 'Pro Plan', price: 29.99})}
@@ -256,7 +256,7 @@ const Plan = () => {
                       ...getButtonStyle('pro')
                     }}
                   >
-                    {loading === 'pro' ? 'Redirecting...' : 'Upgrade Now'}
+                    {loading === 'pro' ? t("plan.redirecting") : t("plan.upgrade_now")}
                   </button>
                 </div>
               </div>
@@ -276,22 +276,22 @@ const Plan = () => {
                     fontWeight: 'bold',
                     zIndex: 10
                   }}>
-                    CURRENT
+                    {t("plan.current")}
                   </div>
                 )}
                 <div id="inCard">
-                  <h3>🟣 3. Premium Plan</h3>
+                  <h3>🟣 3. {t("plan.premium_plan")}</h3>
                   <h1>C$49.99 / {t("plan.month")}</h1>
-                  <p>→ Unlock maximum visibility, exclusive discounts, and full course access</p>
+                  <p>→ {t("plan.premium_desc")}</p>
                   <div id="Listing">
-                    <p>✅ All Pro Plan features plus:</p>
-                    <p>✅ Featured Listing on homepage (company image shown)</p>
-                    <p>✅ Discounts on all Courses</p>
-                    <p>✅ Access to all Instructor-led Courses</p>
-                    <p>✅ Listed in the Directory with:</p>
-                    <p style={{ marginLeft: '20px' }}>• Bold Text</p>
-                    <p style={{ marginLeft: '20px' }}>• Color</p>
-                    <p style={{ marginLeft: '20px' }}>• Larger Font</p>
+                    <p>✅ {t("plan.premium_all_pro_features")}</p>
+                    <p>✅ {t("plan.premium_featured_homepage")}</p>
+                    <p>✅ {t("plan.premium_discounts_courses")}</p>
+                    <p>✅ {t("plan.premium_access_courses")}</p>
+                    <p>✅ {t("plan.premium_listed_directory")}</p>
+                    <p style={{ marginLeft: '20px' }}>• {t("plan.pro_bold_text")}</p>
+                    <p style={{ marginLeft: '20px' }}>• {t("plan.pro_color")}</p>
+                    <p style={{ marginLeft: '20px' }}>• {t("plan.pro_larger_font")}</p>
                   </div>
                   <button 
                     onClick={() => handleBuyNow({id: 'premium', name: 'Premium Plan', price: 49.99})}
@@ -301,7 +301,7 @@ const Plan = () => {
                       ...getButtonStyle('premium')
                     }}
                   >
-                    {loading === 'premium' ? 'Redirecting...' : 'Go Premium'}
+                    {loading === 'premium' ? t("plan.redirecting") : t("plan.go_premium")}
                   </button>
                 </div>
               </div>

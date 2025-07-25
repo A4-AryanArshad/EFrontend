@@ -42,7 +42,7 @@ const Features = () => {
   ];
 
   return (
-    <section className="section features">
+    <section className="section features" id="features">
       <div className="container">
         <ul className="features-list">
           {featuresData.map((feature, index) => (

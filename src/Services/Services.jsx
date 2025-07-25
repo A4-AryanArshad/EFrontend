@@ -85,84 +85,85 @@ const Services = () => {
             <Header />
           </div>
 
-          <div id="Listingg">
-            
-            <h1>{t("services.directoryListing.title")}</h1>
-            {/* Directory A-Z Filter Row */}
-            <div id="parenta" style={{ fontSize: 32, margin: '24px 0', textAlign: 'center', whiteSpace: 'nowrap', overflowX: 'auto', width: '100%' }}>
-              {alphabet.map((letter, idx) => (
-                <span id="iparent"key={letter}>
-                  <span
-                    onClick={() => setSelectedLetter(letter)}
-                    style={{
-                      cursor: 'pointer',
-                      fontWeight: selectedLetter === letter ? 700 : 400,
-                      color: selectedLetter === letter ? '#90be55' : '#222',
-                      textDecoration: selectedLetter === letter ? 'underline' : 'none',
-                      fontSize: selectedLetter === letter ? 40 : 32,
-                      transition: 'all 0.2s',
-                    }}
-                  >
-                    {letter}
+          <div id="directory-listing">
+            <div id="Listingg">
+              <h1>{t("services.directoryListing.title")}</h1>
+              {/* Directory A-Z Filter Row */}
+              <div id="parenta" style={{ fontSize: 32, margin: '24px 0', textAlign: 'center', whiteSpace: 'nowrap', overflowX: 'auto', width: '100%' }}>
+                {alphabet.map((letter, idx) => (
+                  <span id="iparent"key={letter}>
+                    <span
+                      onClick={() => setSelectedLetter(letter)}
+                      style={{
+                        cursor: 'pointer',
+                        fontWeight: selectedLetter === letter ? 700 : 400,
+                        color: selectedLetter === letter ? '#90be55' : '#222',
+                        textDecoration: selectedLetter === letter ? 'underline' : 'none',
+                        fontSize: selectedLetter === letter ? 40 : 32,
+                        transition: 'all 0.2s',
+                      }}
+                    >
+                      {letter}
+                    </span>
+                    {idx < alphabet.length - 1 && <span>, </span>}
                   </span>
-                  {idx < alphabet.length - 1 && <span>, </span>}
-                </span>
-              ))}
-            </div>
-            {/* Directory Table */}
-            <div  id="ttable">
-            {filteredListings.length > 0 ? (
-              <div style={{ maxWidth: 1100, margin: '0 auto', background: '#fff', borderRadius: 24, boxShadow: '0 6px 32px rgba(0,0,0,0.10)', padding: 0, marginTop: 32, overflow: 'hidden' }}>
-                <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: 0, fontSize: 16 }}>
-                  <thead>
-                    <tr style={{ background: '#f7f7f7', fontWeight: 800 }}>
-                      <th style={{ padding: '16px 0', border: 'none', textAlign: 'center', letterSpacing: 1 }}>COMPANY</th>
-                      <th style={{ padding: '16px 0', border: 'none', textAlign: 'center', letterSpacing: 1 }}>SOCIAL LINK</th>
-                      <th style={{ padding: '16px 0', border: 'none', textAlign: 'center', letterSpacing: 1 }}>EMAIL</th>
-                      <th style={{ padding: '16px 0', border: 'none', textAlign: 'center', letterSpacing: 1 }}>PHONE NUMBER</th>
-                      <th style={{ padding: '16px 0', border: 'none', textAlign: 'center', letterSpacing: 1 }}>CATEGORY</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {filteredListings.length === 0 && (
-                      <tr>
-                        <td colSpan={5} style={{ textAlign: 'center', color: '#888', padding: 24 }}>No listings for {selectedLetter}.</td>
-                      </tr>
-                    )}
-                    {filteredListings.map((l, i) => {
-                      // Determine package: use listing.package, but if current user matches and has upgraded, use user.package
-                      let effectivePackage = l.package;
-                      if (user && user.email === l.email && user.package && user.package !== l.package) {
-                        effectivePackage = user.package;
-                      }
-                      let style = { fontWeight: 400, color: '#222', textAlign: 'center', background: i % 2 === 0 ? '#fff' : '#fafbfc' };
-                      if (effectivePackage === 'pro') style = { ...style, fontWeight: 700, color: '#27ae60' };
-                      if (effectivePackage === 'premium') style = { ...style, fontWeight: 700, color: '#ff6b57' };
-                      return (
-                        <tr key={i}>
-                          <td style={{ ...style, padding: '14px 0', border: 'none' }}>{l.company}</td>
-                          <td style={{ ...style, padding: '14px 0', border: 'none' }}>
-                            {l.socialType && l.socialLink ? (
-                              <>
-                                <a href={l.socialLink} target="_blank" rel="noopener noreferrer">
-                                  <button id="tb" style={{ padding: '4px 14px', borderRadius: 8, background: 'transparent', color: '#27ae60', border: '2px solid #27ae60', fontWeight: 700, fontSize: 16, cursor: 'pointer', textTransform: 'capitalize' }}>{l.socialType}</button>
-                                </a>
-                              </>
-                            ) : ''}
-                          </td>
-                          <td style={{ ...style, padding: '14px 0', border: 'none' }}>{l.email}</td>
-                          <td style={{ ...style, padding: '14px 0', border: 'none' }}>{l.phone}</td>
-                          <td style={{ ...style, padding: '14px 0', border: 'none' }}>{l.industry}</td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
+                ))}
               </div>
-            ) : directoryListings.length === 0 ? (
-              <div style={{ textAlign: 'center', color: '#aaa', fontSize: 18, marginTop: 40 }}>No companies in the directory yet.</div>
-            ) : null}
-          </div>
+              {/* Directory Table */}
+              <div  id="ttable">
+              {filteredListings.length > 0 ? (
+                <div style={{ maxWidth: 1100, margin: '0 auto', background: '#fff', borderRadius: 24, boxShadow: '0 6px 32px rgba(0,0,0,0.10)', padding: 0, marginTop: 32, overflow: 'hidden' }}>
+                  <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: 0, fontSize: 16 }}>
+                    <thead>
+                      <tr style={{ background: '#f7f7f7', fontWeight: 800 }}>
+                        <th style={{ padding: '16px 0', border: 'none', textAlign: 'center', letterSpacing: 1 }}>COMPANY</th>
+                        <th style={{ padding: '16px 0', border: 'none', textAlign: 'center', letterSpacing: 1 }}>SOCIAL LINK</th>
+                        <th style={{ padding: '16px 0', border: 'none', textAlign: 'center', letterSpacing: 1 }}>EMAIL</th>
+                        <th style={{ padding: '16px 0', border: 'none', textAlign: 'center', letterSpacing: 1 }}>PHONE NUMBER</th>
+                        <th style={{ padding: '16px 0', border: 'none', textAlign: 'center', letterSpacing: 1 }}>CATEGORY</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {filteredListings.length === 0 && (
+                        <tr>
+                          <td colSpan={5} style={{ textAlign: 'center', color: '#888', padding: 24 }}>No listings for {selectedLetter}.</td>
+                        </tr>
+                      )}
+                      {filteredListings.map((l, i) => {
+                        // Determine package: use listing.package, but if current user matches and has upgraded, use user.package
+                        let effectivePackage = l.package;
+                        if (user && user.email === l.email && user.package && user.package !== l.package) {
+                          effectivePackage = user.package;
+                        }
+                        let style = { fontWeight: 400, color: '#222', textAlign: 'center', background: i % 2 === 0 ? '#fff' : '#fafbfc' };
+                        if (effectivePackage === 'pro') style = { ...style, fontWeight: 700, color: '#27ae60' };
+                        if (effectivePackage === 'premium') style = { ...style, fontWeight: 700, color: '#ff6b57' };
+                        return (
+                          <tr key={i}>
+                            <td style={{ ...style, padding: '14px 0', border: 'none' }}>{l.company}</td>
+                            <td style={{ ...style, padding: '14px 0', border: 'none' }}>
+                              {l.socialType && l.socialLink ? (
+                                <>
+                                  <a href={l.socialLink} target="_blank" rel="noopener noreferrer">
+                                    <button id="tb" style={{ padding: '4px 14px', borderRadius: 8, background: 'transparent', color: '#27ae60', border: '2px solid #27ae60', fontWeight: 700, fontSize: 16, cursor: 'pointer', textTransform: 'capitalize' }}>{l.socialType}</button>
+                                  </a>
+                                </>
+                              ) : ''}
+                            </td>
+                            <td style={{ ...style, padding: '14px 0', border: 'none' }}>{l.email}</td>
+                            <td style={{ ...style, padding: '14px 0', border: 'none' }}>{l.phone}</td>
+                            <td style={{ ...style, padding: '14px 0', border: 'none' }}>{l.industry}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              ) : directoryListings.length === 0 ? (
+                <div style={{ textAlign: 'center', color: '#aaa', fontSize: 18, marginTop: 40 }}>No companies in the directory yet.</div>
+              ) : null}
+            </div>
+            </div>
           </div>
           <div id="featured">
             <h1>{t("services.featuredListing")}</h1>

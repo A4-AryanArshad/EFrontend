@@ -136,8 +136,8 @@ const Header = () => {
                   <IoChevronForwardOutline style={{ marginLeft: 6 }} />
                 </span>
                 <ul className="dropdown-menu">
-                  <li><span  id="hos"onClick={() => { setNavOpen(false); window.location.href = '/'; }} style={{ cursor: 'pointer' }}>Why choose us</span></li>
-                  <li><span  id="hos"onClick={() => { setNavOpen(false); window.location.href = '/'; }} style={{ cursor: 'pointer' }}>What we do.</span></li>
+                  <li><span id="hos" onClick={() => { setNavOpen(false); window.location.href = '/#about'; }} style={{ cursor: 'pointer' }}>{t("navbar.submenu.why_choose_us")}</span></li>
+                  <li><span id="hos" onClick={() => { setNavOpen(false); window.location.href = '/#service'; }} style={{ cursor: 'pointer' }}>{t("navbar.submenu.what_we_do")}</span></li>
                 </ul>
               </li>
               {/* Service Dropdown */}
@@ -149,11 +149,11 @@ const Header = () => {
                   <IoChevronForwardOutline style={{ marginLeft: 6 }} />
                 </span>
                 <ul className="dropdown-menu">
-                  <li><span id="hos" onClick={() => { setNavOpen(false); window.location.href = '/service'; }} style={{ cursor: 'pointer' }}>Directory Listing</span></li>
-                  <li><span  id="hos"onClick={() => { setNavOpen(false); window.location.href = '/service'; }} style={{ cursor: 'pointer' }}>Corporate Training Courses</span></li>
-                  <li><span  id="hos"onClick={() => { setNavOpen(false); window.location.href = '/service'; }} style={{ cursor: 'pointer' }}>Carbon Footprint Assessment & Reporting</span></li>
-                  <li><span  id="hos"style={{ cursor: 'pointer', fontWeight: 'bold', color: '#fff', textShadow: '0 0 2px #90be55' }}>Edu Ficelle</span></li>
-                  <li><span  id="hos"onClick={() => { setNavOpen(false); window.location.href = '/service'; }} style={{ cursor: 'pointer' }}>Satellite-Verified Offset Project Explorer <span style={{ color: 'green' }}>Soon</span></span></li>
+                  <li><span id="hos" onClick={() => { setNavOpen(false); window.location.href = '/service#directory-listing'; }} style={{ cursor: 'pointer' }}>{t("navbar.submenu.directory_listing")}</span></li>
+                  <li><span id="hos" onClick={() => { setNavOpen(false); window.location.href = '/service#fcourse'; }} style={{ cursor: 'pointer' }}>{t("navbar.submenu.corporate_training_courses")}</span></li>
+                  <li><span id="hos" onClick={() => { setNavOpen(false); window.location.href = '/service#carbon-footprint'; }} style={{ cursor: 'pointer' }}>{t("navbar.submenu.carbon_footprint_assessment")}</span></li>
+                  <li><span id="hos" style={{ cursor: 'pointer', fontWeight: 'bold', color: '#fff', textShadow: '0 0 2px #90be55' }}>{t("navbar.submenu.edu_ficelle")}</span></li>
+                  <li><span id="hos" onClick={() => { setNavOpen(false); window.location.href = '/service#satellite-verified'; }} style={{ cursor: 'pointer' }}>{t("navbar.submenu.satellite_verified_offset_project_explorer")} <span style={{ color: 'green' }}>{t("navbar.submenu.soon")}</span></span></li>
                 </ul>
               </li>
               {/* Pricing Dropdown */}
@@ -165,8 +165,22 @@ const Header = () => {
                   <IoChevronForwardOutline style={{ marginLeft: 6 }} />
                 </span>
                 <ul className="dropdown-menu">
-                  <li><span  id="hos"onClick={() => { setNavOpen(false); window.location.href = '/pricing'; }} style={{ cursor: 'pointer' }}>Plans</span></li>
-                  <li><span  id="hos"onClick={() => { setNavOpen(false); window.location.href = '/pricing'; }} style={{ cursor: 'pointer' }}>Courses</span></li>
+                  <li><span id="hos" onClick={() => {
+                    setNavOpen(false);
+                    if (location.pathname === '/pricing') {
+                      document.getElementById('plans')?.scrollIntoView({ behavior: 'smooth' });
+                    } else {
+                      window.location.href = '/pricing#plans';
+                    }
+                  }} style={{ cursor: 'pointer' }}>{t("navbar.submenu.plans")}</span></li>
+                  <li><span id="hos" onClick={() => {
+                    setNavOpen(false);
+                    if (location.pathname === '/pricing') {
+                      document.getElementById('courses')?.scrollIntoView({ behavior: 'smooth' });
+                    } else {
+                      window.location.href = '/pricing#courses';
+                    }
+                  }} style={{ cursor: 'pointer' }}>{t("navbar.submenu.courses")}</span></li>
                 </ul>
               </li>
               {/* News Dropdown */}
@@ -178,8 +192,8 @@ const Header = () => {
                   <IoChevronForwardOutline style={{ marginLeft: 6 }} />
                 </span>
                 <ul className="dropdown-menu">
-                  <li><span  id="hos"onClick={() => { setNavOpen(false); window.location.href = '/news'; }} style={{ cursor: 'pointer' }}>News</span></li>
-                  <li><span  id="hos"onClick={() => { setNavOpen(false); window.location.href = '/news'; }} style={{ cursor: 'pointer' }}>Blog</span></li>
+                  <li><span id="hos" onClick={() => { setNavOpen(false); window.location.href = '/news'; }} style={{ cursor: 'pointer' }}>{t("navbar.submenu.news")}</span></li>
+                  <li><span id="hos" onClick={() => { setNavOpen(false); window.location.href = '/blogs'; }} style={{ cursor: 'pointer' }}>{t("navbar.submenu.blog")}</span></li>
                 </ul>
               </li>
 
@@ -188,15 +202,15 @@ const Header = () => {
               <li className="dropdown">
                 <span className="navbar-link" onClick={() => { setNavOpen(false); window.location.href = '/trade'; }} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
                   <span  id="hos" style={location.pathname === '/trade' ? { borderBottom: '2px solid #90be55', display: 'inline-block' } : {}}>
-                    Resources
+                    {t("navbar.resources")}
                   </span>
                   <IoChevronForwardOutline style={{ marginLeft: 6 }} />
                 </span>
                 <ul className="dropdown-menu">
-                  <li><span  id="hos" onClick={() => { setNavOpen(false); window.location.href = '/trade'; }} style={{ cursor: 'pointer' }}>DecarbXchange</span></li>
-                  <li><span  id="hos" onClick={() => { setNavOpen(false); window.location.href = '/trade'; }} style={{ cursor: 'pointer' }}>Carbon Offsetting Guides</span></li>
-                  <li><span  id="hos"onClick={() => { setNavOpen(false); window.location.href = '/trade'; }} style={{ cursor: 'pointer' }}>Tools & Resources</span></li>
-                  <li><span  id="hos" onClick={() => { setNavOpen(false); window.location.href = '/trade'; }} style={{ cursor: 'pointer' }}>Our Partners</span></li>
+                  <li><span id="hos" onClick={() => { setNavOpen(false); window.location.href = '/trade#logp2a'; }} style={{ cursor: 'pointer' }}>{t("navbar.submenu.decarbxchange")}</span></li>
+                  <li><span id="hos" onClick={() => { setNavOpen(false); window.location.href = '/trade#carbon-guides-section'; }} style={{ cursor: 'pointer' }}>{t("navbar.submenu.carbon_offsetting_guides")}</span></li>
+                  <li><span id="hos" onClick={() => { setNavOpen(false); window.location.href = '/trade#calculator-section'; }} style={{ cursor: 'pointer' }}>{t("navbar.submenu.tools_resources")}</span></li>
+                  <li><span id="hos" onClick={() => { setNavOpen(false); window.location.href = '/trade#partners-section'; }} style={{ cursor: 'pointer' }}>{t("navbar.submenu.our_partners")}</span></li>
                 </ul>
               </li>
 
@@ -204,7 +218,7 @@ const Header = () => {
               {isLoggedIn && (userPackage === 'pro' || userPackage === 'premium') && (
                 <li>
                   <Link to="/buy-courses" className="navbar-link" onClick={() => setNavOpen(false)}>
-                    <span  id="hos" style={location.pathname === '/buy-courses' ? { borderBottom: '2px solid #90be55', display: 'inline-block' } : {}}>BCourses</span>
+                    <span  id="hos" style={location.pathname === '/buy-courses' ? { borderBottom: '2px solid #90be55', display: 'inline-block' } : {}}>{t("navbar.submenu.bcourses")}</span>
                     <IoChevronForwardOutline />
                   </Link>
                 </li>
@@ -213,7 +227,7 @@ const Header = () => {
               {isLoggedIn && localStorage.getItem('isInstructor') !== 'true' && (
                 <li>
                   <Link to="/directory" className="navbar-link" onClick={() => setNavOpen(false)}>
-                    <span  id="hos" style={location.pathname === '/directory' ? { borderBottom: '2px solid #90be55', display: 'inline-block' } : {}}>Directory</span>
+                    <span  id="hos" style={location.pathname === '/directory' ? { borderBottom: '2px solid #90be55', display: 'inline-block' } : {}}>{t("navbar.submenu.directory")}</span>
                     <IoChevronForwardOutline />
                   </Link>
                 </li>
@@ -221,7 +235,7 @@ const Header = () => {
               {(isLoggedIn && localStorage.getItem('isInstructor') === 'true') && (
                 <li>
                   <Link to="/slots" className="navbar-link" onClick={() => setNavOpen(false)}>
-                    <span  id="hos" style={location.pathname === '/slots' ? { borderBottom: '2px solid #90be55', display: 'inline-block' } : {}}>Slots</span>
+                    <span  id="hos" style={location.pathname === '/slots' ? { borderBottom: '2px solid #90be55', display: 'inline-block' } : {}}>{t("navbar.submenu.slots")}</span>
                     <IoChevronForwardOutline />
                   </Link>
                 </li>
@@ -230,14 +244,14 @@ const Header = () => {
               {!isLoggedIn && (
                 <li className="dropdown">
                   <span className="navbar-link" onClick={() => { setNavOpen(false); window.location.href = '/login'; }} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-                    <span id="hos"  style={location.pathname === '/login' ? { borderBottom: '2px solid #90be55', display: 'inline-block' } : {}}>
+                    <span id="hos2"  style={location.pathname === '/login' ? { borderBottom: '2px solid #90be55', display: 'inline-block' } : {}}>
                       {t("navbar.login")}
                     </span>
                     <IoChevronForwardOutline style={{ marginLeft: 6 }} />
                   </span>
                   <ul className="dropdown-menu">
-                    <li><span  id="hos" onClick={() => { setNavOpen(false); window.location.href = '/login'; }} style={{ cursor: 'pointer' }}>Login</span></li>
-                    <li><span  id="hos" onClick={() => { setNavOpen(false); window.location.href = '/contact'; }} style={{ cursor: 'pointer' }}>Contact us</span></li>
+                    <li><span  id="hos" onClick={() => { setNavOpen(false); window.location.href = '/login'; }} style={{ cursor: 'pointer' }}>{t("navbar.submenu.login")}</span></li>
+                    <li><span  id="hos" onClick={() => { setNavOpen(false); window.location.href = '/contact'; }} style={{ cursor: 'pointer' }}>{t("navbar.submenu.contact_us")}</span></li>
                   </ul>
                 </li>
               )}
