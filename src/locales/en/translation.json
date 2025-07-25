@@ -379,7 +379,8 @@
     "waiting_confirmation": "Waiting for instructor confirmation...",
     "message": "{{message}}",
     "error": "{{error}}"
-  }
+  },
+  "logout": "Logout"
 
 }
 

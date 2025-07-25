@@ -380,7 +380,8 @@
   "waiting_confirmation": "En attente de confirmation de l'instructeur...",
   "message": "{{message}}",
   "error": "{{error}}"
-}
+},
+"logout": "Déconnexion"
 
 
 }

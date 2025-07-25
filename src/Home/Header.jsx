@@ -268,8 +268,8 @@ const Header = () => {
             </Link>
             )}
             {isLoggedIn && (
-              <button  id="hos"className="btn btn-primary" style={{ background: '#e74c3c', border: 'none' }} onClick={handleLogout}>
-                Logout
+              <button id="hos" className="btn btn-primary" style={{ background: '#e74c3c', border: 'none' }} onClick={handleLogout}>
+                {t('logout')}
               </button>
             )}
           </div>

@@ -380,7 +380,8 @@
     "waiting_confirmation": "Esperando confirmación del instructor...",
     "message": "{{message}}",
     "error": "{{error}}"
-  }
+  },
+  "logout": "Cerrar sesión"
 
 
 }
