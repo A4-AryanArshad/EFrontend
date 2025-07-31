@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { IoHeartOutline } from "react-icons/io5";
 import { useTranslation } from "react-i18next";
 import "./assets/css/style.css";
+import { 
+  scrollTriggerAnimation, 
+  slideInUp, 
+  staggerAnimation,
+  continuousCardFloat,
+  continuousCardPulse,
+  scaleIn,
+  floatingAnimation
+} from "../utils/gsapAnimations";
 
 const donateItems = [
   {
@@ -21,11 +30,50 @@ const donateItems = [
 const DonateSection = () => {
   const { t } = useTranslation();
   const translatedItems = t("donate.items", { returnObjects: true });
+  
+  // Refs for animations
+  const donateRef = useRef(null);
+  const cardsRef = useRef(null);
+
+  useEffect(() => {
+    // Animate donate section on scroll
+    if (donateRef.current) {
+      const cards = donateRef.current.querySelectorAll('.donate-card');
+      
+      // Scroll-triggered animations for cards
+      cards.forEach((card, index) => {
+        scrollTriggerAnimation(card, scaleIn, "top 85%");
+        
+        const image = card.querySelector('.card-banner img');
+        const content = card.querySelector('.card-content');
+        const button = card.querySelector('.btn');
+        
+        // Animate images with parallax effect
+        if (image) {
+          setTimeout(() => {
+            floatingAnimation(image, 4 + index * 0.5);
+          }, 1000 + index * 300);
+        }
+        
+        // Animate content
+        if (content) {
+          scrollTriggerAnimation(content, slideInUp, "top 90%");
+        }
+        
+        // Animate buttons
+        if (button) {
+          setTimeout(() => {
+            continuousCardPulse(button, index * 0.4);
+          }, 2000 + index * 400);
+        }
+      });
+    }
+  }, []);
 
   return (
-    <section className="section donate" id="donate">
+    <section className="section donate" id="donate" ref={donateRef}>
       <div className="container">
-        <ul className="donate-list">
+        <ul className="donate-list" ref={cardsRef}>
           {translatedItems.map((item, index) => (
             <li key={index}>
               <div className="donate-card">

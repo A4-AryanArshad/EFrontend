@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   IoShieldCheckmarkOutline,
   IoWaterOutline,
@@ -7,9 +7,12 @@ import {
 } from "react-icons/io5";
 import { useTranslation } from "react-i18next";
 import "./assets/css/style.css";
+import { staggerAnimation, scaleIn, floatingAnimation } from "../utils/gsapAnimations";
 
 const Features = () => {
   const { t, i18n } = useTranslation();
+  const featuresRef = useRef(null);
+  const featuresListRef = useRef(null);
 
   useEffect(() => {
     const savedLang = localStorage.getItem("selectedLanguage");
@@ -17,6 +20,26 @@ const Features = () => {
       i18n.changeLanguage(savedLang);
     }
   }, [i18n]);
+
+  useEffect(() => {
+    // Animate features section on scroll
+    if (featuresRef.current) {
+      const features = featuresRef.current.querySelectorAll('.features-item');
+      
+      // Stagger animation for feature items
+      staggerAnimation(features, null, 0.3);
+      
+      // Add floating animation to icons
+      features.forEach((feature, index) => {
+        const icon = feature.querySelector('.item-icon');
+        if (icon) {
+          setTimeout(() => {
+            floatingAnimation(icon, 2 + index * 0.5);
+          }, 500 + index * 300);
+        }
+      });
+    }
+  }, []);
 
   const featuresData = [
     {
@@ -42,9 +65,9 @@ const Features = () => {
   ];
 
   return (
-    <section className="section features" id="features">
+    <section className="section features" id="features" ref={featuresRef}>
       <div className="container">
-        <ul className="features-list">
+        <ul className="features-list" ref={featuresListRef}>
           {featuresData.map((feature, index) => (
             <li className="features-item" key={index}>
               <div className="item-icon">{feature.icon}</div>

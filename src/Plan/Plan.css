@@ -5,7 +5,11 @@
 
 }
 #uuq{
-    background-color: white
+    background-color: transparent
+}
+
+#cover {
+    background-color: transparent !important;
 }
 
 #Cards{
@@ -102,10 +106,12 @@ margin-top: 20px;
 #Perks{
     color: black;
     margin-left: 230px;
+    background: transparent;
 }
 
 #Perks h1{
     font-weight: 500;
+    background: transparent;
 }
 
 #iio{
@@ -182,6 +188,7 @@ padding-right: 130px;
     text-align: center;
     margin: 0;
     padding: 0;
+    background: transparent;
 }
 
 
@@ -367,3 +374,215 @@ margin: auto;
     }
   
   }
+
+/* Animation Enhancements */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(144, 190, 85, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(144, 190, 85, 0.6);
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200px 0;
+    }
+    100% {
+        background-position: calc(200px + 100%) 0;
+    }
+}
+
+/* Enhanced card animations */
+#Cards1, #Cards, #Cards3 {
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+#Cards1:hover, #Cards:hover, #Cards3:hover {
+    transform: translateY(-15px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+/* Button animations */
+#Cards1 button, #Cards button, #Cards3 button {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+#Cards1 button:hover, #Cards button:hover, #Cards3 button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(144, 190, 85, 0.4);
+}
+
+#Cards1 button:active, #Cards button:active, #Cards3 button:active {
+    transform: scale(0.95);
+}
+
+/* Shimmer effect for buttons */
+#Cards1 button::before, #Cards button::before, #Cards3 button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+#Cards1 button:hover::before, #Cards button:hover::before, #Cards3 button:hover::before {
+    left: 100%;
+}
+
+/* Current package badge animation */
+#Cards1 > div, #Cards > div, #Cards3 > div {
+    animation: bounce 2s ease-in-out infinite;
+}
+
+/* Perks section animation */
+#Perks {
+    animation: fadeInUp 1s ease-out;
+}
+
+#Perks h1 {
+    animation: glow 4s ease-in-out infinite;
+}
+
+/* Image animations */
+#imager, #imager2, #lasterimg {
+    transition: all 0.3s ease;
+    animation: float 6s ease-in-out infinite;
+}
+
+#imager:hover, #imager2:hover, #lasterimg:hover {
+    transform: scale(1.1) rotate(5deg);
+    filter: brightness(1.1);
+}
+
+/* Blockchain sections animations */
+#Blockchain, #Blockchain2, #Blockchain3 {
+    transition: all 0.3s ease;
+    animation: fadeInLeft 0.8s ease-out;
+}
+
+#Blockchain:hover, #Blockchain2:hover, #Blockchain3:hover {
+    transform: translateX(10px);
+}
+
+/* Continuous floating animation for cards */
+#Cards1 {
+    animation: float 6s ease-in-out infinite;
+}
+
+#Cards {
+    animation: float 6s ease-in-out infinite;
+    animation-delay: 1s;
+}
+
+#Cards3 {
+    animation: float 6s ease-in-out infinite;
+    animation-delay: 2s;
+}
+
+/* Pulse animation for current package */
+#Cards1[style*="border: 3px solid #90be55"],
+#Cards[style*="border: 3px solid #90be55"],
+#Cards3[style*="border: 3px solid #90be55"] {
+    animation: pulse 3s ease-in-out infinite;
+}
+
+/* Enhanced hover effects for sections */
+#iio:hover, #yyy:hover, #Laster:hover {
+    transform: scale(1.02);
+    transition: all 0.3s ease;
+}
+
+
+
+/* Responsive animations */
+@media (max-width: 768px) {
+    #Cards1, #Cards, #Cards3 {
+        animation: fadeInUp 0.6s ease-out;
+    }
+    
+    #imager, #imager2, #lasterimg {
+        animation: float 4s ease-in-out infinite;
+    }
+}

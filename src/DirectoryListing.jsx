@@ -1,12 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Header from './Home/Header';
 import Footer2 from './Home/Footer2';
 import { useApi } from './hooks/useApi';
 import { API_BASE } from './config';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import './DirectoryListing.css';
+
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
 
 const DirectoryListing = () => {
   const [user, setUser] = useState(null); // { package: 'free'|'pro'|'premium', ... }
   const [listings, setListings] = useState([]);
+  
+  // Refs for animations
+  const titleRef = useRef(null);
+  const formRef = useRef(null);
+  const submitButtonRef = useRef(null);
+  const errorRef = useRef(null);
+  const successRef = useRef(null);
+  
   const [form, setForm] = useState({
     company: '',
     email: '',
@@ -27,6 +41,95 @@ const DirectoryListing = () => {
     fetchUser();
     fetchListings();
   }, []);
+
+  useEffect(() => {
+    // Initialize animations
+    initializeAnimations();
+  }, [user, listings]);
+
+  const initializeAnimations = () => {
+    // Title animation
+    if (titleRef.current) {
+      gsap.fromTo(titleRef.current,
+        { opacity: 0, y: 50 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: titleRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    }
+
+    // Form animation
+    if (formRef.current) {
+      gsap.fromTo(formRef.current,
+        { opacity: 0, x: -50 },
+        { 
+          opacity: 1, 
+          x: 0, 
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: formRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    }
+
+    // Submit button animation
+    if (submitButtonRef.current) {
+      gsap.fromTo(submitButtonRef.current,
+        { opacity: 0, scale: 0.8 },
+        { 
+          opacity: 1, 
+          scale: 1, 
+          duration: 0.6,
+          ease: "back.out(1.7)",
+          scrollTrigger: {
+            trigger: submitButtonRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    }
+
+    // Error message animation
+    if (errorRef.current) {
+      gsap.fromTo(errorRef.current,
+        { opacity: 0, scale: 0.8, y: -20 },
+        { 
+          opacity: 1, 
+          scale: 1, 
+          y: 0, 
+          duration: 0.5, 
+          ease: "back.out(1.7)" 
+        }
+      );
+    }
+
+    // Success message animation
+    if (successRef.current) {
+      gsap.fromTo(successRef.current,
+        { opacity: 0, scale: 0.8, y: -20 },
+        { 
+          opacity: 1, 
+          scale: 1, 
+          y: 0, 
+          duration: 0.5, 
+          ease: "back.out(1.7)" 
+        }
+      );
+    }
+  };
 
   const fetchUser = async () => {
     try {
@@ -143,13 +246,13 @@ const DirectoryListing = () => {
       <Header />
       <div style={{ margin:'120px',background: '#fff', minHeight: '100vh', padding: '180px 0 60px 0' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 20px' }}>
-          <h1 style={{ textAlign: 'center', marginBottom: 40, color: '#333' }}>Directory Listing</h1>
+          <h1 ref={titleRef} style={{ textAlign: 'center', marginBottom: 40, color: '#333' }}>Directory Listing</h1>
           
-          {error && <div style={{ color: 'red', textAlign: 'center', marginBottom: 20 }}>{error}</div>}
-          {success && <div style={{ color: 'green', textAlign: 'center', marginBottom: 20 }}>{success}</div>}
+          {error && <div ref={errorRef} style={{ color: 'red', textAlign: 'center', marginBottom: 20 }}>{error}</div>}
+          {success && <div ref={successRef} style={{ color: 'green', textAlign: 'center', marginBottom: 20 }}>{success}</div>}
 
           {user && user.package !== 'free' ? (
-            <div style={{ background: '#f9f9f9', padding: 30, borderRadius: 10, marginBottom: 40 }}>
+            <div ref={formRef} style={{ background: '#f9f9f9', padding: 30, borderRadius: 10, marginBottom: 40 }}>
               <h2 style={{ marginBottom: 20, color: '#333' }}>Submit Your Company</h2>
               <form onSubmit={handleSubmit} style={{ display: 'grid', gap: 15 }}>
                 <div>
@@ -265,6 +368,7 @@ const DirectoryListing = () => {
                 )}
                 
                 <button
+                  ref={submitButtonRef}
                   type="submit"
                   style={{
                     background: '#90be55',

@@ -31,6 +31,7 @@ import DirectoryListing from './DirectoryListing';
 import Contact from './Contact';
 import AdminAddInstructor from './AdminAddInstructor';
 import Slots from './Slots';
+import GSAPProvider from './components/GSAPProvider';
 
 function SuccessRedirect() {
   useEffect(() => {
@@ -155,9 +156,11 @@ function AppContent() {
 
 function App() {
   return (
-    <LoadingProvider>
-      <AppContent />
-    </LoadingProvider>
+    <GSAPProvider>
+      <LoadingProvider>
+        <AppContent />
+      </LoadingProvider>
+    </GSAPProvider>
   );
 }
 

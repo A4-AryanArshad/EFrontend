@@ -10,6 +10,7 @@ import DonateSection from "./Donate";
 import TestimonialsPartnerEventInsta from "./TestimonialsPartnerEventInsta";
 import Header from "./Header";
 import Footer2 from "./Footer2";
+import CursorEyes from "../components/CursorEyes";
 
 const Home = () => {
   return (
@@ -23,7 +24,7 @@ const Home = () => {
       <PartnerSection />
       <Service />
       <DonateSection />
-
+      <CursorEyes />
       <TestimonialsPartnerEventInsta />
       <Footer2/>
     </>

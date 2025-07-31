@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import {
   IoCheckmarkCircle,
@@ -8,10 +8,25 @@ import {
 import subtitleImage from "./assets/images/subtitle-img-green.png";
 import decoImg from "./assets/images/deco-img.png";
 import "./assets/css/style.css";
+import { 
+  slideInLeft, 
+  slideInRight, 
+  parallaxEffect, 
+  staggerAnimation, 
+  scaleIn,
+  floatingAnimation 
+} from "../utils/gsapAnimations";
 
 const About = () => {
   const { t, i18n } = useTranslation();
   const [activeTab, setActiveTab] = useState("mission");
+  
+  // Refs for animations
+  const aboutRef = useRef(null);
+  const bannerRef = useRef(null);
+  const contentRef = useRef(null);
+  const imagesRef = useRef(null);
+  const tabContentRef = useRef(null);
 
   useEffect(() => {
     const savedLang = localStorage.getItem("selectedLanguage");
@@ -20,17 +35,62 @@ const About = () => {
     }
   }, [i18n]);
 
+  useEffect(() => {
+    // Parallax effect for images
+    if (imagesRef.current) {
+      const images = imagesRef.current.querySelectorAll('.about-img');
+      images.forEach((img, index) => {
+        parallaxEffect(img, 0.3 + index * 0.1);
+      });
+    }
+
+    // Slide in animations for content
+    if (contentRef.current) {
+      slideInRight(contentRef.current, 1, 0.5);
+    }
+
+    // Floating animation for decoration image
+    if (bannerRef.current) {
+      const decoImg = bannerRef.current.querySelector('.deco-img');
+      if (decoImg) {
+        floatingAnimation(decoImg, 4);
+      }
+    }
+
+    // Animate tab items
+    if (tabContentRef.current) {
+      const tabItems = tabContentRef.current.querySelectorAll('.tab-item');
+      staggerAnimation(tabItems, null, 0.2);
+    }
+  }, []);
+
+  // Animate tab content when tab changes
+  useEffect(() => {
+    if (tabContentRef.current) {
+      const tabItems = tabContentRef.current.querySelectorAll('.tab-item');
+      const sectionText = tabContentRef.current.querySelector('.section-text');
+      
+      // Animate text
+      if (sectionText) {
+        scaleIn(sectionText, 0.6);
+      }
+      
+      // Stagger animate list items
+      staggerAnimation(tabItems, null, 0.15);
+    }
+  }, [activeTab]);
+
   const tabKeys = ["mission", "vision", "nextPlan"];
 
   return (
-    <section className="section about" id="about">
+    <section className="section about" id="about" ref={aboutRef}>
       <div className="container">
         {/* ABOUT BANNER */}
-        <div className="about-banner">
+        <div className="about-banner" ref={bannerRef}>
           <h2 className="deco-title"></h2>
           <img src={decoImg} width="58" height="261" alt="" className="deco-img" />
 
-          <div className="banner-row">
+          <div className="banner-row" ref={imagesRef}>
             <div className="banner-col">
               <img
                 id="one"
@@ -76,7 +136,7 @@ const About = () => {
         </div>
 
         {/* ABOUT CONTENT */}
-        <div className="about-content">
+        <div className="about-content" ref={contentRef}>
           <p className="section-subtitle">
             <img src={subtitleImage} width="32" height="7" alt="Wavy line" />
             <span>{t("about.subtitle")}</span>
@@ -101,7 +161,7 @@ const About = () => {
           </ul>
 
           {/* TAB CONTENT */}
-          <div className="tab-content">
+          <div className="tab-content" ref={tabContentRef}>
             <p className="section-text">{t(`about.tabs.${activeTab}.text`)}</p>
 
             <ul className="tab-list">

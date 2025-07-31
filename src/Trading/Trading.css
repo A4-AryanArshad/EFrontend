@@ -584,3 +584,283 @@ width: 200px;
 .partner-logo:hover img {
     filter: grayscale(0%);
 }
+
+/* Animation Enhancements */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(144, 190, 85, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(144, 190, 85, 0.6);
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200px 0;
+    }
+    100% {
+        background-position: calc(200px + 100%) 0;
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Enhanced logo and button animations */
+#logp2a img {
+    animation: fadeInUp 1s ease-out;
+}
+
+#logp2a button {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    animation: scaleIn 0.8s ease-out;
+}
+
+#logp2a button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(144, 190, 85, 0.4);
+}
+
+#logp2a button:active {
+    transform: scale(0.95);
+}
+
+/* Shimmer effect for coming soon button */
+#logp2a button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+#logp2a button:hover::before {
+    left: 100%;
+}
+
+/* Enhanced guide cards animations */
+.guide-card {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.guide-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.guide-card-content {
+    transition: all 0.3s ease;
+}
+
+.guide-card:hover .guide-card-content {
+    transform: scale(1.02);
+}
+
+/* Guide button animations */
+.guide-button {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.guide-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(144, 190, 85, 0.4);
+}
+
+.guide-button:active {
+    transform: scale(0.95);
+}
+
+/* Shimmer effect for guide buttons */
+.guide-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.guide-button:hover::before {
+    left: 100%;
+}
+
+/* Section title animations */
+#carbon-guides-section h1,
+#calculator-section h1,
+#partners-section h1 {
+    animation: glow 4s ease-in-out infinite;
+}
+
+/* Calculator container animations */
+#calculator-container {
+    transition: all 0.3s ease;
+    animation: scaleIn 0.8s ease-out;
+}
+
+#calculator-container:hover {
+    transform: scale(1.01);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Democratizing content animations */
+.democratizing-content {
+    transition: all 0.3s ease;
+    animation: fadeInLeft 0.8s ease-out;
+}
+
+.democratizing-content:hover {
+    transform: translateX(10px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Enhanced partner logo animations */
+.partner-logo {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.partner-logo:hover {
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.partner-logo img {
+    transition: all 0.3s ease;
+}
+
+.partner-logo:hover img {
+    transform: scale(1.1);
+    filter: grayscale(0%) brightness(1.1);
+}
+
+/* Continuous floating animation for guide cards */
+.guide-card {
+    animation: float 6s ease-in-out infinite;
+}
+
+.guide-card:nth-child(1) { animation-delay: 0s; }
+.guide-card:nth-child(2) { animation-delay: 1s; }
+.guide-card:nth-child(3) { animation-delay: 2s; }
+.guide-card:nth-child(4) { animation-delay: 3s; }
+
+/* Pulse animation for coming soon button */
+#logp2a button {
+    animation: pulse 3s ease-in-out infinite;
+}
+
+/* Enhanced section animations */
+#carbon-guides-section {
+    animation: fadeInUp 1s ease-out;
+}
+
+#calculator-democratizing-container {
+    animation: fadeInRight 1s ease-out;
+}
+
+#partners-section {
+    animation: fadeInUp 1s ease-out;
+}
+
+/* Responsive animations */
+@media (max-width: 768px) {
+    .guide-card {
+        animation: fadeInUp 0.6s ease-out;
+    }
+    
+    .partner-logo {
+        animation: fadeInUp 0.4s ease-out;
+    }
+    
+    #logp2a button {
+        animation: scaleIn 0.6s ease-out;
+    }
+}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import "./Plan.css";
 import Header from '../Home/Header';
@@ -6,6 +6,11 @@ import Footer2 from '../Home/Footer2';
 import { useNavigate } from 'react-router-dom';
 import { IoBulbOutline, IoRibbonOutline, IoAirplaneOutline } from 'react-icons/io5';
 import { API_BASE } from '../config';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
 
 const Plan = () => {
   const { t } = useTranslation();
@@ -14,6 +19,14 @@ const Plan = () => {
   const [loading, setLoading] = useState(null); // Track which button is loading
   const [currentPackage, setCurrentPackage] = useState('');
   const [message, setMessage] = useState({ text: '', type: '' }); // For success/error messages
+
+  // Refs for animations
+  const messageRef = useRef(null);
+  const cardsRef = useRef(null);
+  const perksRef = useRef(null);
+  const blockchainRef = useRef(null);
+  const investmentRef = useRef(null);
+  const commitmentRef = useRef(null);
 
   // Fetch user's current package
   useEffect(() => {
@@ -38,6 +51,121 @@ const Plan = () => {
       setCurrentPackage('');
     }
   }, [isLoggedIn]);
+
+  useEffect(() => {
+    // Initialize animations
+    initializeAnimations();
+  }, [currentPackage, message]);
+
+  const initializeAnimations = () => {
+
+    // Message animation
+    if (messageRef.current && message.text) {
+      gsap.fromTo(messageRef.current,
+        { opacity: 0, scale: 0.8, y: -20 },
+        { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(1.7)" }
+      );
+    }
+
+    // Cards animation
+    if (cardsRef.current) {
+      const cards = cardsRef.current.querySelectorAll('#Cards1, #Cards, #Cards3');
+      gsap.fromTo(cards,
+        { opacity: 0, y: 50, scale: 0.9 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          scale: 1,
+          duration: 0.8,
+          stagger: 0.2,
+          ease: "back.out(1.7)",
+          scrollTrigger: {
+            trigger: cardsRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    }
+
+    // Perks section animation
+    if (perksRef.current) {
+      gsap.fromTo(perksRef.current,
+        { opacity: 0, y: 30 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: perksRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    }
+
+    // Blockchain section animation
+    if (blockchainRef.current) {
+      const elements = blockchainRef.current.querySelectorAll('div, img');
+      gsap.fromTo(elements,
+        { opacity: 0, x: -50 },
+        { 
+          opacity: 1, 
+          x: 0, 
+          duration: 0.8,
+          stagger: 0.2,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: blockchainRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    }
+
+    // Investment section animation
+    if (investmentRef.current) {
+      const elements = investmentRef.current.querySelectorAll('div, img');
+      gsap.fromTo(elements,
+        { opacity: 0, x: 50 },
+        { 
+          opacity: 1, 
+          x: 0, 
+          duration: 0.8,
+          stagger: 0.2,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: investmentRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    }
+
+    // Commitment section animation
+    if (commitmentRef.current) {
+      const elements = commitmentRef.current.querySelectorAll('div, img');
+      gsap.fromTo(elements,
+        { opacity: 0, y: 30 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 0.8,
+          stagger: 0.2,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: commitmentRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    }
+  };
 
   const showMessage = (text, type = 'success') => {
     setMessage({ text, type });
@@ -161,7 +289,7 @@ const Plan = () => {
 
             {/* Message Display */}
             {message.text && (
-              <div style={{
+              <div ref={messageRef} style={{
                 textAlign: 'center',
                 marginBottom: '20px',
                 padding: '12px 20px',
@@ -175,7 +303,7 @@ const Plan = () => {
               </div>
             )}
 
-            <div id="totalCards">
+            <div id="totalCards" ref={cardsRef}>
               {/* INDIVIDUAL PLAN */}
               <div id="Cards1" style={getCardStyle('free')}>
                 {currentPackage === 'free' && (
@@ -308,13 +436,13 @@ const Plan = () => {
             </div>
           </div>
 
-          <div id="Perks">
+          <div id="Perks" ref={perksRef}>
             <h1>{t("plan.membership_perks")}</h1>
             <p>{t("plan.perk1")}</p>
             <p>{t("plan.perk2")}</p>
           </div>
 
-          <div id="iio">
+          <div id="iio" ref={blockchainRef}>
             <div id="Blockchain">
               <h1>{t("plan.blockchain_title")}</h1>
               <p>{t("plan.blockchain_text")}</p>
@@ -322,7 +450,7 @@ const Plan = () => {
             <img id="imager" src="https://static.vecteezy.com/system/resources/previews/055/135/329/non_2x/3d-gold-coin-stacks-with-a-rising-arrow-representing-business-growth-investment-success-and-positive-financial-trends-free-png.png" />
           </div>
 
-          <div id="yyy">
+          <div id="yyy" ref={investmentRef}>
             <img id="imager2" src="https://www.tunley-environmental.com/hs-fs/hubfs/Website%20Sized%20Images/Graphics/Embodied%20Carbon%20Assessment-03.png?width=500&height=439&name=Embodied%20Carbon%20Assessment-03.png" />
             <div id="Blockchain2">
               <h1>{t("plan.investment_hub_title")}</h1>
@@ -330,7 +458,7 @@ const Plan = () => {
             </div>
           </div>
 
-          <div id="Laster">
+          <div id="Laster" ref={commitmentRef}>
             <div id="Blockchain3">
               <h1>{t("plan.commitment_title")}</h1>
               <p>{t("plan.commitment_text")}</p>

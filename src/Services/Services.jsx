@@ -1,10 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import Header from '../Home/Header';
 import Footer2 from '../Home/Footer2';
 import './Services.css';
 import { useApi } from '../hooks/useApi';
 import { API_BASE } from '../config';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
 
 const Services = () => {
   const { t, i18n } = useTranslation();
@@ -16,6 +21,15 @@ const Services = () => {
   const [uploadError, setUploadError] = useState('');
   const { get } = useApi();
 
+  // Refs for animations
+  const titleRef = useRef(null);
+  const alphabetRef = useRef(null);
+  const tableRef = useRef(null);
+  const descriptionRef = useRef(null);
+  const courseButtonRef = useRef(null);
+  const serviceCardsRef = useRef(null);
+  const bottomCardsRef = useRef(null);
+
   useEffect(() => {
     const savedLang = localStorage.getItem("selectedLanguage");
     if (savedLang && savedLang !== i18n.language) {
@@ -25,6 +39,136 @@ const Services = () => {
     fetchDirectoryListings();
     fetchUser();
   }, [i18n]);
+
+  useEffect(() => {
+    // Initialize animations
+    initializeAnimations();
+  }, [featuredImages, directoryListings]);
+
+  const initializeAnimations = () => {
+    // Title animation
+    if (titleRef.current) {
+      gsap.fromTo(titleRef.current, 
+        { opacity: 0, y: 50 },
+        { opacity: 1, y: 0, duration: 1, ease: "power2.out" }
+      );
+    }
+
+    // Alphabet filter animation
+    if (alphabetRef.current) {
+      const letters = alphabetRef.current.querySelectorAll('span');
+      gsap.fromTo(letters,
+        { opacity: 0, scale: 0.8 },
+        { 
+          opacity: 1, 
+          scale: 1, 
+          duration: 0.5, 
+          stagger: 0.05,
+          ease: "back.out(1.7)"
+        }
+      );
+    }
+
+    // Table animation
+    if (tableRef.current) {
+      gsap.fromTo(tableRef.current,
+        { opacity: 0, y: 30 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 0.8, 
+          delay: 0.3,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: tableRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    }
+
+
+
+
+
+    // Description animation
+    if (descriptionRef.current) {
+      gsap.fromTo(descriptionRef.current,
+        { opacity: 0, y: 30 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: descriptionRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    }
+
+    // Course button animation
+    if (courseButtonRef.current) {
+      gsap.fromTo(courseButtonRef.current,
+        { opacity: 0, scale: 0.8 },
+        { 
+          opacity: 1, 
+          scale: 1, 
+          duration: 0.6,
+          ease: "back.out(1.7)",
+          scrollTrigger: {
+            trigger: courseButtonRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    }
+
+    // Service cards animation
+    if (serviceCardsRef.current) {
+      const cards = serviceCardsRef.current.querySelectorAll('#scard');
+      gsap.fromTo(cards,
+        { opacity: 0, y: 50, rotation: -3 },
+        { 
+          opacity: 1, 
+          y: 0, 
+          rotation: 0,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: "back.out(1.7)",
+          scrollTrigger: {
+            trigger: serviceCardsRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    }
+
+    // Bottom cards animation
+    if (bottomCardsRef.current) {
+      const cards = bottomCardsRef.current.querySelectorAll('div');
+      gsap.fromTo(cards,
+        { opacity: 0, x: -50 },
+        { 
+          opacity: 1, 
+          x: 0, 
+          duration: 0.8,
+          stagger: 0.3,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: bottomCardsRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    }
+  };
 
   const fetchUser = async () => {
     try {
@@ -87,11 +231,11 @@ const Services = () => {
 
           <div id="directory-listing">
             <div id="Listingg">
-              <h1>{t("services.directoryListing.title")}</h1>
+              <h1 ref={titleRef}>{t("services.directoryListing.title")}</h1>
               {/* Directory A-Z Filter Row */}
-              <div id="parenta" style={{ fontSize: 32, margin: '24px 0', textAlign: 'center', whiteSpace: 'nowrap', overflowX: 'auto', width: '100%' }}>
+              <div id="parenta" ref={alphabetRef} style={{ fontSize: 32, margin: '24px 0', textAlign: 'center', whiteSpace: 'nowrap', overflowX: 'auto', width: '100%' }}>
                 {alphabet.map((letter, idx) => (
-                  <span id="iparent"key={letter}>
+                  <span id="iparent" key={letter}>
                     <span
                       onClick={() => setSelectedLetter(letter)}
                       style={{
@@ -110,7 +254,7 @@ const Services = () => {
                 ))}
               </div>
               {/* Directory Table */}
-              <div  id="ttable">
+              <div id="ttable" ref={tableRef}>
               {filteredListings.length > 0 ? (
                 <div style={{ maxWidth: 1100, margin: '0 auto', background: '#fff', borderRadius: 24, boxShadow: '0 6px 32px rgba(0,0,0,0.10)', padding: 0, marginTop: 32, overflow: 'hidden' }}>
                   <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: 0, fontSize: 16 }}>
@@ -180,19 +324,19 @@ const Services = () => {
             ))}
           </div>
 
-          <div id="des">
+          <div id="des" ref={descriptionRef}>
             <div id="innerdes">
               <p>{t("services.description")}</p>
             </div>
           </div>
 
           <div id="ufcourse">
-            <div id="fcourse">
+            <div id="fcourse" ref={courseButtonRef}>
               <button>{t("services.courseButton")}</button>
             </div>
           </div>
 
-          <div id="utotalscard">
+          <div id="utotalscard" ref={serviceCardsRef}>
             <div id="totalscard">
               {[1, 2, 3, 4].map((_, i) => (
                 <div id="scard" key={i}>
@@ -218,7 +362,7 @@ const Services = () => {
             </div>
           </div>
 
-          <div id="bottomone">
+          <div id="bottomone" ref={bottomCardsRef}>
             <div id="bcard1">
               <h1>{t("services.course1.title")}</h1>
               <p>{t("services.course1.line1")}</p>

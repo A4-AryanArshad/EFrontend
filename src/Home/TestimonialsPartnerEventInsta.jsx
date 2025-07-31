@@ -1,16 +1,85 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import "./assets/css/style.css";
+import { 
+  scrollTriggerAnimation, 
+  slideInUp, 
+  staggerAnimation,
+  continuousCardFloat,
+  continuousCardPulse,
+  scaleIn,
+  floatingAnimation,
+  slideInLeft,
+  slideInRight
+} from "../utils/gsapAnimations";
 
 const TestimonialsPartnerEventInsta = () => {
   const { t } = useTranslation();
-
   const events = t("testimonials.events", { returnObjects: true });
+  
+  // Refs for animations
+  const testimonialsRef = useRef(null);
+  const eventsRef = useRef(null);
+
+  useEffect(() => {
+    // Animate testimonials section
+    if (testimonialsRef.current) {
+      const subtitle = testimonialsRef.current.querySelector('.section-subtitle');
+      const title = testimonialsRef.current.querySelector('.section-title');
+      const testimonialCard = testimonialsRef.current.querySelector('.testi-card');
+      const banner = testimonialsRef.current.querySelector('.testi-banner');
+      
+      // Scroll-triggered animations
+      if (subtitle) scrollTriggerAnimation(subtitle, slideInUp, "top 80%");
+      if (title) scrollTriggerAnimation(title, slideInUp, "top 80%");
+      if (testimonialCard) scrollTriggerAnimation(testimonialCard, scaleIn, "top 85%");
+      if (banner) scrollTriggerAnimation(banner, slideInRight, "top 85%");
+      
+      // Continuous animations
+      setTimeout(() => {
+        if (testimonialCard) continuousCardFloat(testimonialCard, 0.5);
+        if (banner) floatingAnimation(banner, 4);
+      }, 2000);
+    }
+    
+    // Animate events section
+    if (eventsRef.current) {
+      const eventCards = eventsRef.current.querySelectorAll('.event-card');
+      
+      // Scroll-triggered animations for event cards
+      eventCards.forEach((card, index) => {
+        scrollTriggerAnimation(card, scaleIn, "top 85%");
+        
+        const timeElement = card.querySelector('.card-time');
+        const content = card.querySelector('.card-content');
+        const button = card.querySelector('.btn');
+        
+        // Animate time elements
+        if (timeElement) {
+          setTimeout(() => {
+            continuousCardPulse(timeElement, index * 0.3);
+          }, 1500 + index * 300);
+        }
+        
+        // Animate content
+        if (content) {
+          scrollTriggerAnimation(content, slideInUp, "top 90%");
+        }
+        
+        // Animate buttons
+        if (button) {
+          setTimeout(() => {
+            continuousCardFloat(button, index * 0.4);
+          }, 2000 + index * 400);
+        }
+      });
+    }
+  }, []);
 
   return (
     <>
       {/* Testimonials Section */}
-      <section className="testi">
+      <section className="testi" ref={testimonialsRef}>
         <div className="testi-content">
           <p className="section-subtitle">
             <img src="./assets/images/subtitle-img-green.png" width="32" height="7" alt="Wavy line" />
@@ -40,7 +109,7 @@ const TestimonialsPartnerEventInsta = () => {
       </section>
 
       {/* Event Section */}
-      <section className="section event" id="event">
+      <section className="section event" id="event" ref={eventsRef}>
         <div className="container">
           <p className="section-subtitle">
             <img src="./assets/images/subtitle-img-green.png" width="32" height="7" alt="Wavy line" />
@@ -75,10 +144,7 @@ const TestimonialsPartnerEventInsta = () => {
             ))}
           </ul>
 
-          <button className="btn btn-secondary">
-            <span>{t("testimonials.learnMore")}</span>
-            <ion-icon name="heart-outline" aria-hidden="true"></ion-icon>
-          </button>
+
         </div>
       </section>
     </>

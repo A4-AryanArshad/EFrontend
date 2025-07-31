@@ -77,7 +77,6 @@ const Footer2 = () => {
         <h1>{t("footer.portal_name")}</h1>
         <h2>{t("footer.copyright")}</h2>
 
-
         <section className="insta-post">
          
         </section>
