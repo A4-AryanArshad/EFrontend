@@ -502,3 +502,15 @@ margin-left: -100px;
 #tb{
     margin-left:90px !important;
 }
+
+
+
+@media screen and (max-width: 694px) {
+
+#barea1{
+margin: 0 !important;
+}
+#Listingg{
+    margin-top: 200px !important;
+}
+}

@@ -19,6 +19,9 @@ const Services = () => {
   const [user, setUser] = useState(null);
   const [uploadingId, setUploadingId] = useState(null);
   const [uploadError, setUploadError] = useState('');
+  const [viewMode, setViewMode] = useState('alphabetical'); // 'alphabetical' or 'category'
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const { get } = useApi();
 
   // Refs for animations
@@ -37,6 +40,7 @@ const Services = () => {
     }
     fetchFeaturedImages();
     fetchDirectoryListings();
+    fetchCategories();
     fetchUser();
   }, [i18n]);
 
@@ -197,6 +201,15 @@ const Services = () => {
     }
   };
 
+  const fetchCategories = async () => {
+    try {
+      const data = await get(`${API_BASE}/api/directory/categories`, 'Loading categories...');
+      setCategories(data);
+    } catch (err) {
+      setCategories([]);
+    }
+  };
+
   const handleImageUpload = async (listingId, file) => {
     setUploadingId(listingId);
     setUploadError('');
@@ -219,7 +232,21 @@ const Services = () => {
   };
 
   const alphabet = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i));
-  const filteredListings = directoryListings.filter(l => (l.company || '').toUpperCase().startsWith(selectedLetter));
+  
+  // Determine filtered listings based on view mode
+  const getFilteredListings = () => {
+    if (viewMode === 'category') {
+      if (selectedCategory) {
+        return directoryListings.filter(l => l.industry === selectedCategory);
+      } else {
+        return directoryListings; // Show all listings when no category is selected
+      }
+    } else {
+      return directoryListings.filter(l => (l.company || '').toUpperCase().startsWith(selectedLetter));
+    }
+  };
+  
+  const filteredListings = getFilteredListings();
 
   return (
     <>
@@ -232,7 +259,120 @@ const Services = () => {
           <div id="directory-listing">
             <div id="Listingg">
               <h1 ref={titleRef}>{t("services.directoryListing.title")}</h1>
-              {/* Directory A-Z Filter Row */}
+              
+              {/* Sorting Buttons - Positioned right below the heading */}
+              <div id="barea1" style={{ 
+                display: 'flex', 
+                justifyContent: 'center', 
+                alignItems: 'center', 
+                gap: '16px', 
+                margin: '8px 220px 32px 20px',
+                flexWrap: 'wrap',
+                overflowX: 'auto !important',
+                whiteSpace: 'nowrap !important',
+                padding: '0 10px'
+              }}>
+                <button
+                  onClick={() => {
+                    setViewMode('alphabetical');
+                    setSelectedCategory(null);
+                  }}
+                  style={{
+                    padding: '12px 24px',
+                    borderRadius: '8px',
+                    background: viewMode === 'alphabetical' ? '#90be55' : '#f0f0f0',
+                    color: viewMode === 'alphabetical' ? 'white' : '#333',
+                    border: 'none',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                    fontSize: '16px'
+                  }}
+                >
+                  Sort by Alphabet
+                </button>
+                <button
+                  onClick={() => {
+                    setViewMode('category');
+                    setSelectedCategory(null);
+                  }}
+                  style={{
+                    padding: '12px 24px',
+                    borderRadius: '8px',
+                    background: viewMode === 'category' ? '#90be55' : '#f0f0f0',
+                    color: viewMode === 'category' ? 'white' : '#333',
+                    border: 'none',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                    fontSize: '16px'
+                  }}
+                >
+                  Sort by Category
+                </button>
+              </div>
+
+              {/* Category Filter Row - Only show when in category mode */}
+              {viewMode === 'category' && (
+                <div id="parenta" ref={alphabetRef} style={{ 
+                  fontSize: 'clamp(16px, 4vw, 32px)', 
+                  margin: '24px 0', 
+                  textAlign: 'center', 
+                  whiteSpace: 'nowrap !important', 
+                  overflowX: 'auto !important', 
+                  width: '100%', 
+                  padding: '0 20px',
+                  scrollbarWidth: 'thin',
+                  scrollbarColor: '#90be55 #f0f0f0',
+                  minHeight: '50px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  <span id="iparent">
+                    <span
+                      onClick={() => setSelectedCategory(null)}
+                      style={{
+                        cursor: 'pointer',
+                        fontWeight: selectedCategory === null ? 700 : 400,
+                        color: selectedCategory === null ? '#90be55' : '#222',
+                        textDecoration: selectedCategory === null ? 'underline' : 'none',
+                        fontSize: selectedCategory === null ? 'clamp(20px, 5vw, 40px)' : 'clamp(16px, 4vw, 32px)',
+                        transition: 'all 0.2s',
+                        margin: '0 8px',
+                        whiteSpace: 'nowrap',
+                        display: 'inline-block'
+                      }}
+                    >
+                      ALL
+                    </span>
+                  </span>
+                  {categories.map((category, idx) => (
+                    <span id="iparent" key={category}>
+                      <span style={{ fontSize: 'clamp(16px, 4vw, 32px)' }}>, </span>
+                      <span
+                        onClick={() => setSelectedCategory(category)}
+                        style={{
+                          cursor: 'pointer',
+                          fontWeight: selectedCategory === category ? 700 : 400,
+                          color: selectedCategory === category ? '#90be55' : '#222',
+                          textDecoration: selectedCategory === category ? 'underline' : 'none',
+                          fontSize: selectedCategory === category ? 'clamp(20px, 5vw, 40px)' : 'clamp(16px, 4vw, 32px)',
+                          transition: 'all 0.2s',
+                          margin: '0 8px',
+                          whiteSpace: 'nowrap',
+                          display: 'inline-block'
+                        }}
+                      >
+                        {category.toUpperCase()}
+                      </span>
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              {/* Directory A-Z Filter Row - Only show when in alphabetical mode */}
+              {viewMode === 'alphabetical' && (
               <div id="parenta" ref={alphabetRef} style={{ fontSize: 32, margin: '24px 0', textAlign: 'center', whiteSpace: 'nowrap', overflowX: 'auto', width: '100%' }}>
                 {alphabet.map((letter, idx) => (
                   <span id="iparent" key={letter}>
@@ -253,6 +393,7 @@ const Services = () => {
                   </span>
                 ))}
               </div>
+              )}
               {/* Directory Table */}
               <div id="ttable" ref={tableRef}>
               {filteredListings.length > 0 ? (
@@ -270,7 +411,12 @@ const Services = () => {
                     <tbody>
                       {filteredListings.length === 0 && (
                         <tr>
-                          <td colSpan={5} style={{ textAlign: 'center', color: '#888', padding: 24 }}>No listings for {selectedLetter}.</td>
+                          <td colSpan={5} style={{ textAlign: 'center', color: '#888', padding: 24 }}>
+                            {viewMode === 'category' 
+                              ? (selectedCategory ? `No listings for category "${selectedCategory}".` : 'No listings in the directory yet.')
+                              : `No listings for letter "${selectedLetter}".`
+                            }
+                          </td>
                         </tr>
                       )}
                       {filteredListings.map((l, i) => {
@@ -289,7 +435,7 @@ const Services = () => {
                               {l.socialType && l.socialLink ? (
                                 <>
                                   <a href={l.socialLink} target="_blank" rel="noopener noreferrer">
-                                    <button id="tb" style={{ padding: '4px 14px', borderRadius: 8, background: 'transparent', color: '#27ae60', border: '2px solid #27ae60', fontWeight: 700, fontSize: 16, cursor: 'pointer', textTransform: 'capitalize' }}>{l.socialType}</button>
+                                    <button id="tb" style={{ padding: '4px 14px', borderRadius: 8, background: 'transparent', color: '#ff6b57', border: '2px solid #ff6b57', fontWeight: 700, fontSize: 16, cursor: 'pointer', textTransform: 'capitalize' }}>{l.socialType}</button>
                                   </a>
                                 </>
                               ) : ''}
