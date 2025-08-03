@@ -337,11 +337,13 @@ const Services = () => {
                         fontWeight: selectedCategory === null ? 700 : 400,
                         color: selectedCategory === null ? '#90be55' : '#222',
                         textDecoration: selectedCategory === null ? 'underline' : 'none',
-                        fontSize: selectedCategory === null ? 'clamp(20px, 5vw, 40px)' : 'clamp(16px, 4vw, 32px)',
-                        transition: 'all 0.2s',
+                        fontSize: 'clamp(16px, 4vw, 32px)',
+                        transition: 'none',
                         margin: '0 8px',
                         whiteSpace: 'nowrap',
-                        display: 'inline-block'
+                        display: 'inline-block',
+                        transform: 'none',
+                        scale: 'none'
                       }}
                     >
                       ALL
@@ -357,11 +359,13 @@ const Services = () => {
                           fontWeight: selectedCategory === category ? 700 : 400,
                           color: selectedCategory === category ? '#90be55' : '#222',
                           textDecoration: selectedCategory === category ? 'underline' : 'none',
-                          fontSize: selectedCategory === category ? 'clamp(20px, 5vw, 40px)' : 'clamp(16px, 4vw, 32px)',
-                          transition: 'all 0.2s',
+                          fontSize: 'clamp(16px, 4vw, 32px)',
+                          transition: 'none',
                           margin: '0 8px',
                           whiteSpace: 'nowrap',
-                          display: 'inline-block'
+                          display: 'inline-block',
+                          transform: 'none',
+                          scale: 'none'
                         }}
                       >
                         {category.toUpperCase()}
