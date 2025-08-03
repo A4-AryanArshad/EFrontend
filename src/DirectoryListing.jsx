@@ -160,6 +160,7 @@ const DirectoryListing = () => {
     { value: '', label: 'Select Industry' },
     { value: 'Broker', label: 'Broker' },
     { value: 'Exchange', label: 'Exchange' },
+    { value: 'Local Contractors', label: 'Local Contractors' },
     { value: 'Project', label: 'Project' },
     { value: 'Retail', label: 'Retail' },
     { value: 'Wholesaler', label: 'Wholesaler' },

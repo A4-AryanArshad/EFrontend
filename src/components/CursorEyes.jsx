@@ -90,8 +90,8 @@ const CursorEyes = () => {
         }
 
         .eye {
-          width: 280px;
-          height: 280px;
+          width: 200px;
+          height: 200px;
           background: white;
           border-radius: 50%;
           position: relative;
@@ -102,8 +102,8 @@ const CursorEyes = () => {
         }
 
         .pupil {
-          width: 120px;
-          height: 120px;
+          width: 85px;
+          height: 85px;
           background: black;
           border-radius: 50%;
           position: relative;
@@ -112,8 +112,8 @@ const CursorEyes = () => {
 
         .highlight {
           position: absolute;
-          width: 18px;
-          height: 18px;
+          width: 14px;
+          height: 14px;
           background: white;
           border-radius: 50%;
           top: 50%;
@@ -124,32 +124,8 @@ const CursorEyes = () => {
         /* Responsive design */
         @media (max-width: 768px) {
           .eyes-container {
-            gap: 60px;
-            padding: 40px;
-          }
-
-          .eye {
-            width: 200px;
-            height: 200px;
-          }
-
-          .pupil {
-            width: 85px;
-            height: 85px;
-          }
-
-          .highlight {
-            width: 14px;
-            height: 14px;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-          }
-        }
-
-        @media (max-width: 480px) {
-          .eyes-container {
-            gap: 50px;
+            gap: 40px;
+            padding: 30px;
           }
 
           .eye {
@@ -165,6 +141,30 @@ const CursorEyes = () => {
           .highlight {
             width: 12px;
             height: 12px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+        }
+
+        @media (max-width: 480px) {
+          .eyes-container {
+            gap: 30px;
+          }
+
+          .eye {
+            width: 120px;
+            height: 120px;
+          }
+
+          .pupil {
+            width: 50px;
+            height: 50px;
+          }
+
+          .highlight {
+            width: 10px;
+            height: 10px;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
