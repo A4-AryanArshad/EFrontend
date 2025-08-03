@@ -50,7 +50,21 @@ const BuyCourses = () => {
   useEffect(() => {
     fetch(`${API_BASE_URL}/api/courses`)
       .then(res => res.json())
-      .then(data => setCourses(data));
+      .then(data => {
+        // Ensure distinct courses by normalizing names
+        const courseMap = {};
+        data.forEach(course => {
+          const normalizedName = course.name.trim().toLowerCase();
+          const key = normalizedName + '|' + course.durationWeeks;
+          if (!courseMap[key]) {
+            courseMap[key] = { 
+              name: course.name.trim(),
+              durationWeeks: course.durationWeeks 
+            };
+          }
+        });
+        setCourses(Object.values(courseMap));
+      });
   }, []);
 
   // Fetch instructors when city or area changes
@@ -75,9 +89,14 @@ const BuyCourses = () => {
           const courseMap = {};
           filtered.forEach(inst => {
             (inst.subjects || []).forEach(subj => {
-              const key = subj.name + '|' + subj.durationWeeks;
+              // Normalize course name to handle case variations
+              const normalizedName = subj.name.trim().toLowerCase();
+              const key = normalizedName + '|' + subj.durationWeeks;
               if (!courseMap[key]) {
-                courseMap[key] = { name: subj.name, durationWeeks: subj.durationWeeks };
+                courseMap[key] = { 
+                  name: subj.name.trim(), // Keep original case for display
+                  durationWeeks: subj.durationWeeks 
+                };
               }
             });
           });
@@ -139,7 +158,8 @@ const BuyCourses = () => {
         // Filter instructors who offer the selected course
         const filteredProfiles = profiles.filter(inst =>
           (inst.subjects || []).some(subj =>
-            subj.name === selectedCourse.name && String(subj.durationWeeks) === String(selectedCourse.durationWeeks)
+            subj.name.toLowerCase().trim() === selectedCourse.name.toLowerCase().trim() && 
+            String(subj.durationWeeks) === String(selectedCourse.durationWeeks)
           )
         );
         const day = new Date(date).toLocaleDateString('en-US', { weekday: 'long' });
@@ -484,7 +504,9 @@ const BuyCourses = () => {
                   }} style={{ width: '100%', marginBottom: 12, padding: 8, borderRadius: 6, border: '1px solid #ccc' }} disabled={bookingStatus === 'confirmed' && autofilled}>
                     <option value="">{t('buycourses.select_course_option')}</option>
                     {courses.map((course, i) => (
-                      <option key={i} value={course.name + '|' + course.durationWeeks}>{course.name} ({t('buycourses.duration')}: {course.durationWeeks || '?'})</option>
+                      <option key={i} value={course.name + '|' + course.durationWeeks}>
+                        {course.name} ({t('buycourses.duration')}: {course.durationWeeks || '?'})
+                      </option>
                     ))}
                   </select>
                   {bookingStatus === 'confirmed' && autofilled ? (
@@ -496,6 +518,7 @@ const BuyCourses = () => {
                       {stripeLoading ? t('buycourses.booking') : t('buycourses.book_now', { price: userPackage === 'premium' ? (COURSE.price*people*0.8).toFixed(2) : (COURSE.price*people).toFixed(2) })}
                     </button>
                   )}
+
                   {bookingStatus === 'on-hold' && (
                     <div style={{ color: '#888', marginTop: 12 }}>{t('buycourses.waiting_confirmation')}</div>
                   )}
