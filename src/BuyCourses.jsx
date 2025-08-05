@@ -42,16 +42,6 @@ const BuyCourses = () => {
   const [autofilled, setAutofilled] = useState(false);
   const [confirmedBooking, setConfirmedBooking] = useState(null);
 
-  // Helper function to safely trim strings
-  const safeTrim = (str) => {
-    return str && typeof str === 'string' ? str.trim() : '';
-  };
-
-  // Helper function to safely convert to lowercase
-  const safeToLowerCase = (str) => {
-    return str && typeof str === 'string' ? str.toLowerCase() : '';
-  };
-
   useEffect(() => {
     // Optionally, fetch from backend if you want to check real purchase status
   }, []);
@@ -63,79 +53,56 @@ const BuyCourses = () => {
       .then(data => {
         // Ensure distinct courses by normalizing names
         const courseMap = {};
-        if (Array.isArray(data)) {
-          data.forEach(course => {
-            if (course && course.name && typeof course.name === 'string') {
-              const normalizedName = safeToLowerCase(safeTrim(course.name));
-              const key = normalizedName + '|' + (course.durationWeeks || '');
-              if (!courseMap[key]) {
-                courseMap[key] = { 
-                  name: safeTrim(course.name),
-                  durationWeeks: course.durationWeeks || 0
-                };
-              }
-            }
-          });
-        }
+        data.forEach(course => {
+          const normalizedName = course.name.trim().toLowerCase();
+          const key = normalizedName + '|' + course.durationWeeks;
+          if (!courseMap[key]) {
+            courseMap[key] = { 
+              name: course.name.trim(),
+              durationWeeks: course.durationWeeks 
+            };
+          }
+        });
         setCourses(Object.values(courseMap));
-      })
-      .catch(err => {
-        console.error('Error fetching courses:', err);
-        setCourses([]);
       });
   }, []);
 
   // Fetch instructors when city or area changes
   useEffect(() => {
-    if (city && safeTrim(city)) {
-      fetch(`${API_BASE_URL}/api/instructors?city=${encodeURIComponent(safeTrim(city))}`)
+    if (city) {
+      fetch(`${API_BASE_URL}/api/instructors?city=${encodeURIComponent(city)}`)
         .then(res => res.json())
         .then(data => {
-          if (!Array.isArray(data)) {
-            setInstructors([]);
-            setCourses([]);
-            return;
-          }
-
           // First, filter by city and area
           const areaMatches = data.filter(inst =>
-            inst && inst.city && inst.location && area &&
-            safeToLowerCase(safeTrim(inst.city)) === safeToLowerCase(safeTrim(city)) &&
-            safeToLowerCase(safeTrim(inst.location)) === safeToLowerCase(safeTrim(area))
+            inst.city?.toLowerCase() === city.toLowerCase() &&
+            inst.location?.toLowerCase() === area.toLowerCase()
           );
-          
           // If no area matches, show all city matches
           const cityMatches = data.filter(inst =>
-            inst && inst.city &&
-            safeToLowerCase(safeTrim(inst.city)) === safeToLowerCase(safeTrim(city))
+            inst.city?.toLowerCase() === city.toLowerCase()
           );
-          
           const filtered = area && areaMatches.length > 0 ? areaMatches : cityMatches;
           setInstructors(filtered);
 
           // Aggregate unique courses from these instructors
           const courseMap = {};
           filtered.forEach(inst => {
-            if (inst && Array.isArray(inst.subjects)) {
-              inst.subjects.forEach(subj => {
-                if (subj && subj.name && typeof subj.name === 'string') {
-                  // Normalize course name to handle case variations
-                  const normalizedName = safeToLowerCase(safeTrim(subj.name));
-                  const key = normalizedName + '|' + (subj.durationWeeks || '');
-                  if (!courseMap[key]) {
-                    courseMap[key] = { 
-                      name: safeTrim(subj.name), // Keep original case for display
-                      durationWeeks: subj.durationWeeks || 0
-                    };
-                  }
-                }
-              });
-            }
+            (inst.subjects || []).forEach(subj => {
+              // Normalize course name to handle case variations
+              const normalizedName = subj.name.trim().toLowerCase();
+              const key = normalizedName + '|' + subj.durationWeeks;
+              if (!courseMap[key]) {
+                courseMap[key] = { 
+                  name: subj.name.trim(), // Keep original case for display
+                  durationWeeks: subj.durationWeeks 
+                };
+              }
+            });
           });
           setCourses(Object.values(courseMap));
         })
-        .catch(err => {
-          console.error('Error fetching instructors:', err);
+        .catch(() => {
           setInstructors([]);
           setCourses([]);
         });
@@ -151,8 +118,6 @@ const BuyCourses = () => {
 
   // Helper to subtract a booking from a slot
   function subtractBooking(slot, booking) {
-    if (!slot || !booking) return [slot];
-    
     // No overlap
     if (booking.end <= slot.start || booking.start >= slot.end) return [slot];
     // Booking covers the whole slot
@@ -170,7 +135,7 @@ const BuyCourses = () => {
 
   // Helper to convert time to 24-hour format
   function to24Hour(timeStr) {
-    if (!timeStr || typeof timeStr !== 'string') return '';
+    if (!timeStr) return '';
     if (timeStr.includes(':') && (timeStr.includes('AM') || timeStr.includes('PM'))) {
       // e.g., '10:14 AM' or '01:09 PM'
       const [time, modifier] = timeStr.split(' ');
@@ -189,56 +154,36 @@ const BuyCourses = () => {
       Promise.all(instructors.map(inst =>
         fetch(`${API_BASE_URL}/api/instructors/profile/${inst.email}`)
           .then(res => res.json())
-          .catch(err => {
-            console.error('Error fetching instructor profile:', err);
-            return null;
-          })
       )).then(profiles => {
-        // Filter out null profiles and instructors who offer the selected course
-        const validProfiles = profiles.filter(profile => profile !== null);
-        const filteredProfiles = validProfiles.filter(inst =>
-          inst && Array.isArray(inst.subjects) && selectedCourse && selectedCourse.name &&
-          inst.subjects.some(subj =>
-            subj && subj.name && typeof subj.name === 'string' &&
-            safeToLowerCase(safeTrim(subj.name)) === safeToLowerCase(safeTrim(selectedCourse.name)) && 
-            String(subj.durationWeeks || '') === String(selectedCourse.durationWeeks || '')
+        // Filter instructors who offer the selected course
+        const filteredProfiles = profiles.filter(inst =>
+          (inst.subjects || []).some(subj =>
+            subj.name.toLowerCase().trim() === selectedCourse.name.toLowerCase().trim() && 
+            String(subj.durationWeeks) === String(selectedCourse.durationWeeks)
           )
         );
-        
         const day = new Date(date).toLocaleDateString('en-US', { weekday: 'long' });
         let slots = [];
-        
         filteredProfiles.forEach(inst => {
           const avail = inst.availability?.[day] || [];
-          const bookings = Array.isArray(inst.bookings) ? inst.bookings.filter(b => b.date === date) : [];
-          
+          const bookings = (inst.bookings || []).filter(b => b.date === date);
           avail.forEach(slot => {
-            if (slot && slot.start && slot.end) {
-              let free = [{ ...slot }];
-              bookings.forEach(bk => {
-                if (bk && bk.start && bk.end) {
-                  free = free.flatMap(s => subtractBooking(s, bk));
-                }
-              });
-              free.forEach(f => {
-                // Only show slots that overlap with preferred time
-                if (
-                  f.start && f.end &&
-                  f.start <= preferredEnd && f.end >= preferredStart
-                ) {
-                  // Clamp slot to preferred time
-                  const slotStart = f.start < preferredStart ? preferredStart : f.start;
-                  const slotEnd = f.end > preferredEnd ? preferredEnd : f.end;
-                  slots.push({ 
-                    instructor: inst.email, 
-                    start: slotStart, 
-                    end: slotEnd, 
-                    name: `${inst.firstName || ''} ${inst.lastName || ''}`.trim(), 
-                    location: inst.location || '' 
-                  });
-                }
-              });
-            }
+            let free = [{ ...slot }];
+            bookings.forEach(bk => {
+              free = free.flatMap(s => subtractBooking(s, bk));
+            });
+            free.forEach(f => {
+              // Only show slots that overlap with preferred time
+              if (
+                f.start && f.end &&
+                f.start <= preferredEnd && f.end >= preferredStart
+              ) {
+                // Clamp slot to preferred time
+                const slotStart = f.start < preferredStart ? preferredStart : f.start;
+                const slotEnd = f.end > preferredEnd ? preferredEnd : f.end;
+                slots.push({ instructor: inst.email, start: slotStart, end: slotEnd, name: `${inst.firstName} ${inst.lastName}`, location: inst.location });
+              }
+            });
           });
         });
         setAvailableSlots(slots);
@@ -281,8 +226,8 @@ const BuyCourses = () => {
         body: JSON.stringify({
           userId,
           date,
-          city: safeTrim(city),
-          area: safeTrim(area),
+          city,
+          area,
           courseName: selectedCourse.name,
           durationWeeks: selectedCourse.durationWeeks,
           start: start24,
@@ -297,23 +242,18 @@ const BuyCourses = () => {
         // Start polling for status
         if (pollingRef.current) clearInterval(pollingRef.current);
         pollingRef.current = setInterval(async () => {
-          try {
-            const statusRes = await fetch(`${API_BASE_URL}/api/bookings/${data.bookingId}/status`);
-            const statusData = await statusRes.json();
-            if (statusData.status === 'confirmed') {
-              setBookingStatus('confirmed');
-              setMessage('Booking confirmed! You can now proceed to payment.');
-              clearInterval(pollingRef.current);
-            }
-          } catch (err) {
-            console.error('Error polling booking status:', err);
+          const statusRes = await fetch(`${API_BASE_URL}/api/bookings/${data.bookingId}/status`);
+          const statusData = await statusRes.json();
+          if (statusData.status === 'confirmed') {
+            setBookingStatus('confirmed');
+            setMessage('Booking confirmed! You can now proceed to payment.');
+            clearInterval(pollingRef.current);
           }
         }, 5000);
       } else {
         setError(data.message || 'Booking failed. Please try another date.');
       }
     } catch (err) {
-      console.error('Booking error:', err);
       setError('Booking error.');
     }
     setStripeLoading(false);
@@ -345,7 +285,6 @@ const BuyCourses = () => {
         setError('Failed to start checkout.');
       }
     } catch (err) {
-      console.error('Checkout error:', err);
       setError('Checkout error.');
     } finally {
       setStripeLoading(false);
@@ -363,27 +302,16 @@ const BuyCourses = () => {
             fetch(`${API_BASE_URL}/api/bookings/user/${localStorage.getItem('userId')}`)
               .then(res => res.json())
               .then(bookings => {
-                if (Array.isArray(bookings)) {
-                  const booking = bookings.find(b => b._id === bookingId);
-                  if (booking) {
-                    setDate(booking.date || '');
-                    setCity(booking.city || '');
-                    setArea(booking.area || '');
-                    setSelectedCourse({ 
-                      name: booking.courseName || '', 
-                      durationWeeks: booking.durationWeeks || 0 
-                    });
-                    setAutofilled(true);
-                  }
+                const booking = bookings.find(b => b._id === bookingId);
+                if (booking) {
+                  setDate(booking.date);
+                  setCity(booking.city);
+                  setArea(booking.area);
+                  setSelectedCourse({ name: booking.courseName, durationWeeks: booking.durationWeeks });
+                  setAutofilled(true);
                 }
-              })
-              .catch(err => {
-                console.error('Error fetching user bookings:', err);
               });
           }
-        })
-        .catch(err => {
-          console.error('Error fetching booking status:', err);
         });
     }
   }, [bookingId, bookingStatus, autofilled]);
@@ -395,36 +323,28 @@ const BuyCourses = () => {
     fetch(`${API_BASE_URL}/api/bookings/user/${userId}`)
       .then(res => res.json())
       .then(bookings => {
-        if (Array.isArray(bookings)) {
-          // Find the latest booking that is confirmed but not paid
-          const pending = bookings.find(
-            b => b.status === 'confirmed' && !b.paid
-          );
-          if (pending) {
-            setBookingId(pending._id);
-            setDate(pending.date || '');
-            setCity(pending.city || '');
-            setArea(pending.area || '');
-            setSelectedCourse({ 
-              name: pending.courseName || '', 
-              durationWeeks: pending.durationWeeks || 0 
-            });
-            setBookingStatus('confirmed');
-            setAutofilled(true);
-          } else {
-            // No pending payment, reset autofill
-            setBookingId(null);
-            setDate('');
-            setCity('');
-            setArea('');
-            setSelectedCourse(null);
-            setBookingStatus('');
-            setAutofilled(false);
-          }
+        // Find the latest booking that is confirmed but not paid
+        const pending = bookings.find(
+          b => b.status === 'confirmed' && !b.paid
+        );
+        if (pending) {
+          setBookingId(pending._id);
+          setDate(pending.date);
+          setCity(pending.city);
+          setArea(pending.area);
+          setSelectedCourse({ name: pending.courseName, durationWeeks: pending.durationWeeks });
+          setBookingStatus('confirmed');
+          setAutofilled(true);
+        } else {
+          // No pending payment, reset autofill
+          setBookingId(null);
+          setDate('');
+          setCity('');
+          setArea('');
+          setSelectedCourse(null);
+          setBookingStatus('');
+          setAutofilled(false);
         }
-      })
-      .catch(err => {
-        console.error('Error fetching user bookings:', err);
       });
   }, []);
 
@@ -450,9 +370,6 @@ const BuyCourses = () => {
         .then(data => {
           setConfirmedBooking(data);
           localStorage.removeItem('bookingId');
-        })
-        .catch(err => {
-          console.error('Error fetching booking confirmation:', err);
         });
     }
   }, [hasCourse]);
@@ -553,6 +470,14 @@ const BuyCourses = () => {
                     <a href="/pricing" style={{ color: '#ff6b57', textDecoration: 'underline' }}>{t('buycourses.see_membership')}</a>
                   </div>
                 )}
+                {/* Remove this block so the form is always shown */}
+                {/* {hasCourse && (
+                  <div style={{ color: '#27ae60', fontWeight: 600, fontSize: 18, margin: '18px 0' }}>
+                    You have already purchased this course.<br />
+                    <a href="/courses" style={{ color: '#ff6b57', textDecoration: 'underline' }}>Go to Courses</a>
+                  </div>
+                )} */}
+                {/* Always show the booking form. Disable fields and show Pay Now if confirmed and not paid. */}
                 <>
                   <ol style={{ marginBottom: 16, color: '#888', fontSize: 15, paddingLeft: 18 }}>
                     <li>{t('buycourses.step1')}</li>

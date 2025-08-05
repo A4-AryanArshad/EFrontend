@@ -5,14 +5,12 @@ import { useApi } from './hooks/useApi';
 import { API_BASE } from './config';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useTranslation } from 'react-i18next';
 import './DirectoryListing.css';
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
 const DirectoryListing = () => {
-  const { t, i18n } = useTranslation();
   const [user, setUser] = useState(null); // { package: 'free'|'pro'|'premium', ... }
   const [listings, setListings] = useState([]);
   
@@ -43,47 +41,6 @@ const DirectoryListing = () => {
     fetchUser();
     fetchListings();
   }, []);
-
-  // Listen for authentication state changes
-  useEffect(() => {
-    const checkAuthState = () => {
-      const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-      if (!isLoggedIn && user) {
-        setUser(null);
-      } else if (isLoggedIn && !user) {
-        fetchUser();
-      }
-    };
-
-    // Check immediately
-    checkAuthState();
-
-    // For mobile: check more frequently and on visibility change
-    const interval = setInterval(checkAuthState, 1000);
-    
-    // Listen for storage changes (when user logs in/out in another tab)
-    window.addEventListener('storage', checkAuthState);
-    
-    // Listen for custom login/logout events
-    window.addEventListener('userLoggedIn', fetchUser);
-    window.addEventListener('userLoggedOut', () => setUser(null));
-    
-    // Mobile-specific: check on page visibility change
-    const handleVisibilityChange = () => {
-      if (!document.hidden) {
-        checkAuthState();
-      }
-    };
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-
-    return () => {
-      clearInterval(interval);
-      window.removeEventListener('storage', checkAuthState);
-      window.removeEventListener('userLoggedIn', fetchUser);
-      window.removeEventListener('userLoggedOut', () => setUser(null));
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-    };
-  }, [user]);
 
   useEffect(() => {
     // Initialize animations
@@ -175,13 +132,6 @@ const DirectoryListing = () => {
   };
 
   const fetchUser = async () => {
-    // First check if user is logged in from localStorage
-    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    if (!isLoggedIn) {
-      setUser(null);
-      return;
-    }
-
     try {
       const data = await get(`${API_BASE}/api/me`, 'Loading user info...');
       setUser({ ...data, package: (data.package || '').toLowerCase().replace(' plan', '').trim() });
@@ -200,21 +150,20 @@ const DirectoryListing = () => {
   };
 
   const socialOptions = [
-    { value: '', label: t('directory.select_platform') },
-    { value: 'Facebook', label: t('directory.social_platforms.facebook') },
-    { value: 'LinkedIn', label: t('directory.social_platforms.linkedin') },
-    { value: 'Twitter', label: t('directory.social_platforms.twitter') },
-    { value: 'Instagram', label: t('directory.social_platforms.instagram') },
+    { value: '', label: 'Select Platform' },
+    { value: 'Facebook', label: 'Facebook' },
+    { value: 'LinkedIn', label: 'Linkedin' },
+    { value: 'Twitter', label: 'X(Twitter)' },
+    { value: 'Instagram', label: 'Instagram' },
   ];
-  
   const industryOptions = [
-    { value: '', label: t('directory.select_industry') },
-    { value: 'Broker', label: t('directory.industries.broker') },
-    { value: 'Exchange', label: t('directory.industries.exchange') },
-    { value: 'Local Contractors', label: t('directory.industries.local_contractors') },
-    { value: 'Project', label: t('directory.industries.project') },
-    { value: 'Retail', label: t('directory.industries.retail') },
-    { value: 'Wholesaler', label: t('directory.industries.wholesaler') },
+    { value: '', label: 'Select Industry' },
+    { value: 'Broker', label: 'Broker' },
+    { value: 'Exchange', label: 'Exchange' },
+    { value: 'Local Contractors', label: 'Local Contractors' },
+    { value: 'Project', label: 'Project' },
+    { value: 'Retail', label: 'Retail' },
+    { value: 'Wholesaler', label: 'Wholesaler' },
   ];
 
   const handleChange = (e) => {
@@ -233,16 +182,13 @@ const DirectoryListing = () => {
     setError('');
     setSuccess('');
 
-    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    const userPackage = localStorage.getItem('package');
-    
-    if (!isLoggedIn) {
-      setError(t('directory.login_required'));
+    if (!user) {
+      setError('Please log in to submit a listing');
       return;
     }
 
-    if (userPackage === 'free') {
-      setError(t('directory.premium_required'));
+    if (user.package === 'free') {
+      setError('Premium membership required to submit listings');
       return;
     }
 
@@ -267,7 +213,7 @@ const DirectoryListing = () => {
         throw new Error(errorData.message || 'Failed to submit listing');
       }
 
-      setSuccess(t('directory.listing_submitted'));
+      setSuccess('Listing submitted successfully!');
       setForm({
         company: '',
         email: '',
@@ -299,72 +245,72 @@ const DirectoryListing = () => {
   return (
     <>
       <Header />
-      <div className="directory-container">
-        <div className="directory-content">
-          <h1 ref={titleRef} className="directory-title">{t('directory.title')}</h1>
+      <div style={{ margin:'120px',background: '#fff', minHeight: '100vh', padding: '180px 0 60px 0' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 20px' }}>
+          <h1 ref={titleRef} style={{ textAlign: 'center', marginBottom: 40, color: '#333' }}>Directory Listing</h1>
           
-          {error && <div ref={errorRef} className="error-message">{error}</div>}
-          {success && <div ref={successRef} className="success-message">{success}</div>}
+          {error && <div ref={errorRef} style={{ color: 'red', textAlign: 'center', marginBottom: 20 }}>{error}</div>}
+          {success && <div ref={successRef} style={{ color: 'green', textAlign: 'center', marginBottom: 20 }}>{success}</div>}
 
-          {(user && user.package !== 'free') || (localStorage.getItem('isLoggedIn') === 'true' && localStorage.getItem('package') && localStorage.getItem('package') !== 'free') ? (
-            <div ref={formRef} className="directory-form-container">
-              <h2 className="form-title">{t('directory.submit_company')}</h2>
-              <form onSubmit={handleSubmit} className="directory-form">
-                <div className="form-group">
-                  <label className="form-label">{t('directory.company_name')}</label>
+          {user && user.package !== 'free' ? (
+            <div ref={formRef} style={{ background: '#f9f9f9', padding: 30, borderRadius: 10, marginBottom: 40 }}>
+              <h2 style={{ marginBottom: 20, color: '#333' }}>Submit Your Company</h2>
+              <form onSubmit={handleSubmit} style={{ display: 'grid', gap: 15 }}>
+                <div>
+                  <label style={{ display: 'block', marginBottom: 5, fontWeight: 'bold' }}>Company Name *</label>
                   <input
                     type="text"
                     name="company"
                     value={form.company}
                     onChange={handleChange}
                     required
-                    className="form-input"
+                    style={{ width: '100%', padding: 10, border: '1px solid #ddd', borderRadius: 5 }}
                   />
                 </div>
                 
-                <div className="form-row">
-                  <div className="form-group">
-                    <label className="form-label">{t('directory.email')}</label>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 15 }}>
+                  <div>
+                    <label style={{ display: 'block', marginBottom: 5, fontWeight: 'bold' }}>Email *</label>
                     <input
                       type="email"
                       name="email"
                       value={form.email}
                       onChange={handleChange}
                       required
-                      className="form-input"
+                      style={{ width: '100%', padding: 10, border: '1px solid #ddd', borderRadius: 5 }}
                     />
                   </div>
-                  <div className="form-group">
-                    <label className="form-label">{t('directory.phone')}</label>
+                  <div>
+                    <label style={{ display: 'block', marginBottom: 5, fontWeight: 'bold' }}>Phone</label>
                     <input
                       type="tel"
                       name="phone"
                       value={form.phone}
                       onChange={handleChange}
-                      className="form-input"
+                      style={{ width: '100%', padding: 10, border: '1px solid #ddd', borderRadius: 5 }}
                     />
                   </div>
                 </div>
                 
-                <div className="form-group">
-                  <label className="form-label">{t('directory.address')}</label>
+                <div>
+                  <label style={{ display: 'block', marginBottom: 5, fontWeight: 'bold' }}>Address</label>
                   <input
                     type="text"
                     name="address"
                     value={form.address}
                     onChange={handleChange}
-                    className="form-input"
+                    style={{ width: '100%', padding: 10, border: '1px solid #ddd', borderRadius: 5 }}
                   />
                 </div>
                 
-                <div className="form-group">
-                  <label className="form-label">{t('directory.website_social')}</label>
-                  <div className="social-links-container">
+                <div>
+                  <label style={{ display: 'block', marginBottom: 5, fontWeight: 'bold' }}>Website/Social Links</label>
+                  <div style={{ display: 'flex', gap: 10 }}>
                     <select
                       name="socialType"
                       value={form.socialType}
                       onChange={handleChange}
-                      className="form-select social-select"
+                      style={{ padding: 10, border: '1px solid #ddd', borderRadius: 5 }}
                       required
                     >
                       {socialOptions.map(opt => (
@@ -377,20 +323,19 @@ const DirectoryListing = () => {
                       value={form.socialLink}
                       onChange={handleChange}
                       placeholder="https://example.com"
-                      className="form-input social-input"
+                      style={{ flex: 1, padding: 10, border: '1px solid #ddd', borderRadius: 5 }}
                       required={!!form.socialType}
                       disabled={!form.socialType}
                     />
                   </div>
                 </div>
-                
-                <div className="form-group">
-                  <label className="form-label">{t('directory.industry_category')}</label>
+                <div>
+                  <label style={{ display: 'block', marginBottom: 5, fontWeight: 'bold' }}>Industry/Category</label>
                   <select
                     name="industry"
                     value={form.industry}
                     onChange={handleChange}
-                    className="form-select"
+                    style={{ width: '100%', padding: 10, border: '1px solid #ddd', borderRadius: 5 }}
                     required
                   >
                     {industryOptions.map(opt => (
@@ -399,26 +344,26 @@ const DirectoryListing = () => {
                   </select>
                 </div>
                 
-                <div className="form-group">
-                  <label className="form-label">{t('directory.short_description')}</label>
+                <div>
+                  <label style={{ display: 'block', marginBottom: 5, fontWeight: 'bold' }}>Short Description</label>
                   <textarea
                     name="description"
                     value={form.description}
                     onChange={handleChange}
                     rows="4"
-                    className="form-textarea"
+                    style={{ width: '100%', padding: 10, border: '1px solid #ddd', borderRadius: 5, resize: 'vertical' }}
                   />
                 </div>
                 
                 {user.package === 'premium' && (
-                  <div className="form-group">
-                    <label className="form-label">{t('directory.logo_image')}</label>
+                  <div>
+                    <label style={{ display: 'block', marginBottom: 5, fontWeight: 'bold' }}>Logo/Image</label>
                     <input
                       type="file"
                       name="image"
                       onChange={handleChange}
                       accept="image/*"
-                      className="form-file-input"
+                      style={{ width: '100%', padding: 10, border: '1px solid #ddd', borderRadius: 5 }}
                     />
                   </div>
                 )}
@@ -426,16 +371,25 @@ const DirectoryListing = () => {
                 <button
                   ref={submitButtonRef}
                   type="submit"
-                  className="submit-button"
+                  style={{
+                    background: '#90be55',
+                    color: 'white',
+                    border: 'none',
+                    padding: '12px 24px',
+                    borderRadius: 5,
+                    cursor: 'pointer',
+                    fontSize: 16,
+                    fontWeight: 'bold'
+                  }}
                 >
-                  {t('directory.submit_listing')}
+                  Submit Listing
                 </button>
               </form>
             </div>
           ) : (
-            <div className="login-prompt">
-              <p className="prompt-text">
-                {!user ? t('directory.login_required') : t('directory.premium_required')}
+            <div style={{ textAlign: 'center', marginBottom: 40 }}>
+              <p style={{ color: '#666', fontSize: 18 }}>
+                {!user ? 'Please log in to submit a listing.' : 'Premium membership required to submit listings.'}
               </p>
             </div>
           )}
