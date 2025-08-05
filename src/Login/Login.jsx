@@ -44,9 +44,6 @@ const Login = () => {
         localStorage.setItem('userEmail', formData.email);
         localStorage.setItem('userId', instructorRes.instructorId);
 
-        // Dispatch custom event for other components
-        window.dispatchEvent(new CustomEvent('userLoggedIn'));
-
         setTimeout(() => navigate('/slots'), 1500);
         return;
       }
@@ -69,20 +66,12 @@ const Login = () => {
         localStorage.setItem("isAdmin", "true");
         localStorage.setItem("isLoggedIn", "true");
         localStorage.setItem('userEmail', formData.email);
-        
-        // Dispatch custom event for other components
-        window.dispatchEvent(new CustomEvent('userLoggedIn'));
-        
         setTimeout(() => navigate('/Articles'), 1500);
       } else {
         localStorage.setItem("isAdmin", "false");
         localStorage.setItem("isLoggedIn", "true");
         setSuccess('Login successful!');
         localStorage.setItem('userEmail', formData.email);
-        
-        // Dispatch custom event for other components
-        window.dispatchEvent(new CustomEvent('userLoggedIn'));
-        
         setTimeout(() => navigate('/'), 1500);
       }
     } catch (err) {

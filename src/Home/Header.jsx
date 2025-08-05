@@ -31,22 +31,11 @@ const Header = () => {
   useEffect(() => {
     const checkLogin = () => setIsLoggedIn(localStorage.getItem('isLoggedIn') === 'true');
     window.addEventListener('storage', checkLogin);
-    
-    // Listen for login changes in the same tab - more frequent on mobile
-    const interval = setInterval(checkLogin, 300);
-    
-    // Mobile-specific: check on page visibility change
-    const handleVisibilityChange = () => {
-      if (!document.hidden) {
-        checkLogin();
-      }
-    };
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-    
+    // Listen for login changes in the same tab
+    const interval = setInterval(checkLogin, 500);
     return () => {
       window.removeEventListener('storage', checkLogin);
       clearInterval(interval);
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, []);
 
@@ -89,10 +78,6 @@ const Header = () => {
     setIsLoggedIn(false);
     setHasCourse(false);
     setUserPackage('');
-    
-    // Dispatch custom event for other components
-    window.dispatchEvent(new CustomEvent('userLoggedOut'));
-    
     window.location.href = '/';
   };
 
