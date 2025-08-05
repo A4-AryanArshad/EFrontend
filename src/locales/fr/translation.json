@@ -381,7 +381,40 @@
   "message": "{{message}}",
   "error": "{{error}}"
 },
-"logout": "Déconnexion"
+"logout": "Déconnexion",
+"directory": {
+  "title": "Liste d'annuaire",
+  "submit_company": "Soumettre votre entreprise",
+  "company_name": "Nom de l'entreprise *",
+  "email": "E-mail *",
+  "phone": "Téléphone",
+  "address": "Adresse",
+  "website_social": "Site web/Réseaux sociaux",
+  "select_platform": "Sélectionner la plateforme",
+  "industry_category": "Industrie/Catégorie",
+  "select_industry": "Sélectionner l'industrie",
+  "short_description": "Description courte",
+  "logo_image": "Logo/Image",
+  "submit_listing": "Soumettre l'annonce",
+  "login_required": "Veuillez vous connecter pour soumettre une annonce.",
+  "premium_required": "Abonnement Premium requis pour soumettre des annonces.",
+  "listing_submitted": "Annonce soumise avec succès !",
+  "already_submitted": "Vous avez déjà rempli le formulaire.",
+  "social_platforms": {
+    "facebook": "Facebook",
+    "linkedin": "LinkedIn",
+    "twitter": "X(Twitter)",
+    "instagram": "Instagram"
+  },
+  "industries": {
+    "broker": "Courtier",
+    "exchange": "Bourse",
+    "local_contractors": "Entrepreneurs locaux",
+    "project": "Projet",
+    "retail": "Commerce de détail",
+    "wholesaler": "Grossiste"
+  }
+}
 
 
 }

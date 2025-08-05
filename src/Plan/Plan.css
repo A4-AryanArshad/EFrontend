@@ -586,3 +586,31 @@ margin: auto;
         animation: float 4s ease-in-out infinite;
     }
 }
+
+
+
+@media screen and (max-width: 1335px) {
+
+
+#innerPlan{
+    margin-top: 60px;
+    text-align: center;
+}
+#Laster{
+    margin: 70px;
+    padding: 0;
+}
+#yyy{
+    margin: 70px;
+}
+#iio{
+    margin: 70px;
+}
+#Blockchain3{
+
+margin-left: 110px;
+}
+#Perks{
+    margin: 70px;
+}
+}

@@ -381,7 +381,40 @@
     "message": "{{message}}",
     "error": "{{error}}"
   },
-  "logout": "Cerrar sesión"
+  "logout": "Cerrar sesión",
+  "directory": {
+    "title": "Listado de directorio",
+    "submit_company": "Enviar tu empresa",
+    "company_name": "Nombre de la empresa *",
+    "email": "Correo electrónico *",
+    "phone": "Teléfono",
+    "address": "Dirección",
+    "website_social": "Sitio web/Enlaces sociales",
+    "select_platform": "Seleccionar plataforma",
+    "industry_category": "Industria/Categoría",
+    "select_industry": "Seleccionar industria",
+    "short_description": "Descripción corta",
+    "logo_image": "Logo/Imagen",
+    "submit_listing": "Enviar listado",
+    "login_required": "Por favor inicia sesión para enviar un listado.",
+    "premium_required": "Se requiere membresía Premium para enviar listados.",
+    "listing_submitted": "¡Listado enviado exitosamente!",
+    "already_submitted": "Ya has completado el formulario.",
+    "social_platforms": {
+      "facebook": "Facebook",
+      "linkedin": "LinkedIn",
+      "twitter": "X(Twitter)",
+      "instagram": "Instagram"
+    },
+    "industries": {
+      "broker": "Corredor",
+      "exchange": "Bolsa",
+      "local_contractors": "Contratistas locales",
+      "project": "Proyecto",
+      "retail": "Comercio minorista",
+      "wholesaler": "Mayorista"
+    }
+  }
 
 
 }

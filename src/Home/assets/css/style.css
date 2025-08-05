@@ -2221,3 +2221,29 @@ width: 150px !important;
   display: inline-block;
   margin: 0 auto;
 }
+
+
+@media screen and (max-width: 890px) {
+#hos2{
+margin-left: -103px;
+
+}
+
+}
+
+
+
+@media screen and (max-width: 811px) {
+  #countercar{
+    background-image: none;
+background-color: #212121 !important;
+border-radius: 20px;
+  }
+
+  #features{
+    border-radius: 20px;
+    margin-top: 30px;
+    padding-top: 30px;
+  }
+  }
+  

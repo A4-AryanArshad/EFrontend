@@ -380,7 +380,40 @@
     "message": "{{message}}",
     "error": "{{error}}"
   },
-  "logout": "Logout"
+  "logout": "Logout",
+  "directory": {
+    "title": "Directory Listing",
+    "submit_company": "Submit Your Company",
+    "company_name": "Company Name *",
+    "email": "Email *",
+    "phone": "Phone",
+    "address": "Address",
+    "website_social": "Website/Social Links",
+    "select_platform": "Select Platform",
+    "industry_category": "Industry/Category",
+    "select_industry": "Select Industry",
+    "short_description": "Short Description",
+    "logo_image": "Logo/Image",
+    "submit_listing": "Submit Listing",
+    "login_required": "Please log in to submit a listing.",
+    "premium_required": "Premium membership required to submit listings.",
+    "listing_submitted": "Listing submitted successfully!",
+    "already_submitted": "You have already filled the form.",
+    "social_platforms": {
+      "facebook": "Facebook",
+      "linkedin": "LinkedIn",
+      "twitter": "X(Twitter)",
+      "instagram": "Instagram"
+    },
+    "industries": {
+      "broker": "Broker",
+      "exchange": "Exchange",
+      "local_contractors": "Local Contractors",
+      "project": "Project",
+      "retail": "Retail",
+      "wholesaler": "Wholesaler"
+    }
+  }
 
 }
 

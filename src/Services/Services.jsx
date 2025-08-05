@@ -314,69 +314,82 @@ const Services = () => {
 
               {/* Category Filter Row - Only show when in category mode */}
               {viewMode === 'category' && (
-                <div id="parenta" ref={alphabetRef} style={{ 
-                  fontSize: 'clamp(16px, 4vw, 32px)', 
+                <div className="category-filter-container" style={{ 
                   margin: '24px 0', 
-                  textAlign: 'center', 
-                  whiteSpace: 'nowrap !important', 
-                  overflowX: 'auto !important', 
                   width: '100%', 
                   padding: '0 20px',
-                  scrollbarWidth: 'thin',
-                  scrollbarColor: '#90be55 #f0f0f0',
-                  minHeight: '50px',
                   display: 'flex',
-                  alignItems: 'center',
                   justifyContent: 'center'
                 }}>
-                  <span id="iparent">
-                    <span
-                      onClick={() => setSelectedCategory(null)}
-                      style={{
-                        cursor: 'pointer',
-                        fontWeight: selectedCategory === null ? 700 : 400,
-                        color: selectedCategory === null ? '#90be55' : '#222',
-                        textDecoration: selectedCategory === null ? 'underline' : 'none',
-                        fontSize: 'clamp(16px, 4vw, 32px)',
-                        transition: 'none',
-                        margin: '0 8px',
-                        whiteSpace: 'nowrap',
-                        display: 'inline-block',
-                        transform: 'none',
-                        scale: 'none'
-                      }}
-                    >
-                      ALL
-                    </span>
-                  </span>
-                  {categories.map((category, idx) => (
-                    <span id="iparent" key={category}>
-                      <span style={{ fontSize: 'clamp(16px, 4vw, 32px)' }}>, </span>
+                  <div className="category-scroll-wrapper" style={{
+                    overflowX: 'auto',
+                    overflowY: 'hidden',
+                    whiteSpace: 'nowrap',
+                    maxWidth: '100%',
+                    scrollbarWidth: 'thin',
+                    scrollbarColor: '#90be55 #f0f0f0',
+                    WebkitOverflowScrolling: 'touch',
+                    padding: '10px 0'
+                  }}>
+                    <div className="category-list" style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      fontSize: 'clamp(14px, 3vw, 24px)',
+                      fontWeight: '500'
+                    }}>
                       <span
-                        onClick={() => setSelectedCategory(category)}
+                        onClick={() => setSelectedCategory(null)}
                         style={{
                           cursor: 'pointer',
-                          fontWeight: selectedCategory === category ? 700 : 400,
-                          color: selectedCategory === category ? '#90be55' : '#222',
-                          textDecoration: selectedCategory === category ? 'underline' : 'none',
-                          fontSize: 'clamp(16px, 4vw, 32px)',
-                          transition: 'none',
-                          margin: '0 8px',
+                          fontWeight: selectedCategory === null ? 700 : 400,
+                          color: selectedCategory === null ? '#90be55' : '#222',
+                          textDecoration: selectedCategory === null ? 'underline' : 'none',
+                          fontSize: 'clamp(14px, 3vw, 24px)',
+                          transition: 'all 0.2s ease',
+                          padding: '4px 8px',
+                          borderRadius: '4px',
                           whiteSpace: 'nowrap',
-                          display: 'inline-block',
-                          transform: 'none',
-                          scale: 'none'
+                          minWidth: 'fit-content'
                         }}
                       >
-                        {category.toUpperCase()}
+                        ALL
                       </span>
-                    </span>
-                  ))}
+                      {categories.map((category, idx) => (
+                        <React.Fragment key={category}>
+                          <span style={{ 
+                            color: '#666', 
+                            fontSize: 'clamp(14px, 3vw, 24px)',
+                            whiteSpace: 'nowrap'
+                          }}>,</span>
+                          <span
+                            onClick={() => setSelectedCategory(category)}
+                            style={{
+                              cursor: 'pointer',
+                              fontWeight: selectedCategory === category ? 700 : 400,
+                              color: selectedCategory === category ? '#90be55' : '#222',
+                              textDecoration: selectedCategory === category ? 'underline' : 'none',
+                              fontSize: 'clamp(14px, 3vw, 24px)',
+                              transition: 'all 0.2s ease',
+                              padding: '4px 8px',
+                              borderRadius: '4px',
+                              whiteSpace: 'nowrap',
+                              minWidth: 'fit-content'
+                            }}
+                          >
+                            {category.toUpperCase()}
+                          </span>
+                        </React.Fragment>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               )}
 
               {/* Directory A-Z Filter Row - Only show when in alphabetical mode */}
               {viewMode === 'alphabetical' && (
+                <div id="uppa">
+                <div id="ppa">
               <div id="parenta" ref={alphabetRef} style={{ fontSize: 32, margin: '24px 0', textAlign: 'center', whiteSpace: 'nowrap', overflowX: 'auto', width: '100%' }}>
                 {alphabet.map((letter, idx) => (
                   <span id="iparent" key={letter}>
@@ -397,61 +410,82 @@ const Services = () => {
                   </span>
                 ))}
               </div>
+              </div>
+              </div>
               )}
               {/* Directory Table */}
-              <div id="ttable" ref={tableRef}>
+  
+              <div id="ttable" ref={tableRef} style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
               {filteredListings.length > 0 ? (
-                <div style={{ maxWidth: 1100, margin: '0 auto', background: '#fff', borderRadius: 24, boxShadow: '0 6px 32px rgba(0,0,0,0.10)', padding: 0, marginTop: 32, overflow: 'hidden' }}>
-                  <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: 0, fontSize: 16 }}>
-                    <thead>
-                      <tr style={{ background: '#f7f7f7', fontWeight: 800 }}>
-                        <th style={{ padding: '16px 0', border: 'none', textAlign: 'center', letterSpacing: 1 }}>COMPANY</th>
-                        <th style={{ padding: '16px 0', border: 'none', textAlign: 'center', letterSpacing: 1 }}>SOCIAL LINK</th>
-                        <th style={{ padding: '16px 0', border: 'none', textAlign: 'center', letterSpacing: 1 }}>EMAIL</th>
-                        <th style={{ padding: '16px 0', border: 'none', textAlign: 'center', letterSpacing: 1 }}>PHONE NUMBER</th>
-                        <th style={{ padding: '16px 0', border: 'none', textAlign: 'center', letterSpacing: 1 }}>CATEGORY</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {filteredListings.length === 0 && (
-                        <tr>
-                          <td colSpan={5} style={{ textAlign: 'center', color: '#888', padding: 24 }}>
-                            {viewMode === 'category' 
-                              ? (selectedCategory ? `No listings for category "${selectedCategory}".` : 'No listings in the directory yet.')
-                              : `No listings for letter "${selectedLetter}".`
-                            }
-                          </td>
+                <div className="table-responsive-container" style={{ 
+                  maxWidth: '1200px', 
+                  width: '100%',
+                  margin: '0 auto', 
+                  background: '#fff', 
+                  borderRadius: 24, 
+                  boxShadow: '0 6px 32px rgba(0,0,0,0.10)', 
+                  padding: 0, 
+                  marginTop: 32, 
+                  overflow: 'hidden'
+                }}>
+                  <div className="table-wrapper" style={{ overflowX: 'auto', width: '100%' }}>
+                    <table className="responsive-table" style={{ 
+                      width: '100%', 
+                      borderCollapse: 'separate', 
+                      borderSpacing: 0, 
+                      fontSize: 16,
+                      minWidth: '800px' // Ensure minimum width for readability
+                    }}>
+                      <thead>
+                        <tr style={{ background: '#f7f7f7', fontWeight: 800 }}>
+                          <th style={{ padding: '16px 12px', border: 'none', textAlign: 'center', letterSpacing: 1, minWidth: '120px' }}>COMPANY</th>
+                          <th style={{ padding: '16px 12px', border: 'none', textAlign: 'center', letterSpacing: 1, minWidth: '120px' }}>SOCIAL LINK</th>
+                          <th style={{ padding: '16px 12px', border: 'none', textAlign: 'center', letterSpacing: 1, minWidth: '180px' }}>EMAIL</th>
+                          <th style={{ padding: '16px 12px', border: 'none', textAlign: 'center', letterSpacing: 1, minWidth: '140px' }}>PHONE NUMBER</th>
+                          <th style={{ padding: '16px 12px', border: 'none', textAlign: 'center', letterSpacing: 1, minWidth: '120px' }}>CATEGORY</th>
                         </tr>
-                      )}
-                      {filteredListings.map((l, i) => {
-                        // Determine package: use listing.package, but if current user matches and has upgraded, use user.package
-                        let effectivePackage = l.package;
-                        if (user && user.email === l.email && user.package && user.package !== l.package) {
-                          effectivePackage = user.package;
-                        }
-                        let style = { fontWeight: 400, color: '#222', textAlign: 'center', background: i % 2 === 0 ? '#fff' : '#fafbfc' };
-                        if (effectivePackage === 'pro') style = { ...style, fontWeight: 700, color: '#27ae60' };
-                        if (effectivePackage === 'premium') style = { ...style, fontWeight: 700, color: '#ff6b57' };
-                        return (
-                          <tr key={i}>
-                            <td style={{ ...style, padding: '14px 0', border: 'none' }}>{l.company}</td>
-                            <td style={{ ...style, padding: '14px 0', border: 'none' }}>
-                              {l.socialType && l.socialLink ? (
-                                <>
-                                  <a href={l.socialLink} target="_blank" rel="noopener noreferrer">
-                                    <button id="tb" style={{ padding: '4px 14px', borderRadius: 8, background: 'transparent', color: '#ff6b57', border: '2px solid #ff6b57', fontWeight: 700, fontSize: 16, cursor: 'pointer', textTransform: 'capitalize' }}>{l.socialType}</button>
-                                  </a>
-                                </>
-                              ) : ''}
+                      </thead>
+                      <tbody>
+                        {filteredListings.length === 0 && (
+                          <tr>
+                            <td colSpan={5} style={{ textAlign: 'center', color: '#888', padding: 24 }}>
+                              {viewMode === 'category' 
+                                ? (selectedCategory ? `No listings for category "${selectedCategory}".` : 'No listings in the directory yet.')
+                                : `No listings for letter "${selectedLetter}".`
+                              }
                             </td>
-                            <td style={{ ...style, padding: '14px 0', border: 'none' }}>{l.email}</td>
-                            <td style={{ ...style, padding: '14px 0', border: 'none' }}>{l.phone}</td>
-                            <td style={{ ...style, padding: '14px 0', border: 'none' }}>{l.industry}</td>
                           </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
+                        )}
+                        {filteredListings.map((l, i) => {
+                          // Determine package: use listing.package, but if current user matches and has upgraded, use user.package
+                          let effectivePackage = l.package;
+                          if (user && user.email === l.email && user.package && user.package !== l.package) {
+                            effectivePackage = user.package;
+                          }
+                          let style = { fontWeight: 400, color: '#222', textAlign: 'center', background: i % 2 === 0 ? '#fff' : '#fafbfc' };
+                          if (effectivePackage === 'pro') style = { ...style, fontWeight: 700, color: '#27ae60' };
+                          if (effectivePackage === 'premium') style = { ...style, fontWeight: 700, color: '#ff6b57' };
+                          return (
+                            <tr key={i}>
+                              <td style={{ ...style, padding: '14px 12px', border: 'none', wordBreak: 'break-word' }}>{l.company}</td>
+                              <td style={{ ...style, padding: '14px 12px', border: 'none' }}>
+                                {l.socialType && l.socialLink ? (
+                                  <>
+                                    <a href={l.socialLink} target="_blank" rel="noopener noreferrer">
+                                      <button id="tb" style={{ padding: '4px 14px', borderRadius: 8, background: 'transparent', color: '#ff6b57', border: '2px solid #ff6b57', fontWeight: 700, fontSize: 16, cursor: 'pointer', textTransform: 'capitalize' }}>{l.socialType}</button>
+                                    </a>
+                                  </>
+                                ) : ''}
+                              </td>
+                              <td style={{ ...style, padding: '14px 12px', border: 'none', wordBreak: 'break-all' }}>{l.email}</td>
+                              <td style={{ ...style, padding: '14px 12px', border: 'none', wordBreak: 'break-word' }}>{l.phone}</td>
+                              <td style={{ ...style, padding: '14px 12px', border: 'none', wordBreak: 'break-word' }}>{l.industry}</td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               ) : directoryListings.length === 0 ? (
                 <div style={{ textAlign: 'center', color: '#aaa', fontSize: 18, marginTop: 40 }}>No companies in the directory yet.</div>

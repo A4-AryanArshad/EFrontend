@@ -5,12 +5,14 @@ import { useApi } from './hooks/useApi';
 import { API_BASE } from './config';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useTranslation } from 'react-i18next';
 import './DirectoryListing.css';
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
 const DirectoryListing = () => {
+  const { t, i18n } = useTranslation();
   const [user, setUser] = useState(null); // { package: 'free'|'pro'|'premium', ... }
   const [listings, setListings] = useState([]);
   
@@ -150,20 +152,21 @@ const DirectoryListing = () => {
   };
 
   const socialOptions = [
-    { value: '', label: 'Select Platform' },
-    { value: 'Facebook', label: 'Facebook' },
-    { value: 'LinkedIn', label: 'Linkedin' },
-    { value: 'Twitter', label: 'X(Twitter)' },
-    { value: 'Instagram', label: 'Instagram' },
+    { value: '', label: t('directory.select_platform') },
+    { value: 'Facebook', label: t('directory.social_platforms.facebook') },
+    { value: 'LinkedIn', label: t('directory.social_platforms.linkedin') },
+    { value: 'Twitter', label: t('directory.social_platforms.twitter') },
+    { value: 'Instagram', label: t('directory.social_platforms.instagram') },
   ];
+  
   const industryOptions = [
-    { value: '', label: 'Select Industry' },
-    { value: 'Broker', label: 'Broker' },
-    { value: 'Exchange', label: 'Exchange' },
-    { value: 'Local Contractors', label: 'Local Contractors' },
-    { value: 'Project', label: 'Project' },
-    { value: 'Retail', label: 'Retail' },
-    { value: 'Wholesaler', label: 'Wholesaler' },
+    { value: '', label: t('directory.select_industry') },
+    { value: 'Broker', label: t('directory.industries.broker') },
+    { value: 'Exchange', label: t('directory.industries.exchange') },
+    { value: 'Local Contractors', label: t('directory.industries.local_contractors') },
+    { value: 'Project', label: t('directory.industries.project') },
+    { value: 'Retail', label: t('directory.industries.retail') },
+    { value: 'Wholesaler', label: t('directory.industries.wholesaler') },
   ];
 
   const handleChange = (e) => {
@@ -183,12 +186,12 @@ const DirectoryListing = () => {
     setSuccess('');
 
     if (!user) {
-      setError('Please log in to submit a listing');
+      setError(t('directory.login_required'));
       return;
     }
 
     if (user.package === 'free') {
-      setError('Premium membership required to submit listings');
+      setError(t('directory.premium_required'));
       return;
     }
 
@@ -213,7 +216,7 @@ const DirectoryListing = () => {
         throw new Error(errorData.message || 'Failed to submit listing');
       }
 
-      setSuccess('Listing submitted successfully!');
+      setSuccess(t('directory.listing_submitted'));
       setForm({
         company: '',
         email: '',
@@ -245,72 +248,72 @@ const DirectoryListing = () => {
   return (
     <>
       <Header />
-      <div style={{ margin:'120px',background: '#fff', minHeight: '100vh', padding: '180px 0 60px 0' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 20px' }}>
-          <h1 ref={titleRef} style={{ textAlign: 'center', marginBottom: 40, color: '#333' }}>Directory Listing</h1>
+      <div className="directory-container">
+        <div className="directory-content">
+          <h1 ref={titleRef} className="directory-title">{t('directory.title')}</h1>
           
-          {error && <div ref={errorRef} style={{ color: 'red', textAlign: 'center', marginBottom: 20 }}>{error}</div>}
-          {success && <div ref={successRef} style={{ color: 'green', textAlign: 'center', marginBottom: 20 }}>{success}</div>}
+          {error && <div ref={errorRef} className="error-message">{error}</div>}
+          {success && <div ref={successRef} className="success-message">{success}</div>}
 
           {user && user.package !== 'free' ? (
-            <div ref={formRef} style={{ background: '#f9f9f9', padding: 30, borderRadius: 10, marginBottom: 40 }}>
-              <h2 style={{ marginBottom: 20, color: '#333' }}>Submit Your Company</h2>
-              <form onSubmit={handleSubmit} style={{ display: 'grid', gap: 15 }}>
-                <div>
-                  <label style={{ display: 'block', marginBottom: 5, fontWeight: 'bold' }}>Company Name *</label>
+            <div ref={formRef} className="directory-form-container">
+              <h2 className="form-title">{t('directory.submit_company')}</h2>
+              <form onSubmit={handleSubmit} className="directory-form">
+                <div className="form-group">
+                  <label className="form-label">{t('directory.company_name')}</label>
                   <input
                     type="text"
                     name="company"
                     value={form.company}
                     onChange={handleChange}
                     required
-                    style={{ width: '100%', padding: 10, border: '1px solid #ddd', borderRadius: 5 }}
+                    className="form-input"
                   />
                 </div>
                 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 15 }}>
-                  <div>
-                    <label style={{ display: 'block', marginBottom: 5, fontWeight: 'bold' }}>Email *</label>
+                <div className="form-row">
+                  <div className="form-group">
+                    <label className="form-label">{t('directory.email')}</label>
                     <input
                       type="email"
                       name="email"
                       value={form.email}
                       onChange={handleChange}
                       required
-                      style={{ width: '100%', padding: 10, border: '1px solid #ddd', borderRadius: 5 }}
+                      className="form-input"
                     />
                   </div>
-                  <div>
-                    <label style={{ display: 'block', marginBottom: 5, fontWeight: 'bold' }}>Phone</label>
+                  <div className="form-group">
+                    <label className="form-label">{t('directory.phone')}</label>
                     <input
                       type="tel"
                       name="phone"
                       value={form.phone}
                       onChange={handleChange}
-                      style={{ width: '100%', padding: 10, border: '1px solid #ddd', borderRadius: 5 }}
+                      className="form-input"
                     />
                   </div>
                 </div>
                 
-                <div>
-                  <label style={{ display: 'block', marginBottom: 5, fontWeight: 'bold' }}>Address</label>
+                <div className="form-group">
+                  <label className="form-label">{t('directory.address')}</label>
                   <input
                     type="text"
                     name="address"
                     value={form.address}
                     onChange={handleChange}
-                    style={{ width: '100%', padding: 10, border: '1px solid #ddd', borderRadius: 5 }}
+                    className="form-input"
                   />
                 </div>
                 
-                <div>
-                  <label style={{ display: 'block', marginBottom: 5, fontWeight: 'bold' }}>Website/Social Links</label>
-                  <div style={{ display: 'flex', gap: 10 }}>
+                <div className="form-group">
+                  <label className="form-label">{t('directory.website_social')}</label>
+                  <div className="social-links-container">
                     <select
                       name="socialType"
                       value={form.socialType}
                       onChange={handleChange}
-                      style={{ padding: 10, border: '1px solid #ddd', borderRadius: 5 }}
+                      className="form-select social-select"
                       required
                     >
                       {socialOptions.map(opt => (
@@ -323,19 +326,20 @@ const DirectoryListing = () => {
                       value={form.socialLink}
                       onChange={handleChange}
                       placeholder="https://example.com"
-                      style={{ flex: 1, padding: 10, border: '1px solid #ddd', borderRadius: 5 }}
+                      className="form-input social-input"
                       required={!!form.socialType}
                       disabled={!form.socialType}
                     />
                   </div>
                 </div>
-                <div>
-                  <label style={{ display: 'block', marginBottom: 5, fontWeight: 'bold' }}>Industry/Category</label>
+                
+                <div className="form-group">
+                  <label className="form-label">{t('directory.industry_category')}</label>
                   <select
                     name="industry"
                     value={form.industry}
                     onChange={handleChange}
-                    style={{ width: '100%', padding: 10, border: '1px solid #ddd', borderRadius: 5 }}
+                    className="form-select"
                     required
                   >
                     {industryOptions.map(opt => (
@@ -344,26 +348,26 @@ const DirectoryListing = () => {
                   </select>
                 </div>
                 
-                <div>
-                  <label style={{ display: 'block', marginBottom: 5, fontWeight: 'bold' }}>Short Description</label>
+                <div className="form-group">
+                  <label className="form-label">{t('directory.short_description')}</label>
                   <textarea
                     name="description"
                     value={form.description}
                     onChange={handleChange}
                     rows="4"
-                    style={{ width: '100%', padding: 10, border: '1px solid #ddd', borderRadius: 5, resize: 'vertical' }}
+                    className="form-textarea"
                   />
                 </div>
                 
                 {user.package === 'premium' && (
-                  <div>
-                    <label style={{ display: 'block', marginBottom: 5, fontWeight: 'bold' }}>Logo/Image</label>
+                  <div className="form-group">
+                    <label className="form-label">{t('directory.logo_image')}</label>
                     <input
                       type="file"
                       name="image"
                       onChange={handleChange}
                       accept="image/*"
-                      style={{ width: '100%', padding: 10, border: '1px solid #ddd', borderRadius: 5 }}
+                      className="form-file-input"
                     />
                   </div>
                 )}
@@ -371,25 +375,16 @@ const DirectoryListing = () => {
                 <button
                   ref={submitButtonRef}
                   type="submit"
-                  style={{
-                    background: '#90be55',
-                    color: 'white',
-                    border: 'none',
-                    padding: '12px 24px',
-                    borderRadius: 5,
-                    cursor: 'pointer',
-                    fontSize: 16,
-                    fontWeight: 'bold'
-                  }}
+                  className="submit-button"
                 >
-                  Submit Listing
+                  {t('directory.submit_listing')}
                 </button>
               </form>
             </div>
           ) : (
-            <div style={{ textAlign: 'center', marginBottom: 40 }}>
-              <p style={{ color: '#666', fontSize: 18 }}>
-                {!user ? 'Please log in to submit a listing.' : 'Premium membership required to submit listings.'}
+            <div className="login-prompt">
+              <p className="prompt-text">
+                {!user ? t('directory.login_required') : t('directory.premium_required')}
               </p>
             </div>
           )}
