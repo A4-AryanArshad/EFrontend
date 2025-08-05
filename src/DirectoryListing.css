@@ -215,30 +215,35 @@
 /* Small screens (phones) */
 @media (max-width: 576px) {
   .directory-container {
-    padding: 100px 10px 40px 10px;
-  
+    padding: 80px 10px 40px 10px;
+    margin-top: 80px;
   }
   
   .directory-content {
     padding: 0 10px;
+    max-width: 100%;
   }
   
   .directory-title {
-    font-size: 2rem;
-    margin-bottom: 30px;
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    padding: 0 10px;
   }
   
   .directory-form-container {
-    padding: 20px;
-    margin-bottom: 30px;
+    padding: 20px 15px;
+    margin-bottom: 25px;
+    border-radius: 10px;
   }
   
   .form-title {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
   }
   
   .directory-form {
     gap: 15px;
+    margin-top: 15px;
   }
   
   .form-row {
@@ -263,27 +268,39 @@
   .form-select,
   .form-textarea,
   .form-file-input {
-    padding: 10px;
+    padding: 12px;
     font-size: 16px; /* Prevents zoom on iOS */
+    border-radius: 8px;
   }
   
   .submit-button {
-    padding: 12px 24px;
+    padding: 15px 20px;
     font-size: 1rem;
+    border-radius: 8px;
+    margin-top: 15px;
   }
   
   .error-message,
   .success-message {
-    padding: 10px;
+    padding: 12px;
     font-size: 0.9rem;
+    margin-bottom: 15px;
   }
   
   .login-prompt {
-    padding: 20px;
+    padding: 20px 15px;
+    border-radius: 10px;
+    margin-bottom: 25px;
   }
   
   .prompt-text {
     font-size: 1rem;
+    line-height: 1.4;
+  }
+  
+  .form-label {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
   }
 }
 

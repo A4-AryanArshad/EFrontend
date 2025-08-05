@@ -44,6 +44,47 @@ const DirectoryListing = () => {
     fetchListings();
   }, []);
 
+  // Listen for authentication state changes
+  useEffect(() => {
+    const checkAuthState = () => {
+      const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+      if (!isLoggedIn && user) {
+        setUser(null);
+      } else if (isLoggedIn && !user) {
+        fetchUser();
+      }
+    };
+
+    // Check immediately
+    checkAuthState();
+
+    // For mobile: check more frequently and on visibility change
+    const interval = setInterval(checkAuthState, 1000);
+    
+    // Listen for storage changes (when user logs in/out in another tab)
+    window.addEventListener('storage', checkAuthState);
+    
+    // Listen for custom login/logout events
+    window.addEventListener('userLoggedIn', fetchUser);
+    window.addEventListener('userLoggedOut', () => setUser(null));
+    
+    // Mobile-specific: check on page visibility change
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        checkAuthState();
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('storage', checkAuthState);
+      window.removeEventListener('userLoggedIn', fetchUser);
+      window.removeEventListener('userLoggedOut', () => setUser(null));
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [user]);
+
   useEffect(() => {
     // Initialize animations
     initializeAnimations();
@@ -134,6 +175,13 @@ const DirectoryListing = () => {
   };
 
   const fetchUser = async () => {
+    // First check if user is logged in from localStorage
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    if (!isLoggedIn) {
+      setUser(null);
+      return;
+    }
+
     try {
       const data = await get(`${API_BASE}/api/me`, 'Loading user info...');
       setUser({ ...data, package: (data.package || '').toLowerCase().replace(' plan', '').trim() });
@@ -185,12 +233,15 @@ const DirectoryListing = () => {
     setError('');
     setSuccess('');
 
-    if (!user) {
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    const userPackage = localStorage.getItem('package');
+    
+    if (!isLoggedIn) {
       setError(t('directory.login_required'));
       return;
     }
 
-    if (user.package === 'free') {
+    if (userPackage === 'free') {
       setError(t('directory.premium_required'));
       return;
     }
@@ -255,7 +306,7 @@ const DirectoryListing = () => {
           {error && <div ref={errorRef} className="error-message">{error}</div>}
           {success && <div ref={successRef} className="success-message">{success}</div>}
 
-          {user && user.package !== 'free' ? (
+          {(user && user.package !== 'free') || (localStorage.getItem('isLoggedIn') === 'true' && localStorage.getItem('package') && localStorage.getItem('package') !== 'free') ? (
             <div ref={formRef} className="directory-form-container">
               <h2 className="form-title">{t('directory.submit_company')}</h2>
               <form onSubmit={handleSubmit} className="directory-form">
