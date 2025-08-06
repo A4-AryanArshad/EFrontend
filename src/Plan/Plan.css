@@ -614,3 +614,13 @@ margin-left: 110px;
     margin: 70px;
 }
 }
+
+
+@media screen and (max-width: 402px) {
+
+#Perks{
+    display: none !important;
+}
+
+}
+

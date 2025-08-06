@@ -277,13 +277,34 @@
       "last_name": "Last Name",
       "email": "Email",
       "password": "Password",
-      "submit": "Sign Up"
+      "submit": "Sign Up",
+      "already_have_account": "Already have an account?",
+      "log_in_now": "Log in now"
     },
     "login": {
       "title": "Login",
       "email": "Email",
       "password": "Password",
-      "submit": "Login"
+      "submit": "Login",
+      "not_member": "Not a member?",
+      "sign_up_now": "Sign up now",
+      "forgot_password": "Forgot password?",
+      "already_have_account": "Already have an account?",
+      "log_in_now": "Log in now",
+      "forgot_password_title": "Forgot Password",
+      "forgot_password_message": "Enter your email address and we'll send you a link to reset your password.",
+      "reset_password_title": "Reset Your Password",
+      "reset_password_message": "Enter your new password below",
+      "new_password": "New Password",
+      "confirm_password": "Confirm Password",
+      "reset_password": "Reset Password",
+      "resetting_password": "Resetting Password...",
+      "password_reset_success": "Password reset successfully! Redirecting to login...",
+      "password_reset_error": "Failed to reset password. Please try again.",
+      "invalid_reset_link": "Invalid reset link. Please request a new password reset.",
+      "back_to_login": "Back to Login",
+      "reset_email_sent": "If that email exists, a reset link has been sent.",
+      "reset_email_error": "Error sending reset email."
     },
     "counter": {
   "heading": "Real-Time Global Carbon Impact",
@@ -380,7 +401,11 @@
     "message": "{{message}}",
     "error": "{{error}}"
   },
-  "logout": "Logout"
+  "logout": "Logout",
+  "directory": {
+    "desktop_only": "Desktop Only",
+    "desktop_message": "For the best experience, please access the directory page on a desktop or laptop computer. Mobile support is coming soon!"
+  }
 
 }
 

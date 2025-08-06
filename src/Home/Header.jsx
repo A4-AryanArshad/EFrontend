@@ -87,7 +87,7 @@ const Header = () => {
       <header id="hhw" className="header">
         <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <h1>
-            <a href="#" className="logo"><img id="logoo" src="Logo.png"  /></a>
+            <a href="#" className="logo"><img id="logoo" src="/Logo.png"  /></a>
           </h1>
 
           {/* Language Dropdown */}

@@ -2055,16 +2055,57 @@ body {
 
 @media screen and (max-width: 784px) {
   #logoo{
-    height: 130px;
+    height: 60px;
   }
 
 }
 
 @media screen and (max-width: 662px) {
   #logoo{
-    height: 100px;
+    height: 45px;
   }
 
+}
+
+@media screen and (max-width: 480px) {
+  #logoo{
+    height: 35px;
+  }
+
+}
+
+@media screen and (max-width: 360px) {
+  #logoo{
+    height: 30px;
+  }
+
+}
+
+/* Mobile navbar height reductions */
+@media screen and (max-width: 784px) {
+  .header {
+    padding-block: 15px !important;
+    height: 180px !important;
+
+  }
+}
+
+@media screen and (max-width: 662px) {
+  .header {
+    padding-block: 12px !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .header {
+    padding-block: 10px !important;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .header {
+    padding-block: 8px !important;
+  }
 }
 
 #wqeq{
@@ -2247,3 +2288,27 @@ border-radius: 20px;
   }
   }
   
+
+  @media screen and (max-width: 388px) {
+
+
+    #counter{
+      display: none;
+    }
+
+    #home{
+height: 100%;
+padding-bottom: 400px;
+    }
+
+
+
+  }
+
+  @media screen and (max-width: 388px) {
+  .card-meta-list{
+    display: none;
+  }
+
+
+}

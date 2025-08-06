@@ -34,6 +34,7 @@ import AdminAddInstructor from './AdminAddInstructor';
 import Slots from './Slots';
 import GSAPProvider from './components/GSAPProvider';
 import IPhoneTest from './components/IPhoneTest';
+import ResetPassword from './ResetPassword';
 
 function SuccessRedirect() {
   useEffect(() => {
@@ -141,6 +142,7 @@ function AppContent() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/cancel" element={<CancelRedirect />} />
           <Route path="/iphone-test" element={<IPhoneTest />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/admin/add-instructor" element={<AdminRoute><AdminAddInstructor /></AdminRoute>} />
           <Route path="/slots" element={<Slots />} />
 

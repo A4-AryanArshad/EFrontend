@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import Header from '../Home/Header';
 import Footer2 from '../Home/Footer2';
 import { useApi } from '../hooks/useApi';
+import '../Login/Login.css';
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -29,6 +30,8 @@ const Signup = () => {
     setSuccess('');
   };
 
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -49,32 +52,41 @@ const Signup = () => {
         <Header />
 
         <div id="uuy">
-          <form id="form" onSubmit={handleSubmit}>
+          <form id="form" onSubmit={handleSubmit} autoComplete="off">
             <h2>{t("signup.title")}</h2>
             {error && <div style={{ color: 'red', marginBottom: '10px', textAlign: 'center' }}>{error}</div>}
             {success && <div style={{ color: 'green', marginBottom: '10px', textAlign: 'center' }}>{success}</div>}
             <div id="ineerf">
               <span>{t("signup.first_name")} :</span>
-              <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} required />
+              <input type="text" name="firstName" value={formData.firstName} onChange={handleChange} required autoComplete="off" />
             </div>
 
             <div id="ineerf">
               <span>{t("signup.last_name")} :</span>
-              <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} required />
+              <input type="text" name="lastName" value={formData.lastName} onChange={handleChange} required autoComplete="off" />
             </div>
 
             <div id="ineerf">
               <span>{t("signup.email")} :</span>
-              <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+              <input type="email" name="email" value={formData.email} onChange={handleChange} required autoComplete="off" />
             </div>
 
             <div id="ineerf">
               <span>{t("signup.password")} :</span>
-              <input type="password" name="password" value={formData.password} onChange={handleChange} required />
+              <input type="password" name="password" value={formData.password} onChange={handleChange} required autoComplete="off" />
             </div>
 
             <button type="submit">{t("signup.submit")}</button>
+            <div style={{ textAlign: 'center', marginTop: 32 }}>
+            <span style={{ color: 'white', fontSize: 16 }}>
+              {t('signup.already_have_account')} {' '}
+              <Link to="/login" style={{ color: 'white', textDecoration: 'underline', fontWeight: 500 }}>
+                {t('signup.log_in_now')}
+              </Link>
+            </span>
+          </div>
           </form>
+       
         </div>
       </div>
       <Footer2 />

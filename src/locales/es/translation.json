@@ -278,14 +278,35 @@
   "last_name": "Apellido",
   "email": "Correo electrónico",
   "password": "Contraseña",
-  "submit": "Registrarse"
+  "submit": "Registrarse",
+  "already_have_account": "¿Ya tienes una cuenta?",
+  "log_in_now": "Inicia sesión ahora"
 },
-"login": {
-  "title": "Iniciar sesión",
-  "email": "Correo electrónico",
-  "password": "Contraseña",
-  "submit": "Iniciar sesión"
-},
+    "login": {
+      "title": "Iniciar sesión",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "submit": "Iniciar sesión",
+      "not_member": "¿No eres miembro?",
+      "sign_up_now": "Regístrate ahora",
+      "forgot_password": "¿Olvidaste tu contraseña?",
+      "already_have_account": "¿Ya tienes una cuenta?",
+      "log_in_now": "Inicia sesión ahora",
+      "forgot_password_title": "Olvidaste tu contraseña",
+      "forgot_password_message": "Ingresa tu dirección de correo electrónico y te enviaremos un enlace para restablecer tu contraseña.",
+      "reset_password_title": "Restablece tu contraseña",
+      "reset_password_message": "Ingresa tu nueva contraseña a continuación",
+      "new_password": "Nueva contraseña",
+      "confirm_password": "Confirmar contraseña",
+      "reset_password": "Restablecer contraseña",
+      "resetting_password": "Restableciendo contraseña...",
+      "password_reset_success": "¡Contraseña restablecida exitosamente! Redirigiendo al inicio de sesión...",
+      "password_reset_error": "Error al restablecer la contraseña. Por favor, inténtalo de nuevo.",
+      "invalid_reset_link": "Enlace de restablecimiento inválido. Por favor, solicita un nuevo restablecimiento de contraseña.",
+      "back_to_login": "Volver al inicio de sesión",
+      "reset_email_sent": "Si ese correo electrónico existe, se ha enviado un enlace de restablecimiento.",
+      "reset_email_error": "Error al enviar el correo de restablecimiento."
+    },
 "counter": {
   "heading": "Impacto global de carbono en tiempo real",
   "since": "Desde",
@@ -381,7 +402,11 @@
     "message": "{{message}}",
     "error": "{{error}}"
   },
-  "logout": "Cerrar sesión"
+  "logout": "Cerrar sesión",
+  "directory": {
+    "desktop_only": "Solo Escritorio",
+    "desktop_message": "Para la mejor experiencia, por favor accede a la página del directorio en una computadora de escritorio o portátil. ¡El soporte móvil llegará pronto!"
+  }
 
 
 }

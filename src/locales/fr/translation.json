@@ -278,13 +278,34 @@
   "last_name": "Nom de famille",
   "email": "Email",
   "password": "Mot de passe",
-  "submit": "S'inscrire"
+  "submit": "S'inscrire",
+  "already_have_account": "Vous avez déjà un compte ?",
+  "log_in_now": "Connectez-vous maintenant"
 },
 "login": {
   "title": "Connexion",
   "email": "Email",
   "password": "Mot de passe",
-  "submit": "Connexion"
+  "submit": "Connexion",
+  "not_member": "Pas encore membre ?",
+  "sign_up_now": "Inscrivez-vous maintenant",
+  "forgot_password": "Mot de passe oublié ?",
+  "already_have_account": "Vous avez déjà un compte ?",
+  "log_in_now": "Connectez-vous maintenant",
+  "forgot_password_title": "Mot de passe oublié",
+  "forgot_password_message": "Entrez votre adresse e-mail et nous vous enverrons un lien pour réinitialiser votre mot de passe.",
+  "reset_password_title": "Réinitialisez votre mot de passe",
+  "reset_password_message": "Entrez votre nouveau mot de passe ci-dessous",
+  "new_password": "Nouveau mot de passe",
+  "confirm_password": "Confirmer le mot de passe",
+  "reset_password": "Réinitialiser le mot de passe",
+  "resetting_password": "Réinitialisation du mot de passe...",
+  "password_reset_success": "Mot de passe réinitialisé avec succès ! Redirection vers la connexion...",
+  "password_reset_error": "Échec de la réinitialisation du mot de passe. Veuillez réessayer.",
+  "invalid_reset_link": "Lien de réinitialisation invalide. Veuillez demander une nouvelle réinitialisation de mot de passe.",
+  "back_to_login": "Retour à la connexion",
+  "reset_email_sent": "Si cet e-mail existe, un lien de réinitialisation a été envoyé.",
+  "reset_email_error": "Erreur lors de l'envoi de l'e-mail de réinitialisation."
 },
 "counter": {
   "heading": "Impact carbone mondial en temps réel",
@@ -381,7 +402,11 @@
   "message": "{{message}}",
   "error": "{{error}}"
 },
-"logout": "Déconnexion"
+  "logout": "Déconnexion",
+  "directory": {
+    "desktop_only": "Ordinateur Seulement",
+    "desktop_message": "Pour une meilleure expérience, veuillez accéder à la page du répertoire sur un ordinateur de bureau ou portable. La prise en charge mobile arrive bientôt !"
+  }
 
 
 }
