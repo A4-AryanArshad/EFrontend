@@ -7,13 +7,27 @@ export const useApi = () => {
     try {
       startLoading(loadingMessage);
       
+      // Check if we're on iPhone Safari and add fallback headers
+      const isIPhone = /iPad|iPhone|iPod/.test(navigator.userAgent);
+      const isSafari = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
+      
+      const headers = {
+        'Content-Type': 'application/json',
+        ...options.headers,
+      };
+      
+      // Add fallback token for iPhone Safari if cookies fail
+      if (isIPhone && isSafari) {
+        const fallbackToken = localStorage.getItem('fallbackToken');
+        if (fallbackToken) {
+          headers['Authorization'] = `Bearer ${fallbackToken}`;
+        }
+      }
+      
       const response = await fetch(url, {
         credentials: 'include', // Always include cookies
         ...options,
-        headers: {
-          'Content-Type': 'application/json',
-          ...options.headers,
-        },
+        headers,
       });
 
       const data = await response.json();

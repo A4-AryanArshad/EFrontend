@@ -38,6 +38,14 @@ const DirectoryListing = () => {
   const { get, post } = useApi();
 
   useEffect(() => {
+    // Check if we're on iPhone Safari and handle accordingly
+    const isIPhone = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    const isSafari = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
+    
+    if (isIPhone && isSafari) {
+      console.log('iPhone Safari detected - using fallback authentication');
+    }
+    
     fetchUser();
     fetchListings();
   }, []);
@@ -135,7 +143,8 @@ const DirectoryListing = () => {
     try {
       const data = await get(`${API_BASE}/api/me`, 'Loading user info...');
       setUser({ ...data, package: (data.package || '').toLowerCase().replace(' plan', '').trim() });
-    } catch {
+    } catch (err) {
+      console.log('User fetch error:', err);
       setUser(null);
     }
   };
@@ -144,7 +153,8 @@ const DirectoryListing = () => {
     try {
       const data = await get(`${API_BASE}/api/directory`, 'Loading directory listings...');
       setListings(data);
-    } catch {
+    } catch (err) {
+      console.log('Listings fetch error:', err);
       setListings([]);
     }
   };

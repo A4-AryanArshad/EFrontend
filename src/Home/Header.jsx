@@ -75,6 +75,7 @@ const Header = () => {
     localStorage.removeItem('package');
     localStorage.removeItem('hasCourse');
     localStorage.removeItem('purchasedPackage');
+    localStorage.removeItem('fallbackToken'); // Clear fallback token
     setIsLoggedIn(false);
     setHasCourse(false);
     setUserPackage('');

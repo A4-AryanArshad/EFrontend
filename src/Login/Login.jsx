@@ -39,6 +39,11 @@ const Login = () => {
         localStorage.setItem('instructorEmail', formData.email); // Save instructor email
         localStorage.setItem('userEmail', formData.email); // Save user email for booking
         localStorage.setItem('userId', instructorRes.instructorId); // Store instructorId as userId for slot page
+        
+        // Store fallback token for iPhone Safari
+        if (instructorRes.token) {
+          localStorage.setItem('fallbackToken', instructorRes.token);
+        }
 
         localStorage.setItem('instructorEmail', formData.email);
         localStorage.setItem('userEmail', formData.email);
@@ -60,6 +65,11 @@ const Login = () => {
 
       const normalizedPackage = (data.package || "free").toLowerCase().replace(" plan", "").trim();
       localStorage.setItem("package", normalizedPackage);
+      
+      // Store fallback token for iPhone Safari
+      if (data.token) {
+        localStorage.setItem('fallbackToken', data.token);
+      }
 
       if (formData.email === "admin1234@gmail.com" && formData.password === "admin1234") {
         setSuccess("Admin login successful!");
