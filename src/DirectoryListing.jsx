@@ -5,6 +5,7 @@ import { useApi } from './hooks/useApi';
 import { API_BASE } from './config';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { setupIPhoneDetection, isIPhoneSafari, getAuthHeaders } from './utils/iphoneFix';
 import './DirectoryListing.css';
 
 // Register GSAP plugins
@@ -38,11 +39,10 @@ const DirectoryListing = () => {
   const { get, post } = useApi();
 
   useEffect(() => {
-    // Check if we're on iPhone Safari and handle accordingly
-    const isIPhone = /iPad|iPhone|iPod/.test(navigator.userAgent);
-    const isSafari = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
+    // Setup iPhone Safari detection and fixes
+    setupIPhoneDetection();
     
-    if (isIPhone && isSafari) {
+    if (isIPhoneSafari()) {
       console.log('iPhone Safari detected - using fallback authentication');
     }
     
@@ -151,7 +151,30 @@ const DirectoryListing = () => {
 
   const fetchListings = async () => {
     try {
-      const data = await get(`${API_BASE}/api/directory`, 'Loading directory listings...');
+      let data;
+      
+      // For iPhone Safari, try the special endpoint first
+      if (isIPhoneSafari()) {
+        try {
+          const response = await fetch(`${API_BASE}/api/directory/iphone-access`, {
+            credentials: 'include',
+            headers: getAuthHeaders(),
+          });
+          
+          if (response.ok) {
+            const result = await response.json();
+            data = result.listings;
+          } else {
+            throw new Error('iPhone endpoint failed');
+          }
+        } catch (iphoneError) {
+          console.log('iPhone endpoint failed, trying regular endpoint:', iphoneError);
+          data = await get(`${API_BASE}/api/directory`, 'Loading directory listings...');
+        }
+      } else {
+        data = await get(`${API_BASE}/api/directory`, 'Loading directory listings...');
+      }
+      
       setListings(data);
     } catch (err) {
       console.log('Listings fetch error:', err);

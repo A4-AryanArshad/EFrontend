@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import './i18n'; // 👈 import your i18n setup
 import { useEffect } from 'react';
 import { API_BASE_URL } from './config';
+import { setupIPhoneDetection } from './utils/iphoneFix';
 
 import Header from "./Home/Header";
 import Login from "./Login/Login";
@@ -32,6 +33,7 @@ import Contact from './Contact';
 import AdminAddInstructor from './AdminAddInstructor';
 import Slots from './Slots';
 import GSAPProvider from './components/GSAPProvider';
+import IPhoneTest from './components/IPhoneTest';
 
 function SuccessRedirect() {
   useEffect(() => {
@@ -102,6 +104,11 @@ function AppContent() {
   const { i18n } = useTranslation();
   const { isLoading, loadingMessage } = useLoading();
 
+  // Setup iPhone Safari detection on app startup
+  useEffect(() => {
+    setupIPhoneDetection();
+  }, []);
+
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
   };
@@ -129,6 +136,7 @@ function AppContent() {
           <Route path="/directory" element={<DirectoryListing />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/cancel" element={<CancelRedirect />} />
+          <Route path="/iphone-test" element={<IPhoneTest />} />
           <Route path="/admin/add-instructor" element={<AdminRoute><AdminAddInstructor /></AdminRoute>} />
           <Route path="/slots" element={<Slots />} />
 

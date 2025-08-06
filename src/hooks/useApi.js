@@ -1,4 +1,5 @@
 import { useLoading } from '../LoadingContext';
+import { isIPhoneSafari, createIPhoneSafeRequest, handleIPhoneError } from '../utils/iphoneFix';
 
 export const useApi = () => {
   const { startLoading, stopLoading } = useLoading();
@@ -7,28 +8,9 @@ export const useApi = () => {
     try {
       startLoading(loadingMessage);
       
-      // Check if we're on iPhone Safari and add fallback headers
-      const isIPhone = /iPad|iPhone|iPod/.test(navigator.userAgent);
-      const isSafari = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
+      const { options: requestOptions } = createIPhoneSafeRequest(url, options);
       
-      const headers = {
-        'Content-Type': 'application/json',
-        ...options.headers,
-      };
-      
-      // Add fallback token for iPhone Safari if cookies fail
-      if (isIPhone && isSafari) {
-        const fallbackToken = localStorage.getItem('fallbackToken');
-        if (fallbackToken) {
-          headers['Authorization'] = `Bearer ${fallbackToken}`;
-        }
-      }
-      
-      const response = await fetch(url, {
-        credentials: 'include', // Always include cookies
-        ...options,
-        headers,
-      });
+      const response = await fetch(url, requestOptions);
 
       const data = await response.json();
       
@@ -39,6 +21,39 @@ export const useApi = () => {
       return data;
     } catch (error) {
       console.error('API Error:', error);
+      
+      // Handle iPhone Safari specific errors
+      if (handleIPhoneError(error)) {
+        // Retry with fallback token
+        try {
+          const fallbackToken = localStorage.getItem('fallbackToken');
+          if (fallbackToken) {
+            const retryOptions = {
+              ...options,
+              headers: {
+                ...options.headers,
+                'Authorization': `Bearer ${fallbackToken}`,
+                'Content-Type': 'application/json',
+              }
+            };
+            
+            const retryResponse = await fetch(url, {
+              ...retryOptions,
+              credentials: 'include',
+            });
+            
+            const retryData = await retryResponse.json();
+            if (!retryResponse.ok) {
+              throw new Error(retryData.message || 'Something went wrong');
+            }
+            
+            return retryData;
+          }
+        } catch (retryError) {
+          console.error('Retry failed:', retryError);
+        }
+      }
+      
       throw error;
     } finally {
       stopLoading();
