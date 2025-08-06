@@ -140,6 +140,13 @@ const DirectoryListing = () => {
   };
 
   const fetchUser = async () => {
+    // For iPhone Safari, skip user authentication and allow public access
+    if (isIPhoneSafari()) {
+      console.log('iPhone Safari detected - allowing public access to directory');
+      setUser({ package: 'public' }); // Set a special package for iPhone users
+      return;
+    }
+    
     try {
       const data = await get(`${API_BASE}/api/me`, 'Loading user info...');
       setUser({ ...data, package: (data.package || '').toLowerCase().replace(' plan', '').trim() });
@@ -215,6 +222,12 @@ const DirectoryListing = () => {
     setError('');
     setSuccess('');
 
+    // For iPhone Safari, show a message to use desktop for submissions
+    if (isIPhoneSafari()) {
+      setError('Please use a desktop computer to submit listings. Directory viewing is available on mobile.');
+      return;
+    }
+
     if (!user) {
       setError('Please log in to submit a listing');
       return;
@@ -282,10 +295,26 @@ const DirectoryListing = () => {
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 20px' }}>
           <h1 ref={titleRef} style={{ textAlign: 'center', marginBottom: 40, color: '#333' }}>Directory Listing</h1>
           
+          {isIPhoneSafari() && (
+            <div style={{ 
+              background: '#e3f2fd', 
+              padding: '15px', 
+              borderRadius: '8px', 
+              marginBottom: '20px',
+              border: '1px solid #2196f3',
+              textAlign: 'center'
+            }}>
+              <p style={{ margin: 0, color: '#1976d2', fontSize: '14px' }}>
+                📱 <strong>Mobile View:</strong> Directory listings are viewable on mobile. 
+                To submit your company listing, please use a desktop computer.
+              </p>
+            </div>
+          )}
+          
           {error && <div ref={errorRef} style={{ color: 'red', textAlign: 'center', marginBottom: 20 }}>{error}</div>}
           {success && <div ref={successRef} style={{ color: 'green', textAlign: 'center', marginBottom: 20 }}>{success}</div>}
 
-          {user && user.package !== 'free' ? (
+          {user && user.package !== 'free' && !isIPhoneSafari() ? (
             <div ref={formRef} style={{ background: '#f9f9f9', padding: 30, borderRadius: 10, marginBottom: 40 }}>
               <h2 style={{ marginBottom: 20, color: '#333' }}>Submit Your Company</h2>
               <form onSubmit={handleSubmit} style={{ display: 'grid', gap: 15 }}>
@@ -422,7 +451,10 @@ const DirectoryListing = () => {
           ) : (
             <div style={{ textAlign: 'center', marginBottom: 40 }}>
               <p style={{ color: '#666', fontSize: 18 }}>
-                {!user ? 'Please log in to submit a listing.' : 'Premium membership required to submit listings.'}
+                {isIPhoneSafari() 
+                  ? 'Directory viewing available on mobile. Please use desktop to submit listings.' 
+                  : (!user ? 'Please log in to submit a listing.' : 'Premium membership required to submit listings.')
+                }
               </p>
             </div>
           )}
