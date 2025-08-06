@@ -4,15 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import "./Login.css";
 import Footer2 from '../Home/Footer2';
 import { useTranslation } from 'react-i18next';
-import { useApi } from '../hooks/useApi';
 
 const Login = () => {
   const { t } = useTranslation();
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const { post } = useApi();
 
   const handleChange = (e) => {
     setFormData({ 
@@ -27,10 +26,30 @@ const Login = () => {
     e.preventDefault();
     setError('');
     setSuccess('');
+    setIsLoading(true);
+
+    // Use direct fetch for login to avoid iPhone Safari interference
+    const makeLoginRequest = async (url, data) => {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify(data),
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Login failed');
+      }
+      
+      return response.json();
+    };
 
     // First, check if instructor
     try {
-      const instructorRes = await post('https://e-back-bice.vercel.app/api/instructor-login', formData, 'Logging in...');
+      const instructorRes = await makeLoginRequest('https://e-back-bice.vercel.app/api/instructor-login', formData);
       if (instructorRes && instructorRes.isInstructor) {
         setSuccess('Instructor login successful!');
         localStorage.setItem('isInstructor', 'true');
@@ -57,7 +76,7 @@ const Login = () => {
     }
 
     try {
-      const data = await post('https://e-back-bice.vercel.app/api/login', formData, 'Logging in...');
+      const data = await makeLoginRequest('https://e-back-bice.vercel.app/api/login', formData);
 
       localStorage.setItem('userId', data.userId); // Store userId for booking
 
@@ -87,6 +106,8 @@ const Login = () => {
     } catch (err) {
       console.error(err);
       setError(err.message || 'Error logging in.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -107,7 +128,9 @@ const Login = () => {
               <span>{t("login.password")} :</span>
               <input type="password" name="password" value={formData.password} onChange={handleChange} required />
             </div>
-            <button type="submit">{t("login.submit")}</button>
+            <button type="submit" disabled={isLoading}>
+              {isLoading ? 'Logging in...' : t("login.submit")}
+            </button>
           </form>
         </div>
       </div>

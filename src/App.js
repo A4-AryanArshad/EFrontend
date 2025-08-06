@@ -106,7 +106,11 @@ function AppContent() {
 
   // Setup iPhone Safari detection on app startup
   useEffect(() => {
-    setupIPhoneDetection();
+    // Only setup iPhone detection if not on login page
+    const isLoginPage = window.location.pathname === '/login';
+    if (!isLoginPage) {
+      setupIPhoneDetection();
+    }
   }, []);
 
   const changeLanguage = (lng) => {

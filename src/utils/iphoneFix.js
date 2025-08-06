@@ -73,12 +73,16 @@ export const setupIPhoneDetection = () => {
       document.head.appendChild(meta);
     }
     
-    // Disable zoom on input focus for iPhone
-    const inputs = document.querySelectorAll('input, textarea, select');
-    inputs.forEach(input => {
-      input.addEventListener('focus', () => {
-        input.style.fontSize = '16px'; // Prevents zoom on iPhone
+    // Only apply input fixes if not on login page
+    const isLoginPage = window.location.pathname === '/login';
+    if (!isLoginPage) {
+      // Disable zoom on input focus for iPhone
+      const inputs = document.querySelectorAll('input, textarea, select');
+      inputs.forEach(input => {
+        input.addEventListener('focus', () => {
+          input.style.fontSize = '16px'; // Prevents zoom on iPhone
+        });
       });
-    });
+    }
   }
 }; 

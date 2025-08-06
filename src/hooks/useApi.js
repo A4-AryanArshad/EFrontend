@@ -8,7 +8,25 @@ export const useApi = () => {
     try {
       startLoading(loadingMessage);
       
-      const { options: requestOptions } = createIPhoneSafeRequest(url, options);
+      // Skip iPhone detection for login endpoints to avoid interference
+      const isLoginEndpoint = url.includes('/login') || url.includes('/instructor-login');
+      
+      let requestOptions;
+      if (isLoginEndpoint) {
+        // Use standard request for login endpoints
+        requestOptions = {
+          credentials: 'include',
+          ...options,
+          headers: {
+            'Content-Type': 'application/json',
+            ...options.headers,
+          },
+        };
+      } else {
+        // Use iPhone-safe request for other endpoints
+        const { options: iphoneOptions } = createIPhoneSafeRequest(url, options);
+        requestOptions = iphoneOptions;
+      }
       
       const response = await fetch(url, requestOptions);
 
@@ -22,8 +40,10 @@ export const useApi = () => {
     } catch (error) {
       console.error('API Error:', error);
       
-      // Handle iPhone Safari specific errors
-      if (handleIPhoneError(error)) {
+      // Skip iPhone retry logic for login endpoints
+      const isLoginEndpoint = url.includes('/login') || url.includes('/instructor-login');
+      
+      if (!isLoginEndpoint && handleIPhoneError(error)) {
         // Retry with fallback token
         try {
           const fallbackToken = localStorage.getItem('fallbackToken');
